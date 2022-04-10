@@ -1,5 +1,5 @@
-import { getStorageValue, setStorageValue } from '../utils/local-storage';
-import { ethers, utils } from 'ethers';
+import { getStorageValue, setStorageValue } from '../utils/local-storage/local-storage';
+import { ethers, Signature, utils } from 'ethers';
 import { JsonRpcSigner } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
@@ -13,6 +13,7 @@ export const getSigner = (): Wallet | JsonRpcSigner => {
     if (window?.ethereum) {
         return ethersProvider.getSigner();
     }
+
     /**
      * No wallet flow
      */
@@ -39,11 +40,11 @@ export const init = async () => {
     return accounts[0];
 };
 
-export const signText = (text: string) => {
+export const signText = (text: string): Promise<string> => {
     return getSigner().signMessage(text);
 };
 
-export const splitSignature = (signature: string) => {
+export const splitSignature = (signature: string): Signature => {
     return utils.splitSignature(signature);
 };
 

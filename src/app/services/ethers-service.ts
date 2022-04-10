@@ -1,4 +1,4 @@
-import { getStorageValue, setStorageValue } from '../utils/local-storage';
+import { getStorageValue, setStorageValue } from '../utils/local-storage/local-storage';
 import { ethers, Signature, utils } from 'ethers';
 import { JsonRpcSigner } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';

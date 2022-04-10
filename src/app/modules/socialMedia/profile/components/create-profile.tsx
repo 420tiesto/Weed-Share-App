@@ -1,8 +1,8 @@
-import { FormEvent, useState, SyntheticEvent, ChangeEvent, MouseEventHandler, MouseEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent, FC } from 'react';
 
 export interface ICreateProfileProps {}
 
-const CreateProfile = (props: ICreateProfileProps) => {
+const CreateProfile: FC<ICreateProfileProps> = (props) => {
     const [handle, setHandle] = useState('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

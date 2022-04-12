@@ -1,6 +1,6 @@
+import React from 'react'
 import { Provider } from "react-redux";
 import logo from "./logo.svg";
-import "./App.css";
 import store from "./app/state";
 import CreateProfile from './app/modules/socialMedia/profile/components/create-profile';
 import SignIn from './app/modules/socialMedia/auth/components/signIn/SignIn';

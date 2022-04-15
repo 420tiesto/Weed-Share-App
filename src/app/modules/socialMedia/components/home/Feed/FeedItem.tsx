@@ -1,8 +1,8 @@
 import React from 'react';
-import ChatIcon from '../../../icons/ChatIcon';
-import HeartIcon from '../../../icons/HeartIcon';
-import RetweetIcon from '../../../icons/RetweetIcon';
-import ShareIcon from '../../../icons/ShareIcon';
+import ChatIcon from '../../../../../icons/ChatIcon';
+import HeartIcon from '../../../../../icons/HeartIcon';
+import RetweetIcon from '../../../../../icons/RetweetIcon';
+import ShareIcon from '../../../../../icons/ShareIcon';
 
 export type Props = {
     pfp: string; // Link to profile picture

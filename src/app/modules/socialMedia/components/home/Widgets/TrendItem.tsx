@@ -1,5 +1,5 @@
 import React from 'react';
-import ThreeDotsIcon from '../../../icons/ThreeDotsIcon';
+import ThreeDotsIcon from '../../../../../icons/ThreeDotsIcon';
 
 type Props = {
   place?: string;

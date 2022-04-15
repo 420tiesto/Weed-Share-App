@@ -1,15 +1,13 @@
 import { Provider } from "react-redux";
+import Home from "./app/modules/socialMedia/components/home/Home";
 import store from "./app/state";
-import Layout from './app/modules/layout/Layout';
 
 function App() {
 	return (
 		<Provider store={store}>
-			<Layout>
-
-			</Layout>
-		</Provider>
-	);
+		<Home />
+	</Provider>
+);
 }
 
 export default App;

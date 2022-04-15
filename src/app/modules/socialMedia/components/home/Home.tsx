@@ -4,10 +4,10 @@ import Sidebar from './Sidebar/Sidebar'
 import Widgets from './Widgets/Widgets'
 
 type Props = {
-  children:React.ReactNode 
+  
 }
 
-const Layout = (props: Props) => {
+const Home = (props: Props) => {
   return (
     <div className="App">
       <Sidebar/>
@@ -17,4 +17,4 @@ const Layout = (props: Props) => {
   )
 }
 
-export default Layout
+export default Home

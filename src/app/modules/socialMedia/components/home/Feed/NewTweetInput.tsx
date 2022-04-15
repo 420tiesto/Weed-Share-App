@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import CalendarIcon from '../../../icons/CalendarIcon';
-import EmojiIcon from '../../../icons/EmojiIcon';
-import GifIcon from '../../../icons/GifIcon';
-import ImageIcon from '../../../icons/ImageIcon';
-import StatsIcon from '../../../icons/StatsIcon';
+import CalendarIcon from '../../../../../icons/CalendarIcon';
+import EmojiIcon from '../../../../../icons/EmojiIcon';
+import GifIcon from '../../../../../icons/GifIcon';
+import ImageIcon from '../../../../../icons/ImageIcon';
+import StatsIcon from '../../../../../icons/StatsIcon';
 
 type Props = {};
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import BellIcon from '../../../icons/BellIcon';
-import BookmarkIcon from '../../../icons/BookmarkIcon';
-import HashTagIcon from '../../../icons/HashTagIcon';
-import HomeIcon from '../../../icons/HomeIcon';
-import InboxIcon from '../../../icons/InboxIcon';
-import ListIcon from '../../../icons/ListIcon';
-import ProfileIcon from '../../../icons/ProfileIcon';
-import ThreeDotsIcon from '../../../icons/ThreeDotsIcon';
+import BellIcon from '../../../../../icons/BellIcon';
+import BookmarkIcon from '../../../../../icons/BookmarkIcon';
+import HashTagIcon from '../../../../../icons/HashTagIcon';
+import HomeIcon from '../../../../../icons/HomeIcon';
+import InboxIcon from '../../../../../icons/InboxIcon';
+import ListIcon from '../../../../../icons/ListIcon';
+import ProfileIcon from '../../../../../icons/ProfileIcon';
+import ThreeDotsIcon from '../../../../../icons/ThreeDotsIcon';
 import SidebarItem from './SidebarItem';
 
 

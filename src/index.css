@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-zinc-800 text-white;
+    }
+    .App {
+        @apply min-h-screen flex justify-center ;
+    }
+
+    input,
+    textarea {
+        @apply bg-transparent px-2 py-1 focus-within:outline-none;
+    }
+}
+
+@layer components {
+    .gradient-border-primary-dark-bg {
+        background: linear-gradient(to left,theme('colors.zinc[900]'), theme('colors.zinc[900]')) padding-box,
+            linear-gradient(to top right,theme('colors.green[300]') , theme('colors.zinc[800]'),theme('colors.green[300]')) border-box;
+        border: theme('borderWidth.0') solid transparent;
+        /* border-radius: ; */
+    }
+    .gradient-border-primary-light-bg {
+        background: linear-gradient(to top right,theme('colors.zinc[800]') , #1e1e21 ) padding-box,
+            linear-gradient(to top right,theme('colors.green[300]') , theme('colors.zinc[800]'),theme('colors.green[300]')) border-box;
+        border: theme('borderWidth.0') solid transparent;
+        /* border-radius: ; */
+    }
+    .gradient-border-tl-primary-light-bg {
+        background: linear-gradient(to top right,theme('colors.zinc[800]') , #1e1e21 ) padding-box,
+            linear-gradient(to top left,theme('colors.green[300]') , theme('colors.zinc[800]'),theme('colors.green[300]')) border-box;
+        border: theme('borderWidth.0') solid transparent;
+        /* border-radius: ; */
+    }
+    .gradient-border-secondary-dark-bg {
+        background: linear-gradient(to left,theme('colors.zinc[900]'), theme('colors.zinc[900]')) padding-box,
+            linear-gradient(to top right,theme('colors.blue[300]') , theme('colors.zinc[800]'),theme('colors.blue[300]')) border-box;
+        border: theme('borderWidth.0') solid transparent;
+        /* border-radius: ; */
+    }
+    .gradient-border-secondary-light-bg {
+        background: linear-gradient(to top right,theme('colors.zinc[800]') , #1e1e21 ) padding-box,
+            linear-gradient(to top right,theme('colors.blue[300]') , theme('colors.zinc[800]'),theme('colors.blue[300]')) border-box;
+        border: theme('borderWidth.0') solid transparent;
+        /* border-radius: ; */
+    }
+    .light-hover-animation {
+        @apply hover:bg-zinc-700 duration-300 ease-out hover:text-white;
+    }
+    .light-hover-btn {
+        @apply hover:bg-zinc-700 duration-300 ease-out hover:text-white py-1 px-2 flex items-center gap-2;
+        @apply rounded-md;
+    }
+    .primary-light-hover-animation {
+        @apply hover:bg-primary hover:bg-opacity-10  duration-300 ease-out;
+    }
+    .sunken-element{
+        box-shadow:  inset 10px 10px 20px theme('colors.zinc[900]');
+    }
+}

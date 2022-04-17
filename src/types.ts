@@ -8,3 +8,12 @@ export type AuthTokens = {
 	accessToken: string;
 	refreshToken: string;
 }
+
+export declare type objectType = {
+    [key: string]: any;
+};
+
+export type UserProfile = {
+	provider: string,
+	data?: objectType;
+};

@@ -4,10 +4,12 @@ import XIcon from '../../../../../../icons/XIcon';
 
 type Props = {};
 
-type status = 'connected' | 'disconnected' | 'error';
-const ConnectWallet = (props: Props) => {
-    const [status, setStatus] = useState<status>('error');
+type Status = 'connected' | 'disconnected' | 'error';
 
+const ConnectWallet = (props: Props) => {
+    
+    const [status, setStatus] = useState<Status>('disconnected');
+    //Show ui according to status
     switch (status) {
         // when wallet is successfully connected
         case 'connected':
@@ -19,13 +21,13 @@ const ConnectWallet = (props: Props) => {
                             Connect With Metamask
                         </h1>
                         <div className="flex items-center justify-center ring-2 ring-primary px-8 rounded-2xl flex-col sunken-element--dark">
-                            <div className='rounded-full p-4 relative top-4 bg-primary'>
-                              <CheckIcon className='stroke-current fill-current  text-white'/>
+                            <div className="rounded-full p-4 relative top-4 bg-primary">
+                                <CheckIcon className="stroke-current fill-current  text-white" />
                             </div>
-                            <img src="/metamask.png" alt="" className='h-32'/>
+                            <img src="/metamask.png" alt="" className="h-32" />
                         </div>
-                        <div className='absolute bottom-0 w-full py-2 text-center md:text-2xl font-semibold bg-green-500'>
-                          Wallet Connected
+                        <div className="absolute bottom-0 w-full py-2 text-center md:text-2xl font-semibold bg-green-500">
+                            Wallet Connected
                         </div>
                     </div>
                     <p className="mt-8 absolute bottom-8">© 2022 Prnts</p>
@@ -41,14 +43,14 @@ const ConnectWallet = (props: Props) => {
                             Connect With Metamask
                         </h1>
                         <div className="flex items-center justify-center ring-2 ring-red-500 px-8 rounded-2xl flex-col sunken-element--dark">
-                            <div className='rounded-full p-4 relative top-4 bg-red-500'>
-                              <XIcon className='stroke-current fill-current  text-white'/>
+                            <div className="rounded-full p-4 relative top-4 bg-red-500">
+                                <XIcon className="stroke-current fill-current  text-white" />
                             </div>
-                            <img src="/metamask.png" alt="" className='h-32'/>
+                            <img src="/metamask.png" alt="" className="h-32" />
                         </div>
-                        <div className='absolute bottom-0 items-center flex justify-around w-full py-2 text-center md:text-2xl font-semibold bg-red-500'>
-                          Error Connecting wallet
-                          <button className='white-btn px-8 text-base'>Retry</button>
+                        <div className="absolute bottom-0 items-center flex justify-around w-full py-2 text-center md:text-2xl font-semibold bg-red-500">
+                            Error Connecting wallet
+                            <button className="white-btn px-8 text-base">Retry</button>
                         </div>
                     </div>
                     <p className="mt-8 absolute bottom-8">© 2022 Prnts</p>
@@ -64,7 +66,7 @@ const ConnectWallet = (props: Props) => {
                             Connect With Metamask
                         </h1>
                         <div className="flex items-center justify-center px-8 rounded-2xl flex-col sunken-element--dark">
-                            <img src="/metamask.png" alt="" className='h-32'/>
+                            <img src="/metamask.png" alt="" className="h-32" />
                             <button className="green-btn text-lg w-72 relative -top-8">
                                 Connect with wallet
                             </button>

@@ -1,16 +1,14 @@
-import { Provider } from "react-redux";
-import ConnectWallet from "./app/modules/socialMedia/components/auth/components/connectWallet/ConnectWallet";
-import Home from "./app/modules/socialMedia/components/home/Home";
+import { Provider } from 'react-redux';
+import UploadNfts from './app/modules/socialMedia/components/auth/components/signUp/UploadNfts';
 
-import store from "./app/state";
+import store from './app/state';
 
 function App() {
-	return (
-		<Provider store={store}>
-		<ConnectWallet/>
-		
-	</Provider>
-)
+    return (
+        <Provider store={store}>
+            <UploadNfts />
+        </Provider>
+    );
 }
 
 export default App;

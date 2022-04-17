@@ -1,10 +1,11 @@
 import { Dispatch } from 'redux';
-import { init, signText } from '../../../../services/ethers-service';
 import { generateChallenge } from './generate-challengs';
 import { authenticate } from './autenticate';
-import { storeLensToken } from '../../../../state/actions';
-import { setStorageValue } from '../../../../utils/local-storage/local-storage';
-import { LENS_TOKENS } from '../../../../utils/local-storage/keys';
+import { init, signText } from '../../../../../services/ethers-service';
+import { storeLensToken } from '../../../../../state/actions';
+import { setStorageValue } from '../../../../../utils/local-storage/local-storage';
+import { LENS_TOKENS } from '../../../../../utils/local-storage/keys';
+
 /**
  * Logs in the user to the app.
  *

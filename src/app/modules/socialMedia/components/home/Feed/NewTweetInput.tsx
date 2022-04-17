@@ -24,10 +24,10 @@ const NewTweetInput = (props: Props) => {
                     onChange={(e) => setTextContent(e.target.value)}
                     id=""
                     placeholder="What's Happening ?"
-                    className="text-xl flex flex-wrap w-full"
+                    className=""
                 />
                 <div className="flex items-center justify-between border-zinc-600 w-full mt-2 pt-2">
-                    <div className="space-x-2 gradient-border-secondary-dark-bg border rounded-full px-4 py-1 ">
+                    <div className="space-x-2 gradient-border-secondary-dark-bg border rounded-full px-1 md:px-4 py-1 ">
                         <button className="primary-light-hover-animation p-2 rounded-full">
                             <ImageIcon />
                         </button>

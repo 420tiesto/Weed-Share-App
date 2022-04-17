@@ -14,7 +14,7 @@ const FollowSuggestionItem = (props: Props) => {
         <p className='font-medium'>{props.name}</p>
         <p className='text-zinc-400'>@{props.username}</p>
       </div>
-    <button className='text-black bg-white rounded-full px-3 py-1'>Follow</button>
+    <button className='white-btn px-3 py-1'>Follow</button>
     </div>
   )
 }

@@ -6,7 +6,7 @@ type Props = {};
 
 const Feed = (props: Props) => {
     return (
-        <div className="w-full md:max-w-screen-sm bg-zinc-900 flex-1 p-4 space-y-4">
+        <div className="w-full md:max-w-screen-sm bg-gray-900 flex-1 p-4 space-y-4">
             <h1 className='text-2xl backdrop-blur-xl  top-0 w-full'>Home</h1>
             <NewTweetInput/>
             <FeedItem

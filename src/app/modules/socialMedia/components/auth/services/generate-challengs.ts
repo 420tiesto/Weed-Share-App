@@ -1,4 +1,4 @@
-import { apolloClient } from '../../../../services/apollo-client';
+import { apolloClient } from '../../../../../services/apollo-client'
 import { gql } from '@apollo/client/core'
 
 const GET_CHALLENGE = `

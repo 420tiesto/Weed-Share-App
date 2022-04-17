@@ -1,5 +1,5 @@
-import { apolloClient } from '../../../../services/apollo-client';
 import { gql } from '@apollo/client/core'
+import { apolloClient } from '../../../../../services/apollo-client'
 
 const AUTHENTICATION = `
   mutation($request: SignedAuthChallenge!) { 

@@ -8,7 +8,7 @@ function App() {
 	return (
 		<Provider store={store}>
 		<ConnectWallet/>
-		<Home/>
+		
 	</Provider>
 )
 }

@@ -1,12 +1,10 @@
-import CheckIcon from '../../../../../../icons/CheckIcon';
 import UploadIcon from '../../../../../../icons/UploadIcon';
+import Stepper from '../signUp/Stepper';
 
-type Props = {};
-
-const UploadNfts = (props: Props) => {
+const UploadNfts = () => {
     return (
-        <div className="min-h-screen w-screen p-4 flex flex-col gap-4 items-center justify-center">
-            {/* <Stepper/>     */}
+        <div className="min-h-screen p-4 flex flex-col gap-4 items-center justify-center">
+            <Stepper step={3}/>
             <div className="relative sunken-element--dark gap-8 w-full max-w-screen-md flex-col flex items-center justify-center overflow-hidden bg-gray-900 px-16 py-8 rounded-2xl">
                 <div>
                     <h1 className="text-2xl mb-2 md:text-4xl font-semibold text-center">

@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { currentYear } from '../../../../../../constants';
 import CheckIcon from '../../../../../../icons/CheckIcon';
 import XIcon from '../../../../../../icons/XIcon';
 import Stepper from '../signUp/Stepper';
+import { isUsingWallet, init } from '../../../../../../services/ethers-service';
+import { statusTypes } from './constants';
+import { type Status } from './types';
+import { log } from '../../../../../../utils/logger';
 
 type Props = {};
 
-type Status = 'connected' | 'disconnected' | 'error';
-
 const ConnectWallet = (props: Props) => {
-    const [status, setStatus] = useState<Status>('disconnected');
+    const [status, setStatus] = useState<Status>(statusTypes.disconnected);
     //Show ui according to status
+
+    useEffect(() => {
+        const connectWallet = async () => {
+            console.log('hello world');
+            const isUsingMetamaskWallet = await isUsingWallet();
+            if (isUsingMetamaskWallet) {
+                // TODO: Should show user to use metamask extension
+                setStatus(statusTypes.connected);
+                return;
+            }
+        };
+        connectWallet();
+    }, []);
+
+    const connectToWallet = async () => {
+        try {
+            const connected = await init();
+            if (!!connected) {
+                setStatus(statusTypes.connected);
+            }
+        } catch (err) {
+            log('Unable to connect to wallet', err);
+        }
+    }
+
     switch (status) {
         // when wallet is successfully connected
         case 'connected':
@@ -30,7 +58,7 @@ const ConnectWallet = (props: Props) => {
                             Wallet Connected
                         </div>
                     </div>
-                    <p className="">© 2022 Prnts</p>
+                    <p className="">© {currentYear} Prnts</p>
                 </div>
             );
         // When wallet has error
@@ -53,7 +81,7 @@ const ConnectWallet = (props: Props) => {
                             <button className="white-btn px-8 text-base">Retry</button>
                         </div>
                     </div>
-                    <p className="">© 2022 Prnts</p>
+                    <p className="">© {currentYear} Prnts</p>
                 </div>
             );
         // When wallet is disconnected / not connected
@@ -67,12 +95,12 @@ const ConnectWallet = (props: Props) => {
                         </h1>
                         <div className="flex items-center justify-center px-8 rounded-2xl flex-col sunken-element--dark">
                             <img src="/metamask.png" alt="" className="h-32" />
-                            <button className="green-btn text-lg w-72 relative -top-8">
+                            <button onClick={connectToWallet} className="green-btn text-lg w-72 relative -top-8">
                                 Connect with wallet
                             </button>
                         </div>
                     </div>
-                    <p className="">© 2022 Prnts</p>
+                    <p className="">© {currentYear} Prnts</p>
                 </div>
             );
     }

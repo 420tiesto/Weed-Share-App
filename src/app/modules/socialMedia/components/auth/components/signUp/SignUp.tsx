@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { currentYear } from '../../../../../../constants';
 import GoogleIcon from '../../../../../../icons/GoogleIcon';
 import InstagramIcon from '../../../../../../icons/InstagramIcon';
 import TwitterIcon from '../../../../../../icons/TwitterIcon';
@@ -102,7 +103,7 @@ const SignUp: React.FC<UpdatePasswordProps> = (props) => {
                     </div>
                 </div>
             </div>
-            <p className="">© 2022 Prnts</p>
+            <p className="">© {currentYear} Prnts</p>
         </div>
     );
 };

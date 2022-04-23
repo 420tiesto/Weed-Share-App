@@ -5,13 +5,15 @@ import { Wallet } from '@ethersproject/wallet';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
 import { Deferrable } from 'ethers/lib/utils';
 
-export const ethersProvider = window?.ethereum
-    ? new ethers.providers.Web3Provider(window.ethereum)
-    : new ethers.providers.JsonRpcProvider(process.env.VITE_ALCHEMY_KEY);
+export const ethersProvider = () => {
+    return window?.ethereum
+        ? new ethers.providers.Web3Provider(window.ethereum)
+        : new ethers.providers.JsonRpcProvider(process.env.VITE_ALCHEMY_KEY);
+}
 
 export const getSigner = (): Wallet | JsonRpcSigner => {
     if (window?.ethereum) {
-        return ethersProvider.getSigner();
+        return ethersProvider().getSigner();
     }
 
     /**
@@ -20,10 +22,10 @@ export const getSigner = (): Wallet | JsonRpcSigner => {
     let signer;
     const storedPrivateKey = getStorageValue('PRIVATE_KEY');
     if (!!storedPrivateKey) {
-        signer = new ethers.Wallet(storedPrivateKey, ethersProvider);
+        signer = new ethers.Wallet(storedPrivateKey, ethersProvider());
     } else {
         signer = ethers.Wallet.createRandom();
-        signer.connect(ethersProvider);
+        signer.connect(ethersProvider());
         setStorageValue('PRIVATE_KEY', signer.privateKey);
     }
     return signer;
@@ -49,6 +51,19 @@ export const splitSignature = (signature: string): Signature => {
 };
 
 export const sendTx = (transaction: Deferrable<TransactionRequest>) => {
-    const signer = ethersProvider.getSigner();
+    const signer = ethersProvider().getSigner();
     return signer.sendTransaction(transaction);
+};
+
+export const isUsingWallet = async () => {
+    if (!window?.ethereum) {
+        return false;
+    }
+    const provider = new ethers.providers.Web3Provider(window?.ethereum);
+    const addresses = await provider.listAccounts();
+    // it doesn't create metamask popup
+    if (addresses.length) {
+        return true;
+    }
+    return false;
 };

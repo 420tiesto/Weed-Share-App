@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { currentYear } from '../../../../../../constants';
+import { currentYear, copyright } from '../../../../../../constants';
 import GoogleIcon from '../../../../../../icons/GoogleIcon';
 import InstagramIcon from '../../../../../../icons/InstagramIcon';
 import TwitterIcon from '../../../../../../icons/TwitterIcon';
@@ -71,7 +71,7 @@ const SignIn: React.FC<UpdatePasswordProps> = () => {
                     </div>
                 </div>
             </div>
-            <p className='mt-8 absolute bottom-8'>© {currentYear} Prnts</p>
+            <p className='mt-8 absolute bottom-8'>{copyright}</p>
         </div>
     );
 };

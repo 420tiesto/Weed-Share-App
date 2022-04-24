@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { storeLensToken, storeUserProfile, storeFollowURI, storeUserProfileURI } from './actions';
+import { storeLensToken, storeUserProfile, storeUserFollowURI, storeUserProfileURI } from './actions';
 
-const initialState = {
+export const initialState = {
     lensTokens: {
         accessToken: '',
         refreshToken: '',
@@ -26,7 +26,7 @@ const globalReducer = createReducer(initialState, (builder) => {
             state.userProfile.provider = action?.payload?.provider || '';
             state.userProfile.userData = { ...(action?.payload?.data || {}) };
         })
-        .addCase(storeFollowURI, (state, action) => {
+        .addCase(storeUserFollowURI, (state, action) => {
             state.userProfilePhotoURI.followURI = action?.payload || '';
         })
         .addCase(storeUserProfileURI, (state, action) => {

@@ -1,7 +1,22 @@
+import { ChangeEvent, DragEventHandler } from 'react';
+import { currentYear } from '../../../../../../constants';
 import UploadIcon from '../../../../../../icons/UploadIcon';
 import Stepper from '../signUp/Stepper';
+import Loader from '../../../../../../components/common-ui/loader';
 
 const UploadNfts = () => {
+
+    const uploadHelper = (event: any) => {
+        const files = event?.target?.files;
+        if (files) {
+            for (let i = 0; i < files?.length; i++) {
+                const file = files[i];
+                console.log(file);
+                // uploadFile(file);
+            }
+        }
+    };
+
     return (
         <div className="min-h-screen p-4 flex flex-col gap-4 items-center justify-center">
             <Stepper step={3}/>
@@ -12,9 +27,10 @@ const UploadNfts = () => {
                     </h1>
                     <p className="text-center">PNG,JPG,GIF Files are allowed</p>
                 </div>
-                <div className="flex justify-around  w-full flex-wrap">
+                <div onDrop={uploadHelper} className="flex justify-around w-full flex-wrap">
                     <div className='pt-4'>
                         <div className="bg-gray-700 mb-4 p-16 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-400">
+                            {/* <Loader /> */}
                             <UploadIcon />
                         </div>
                         Upload Profile NFT Image
@@ -30,7 +46,7 @@ const UploadNfts = () => {
                 </div>
             <button className='green-btn max-w-xs'>Next</button>
             </div>
-            <p className="mt-8  bottom-8">© 2022 Prnts</p>
+            <p className="mt-8  bottom-8">© {currentYear} Prnts</p>
         </div>
     );
 };

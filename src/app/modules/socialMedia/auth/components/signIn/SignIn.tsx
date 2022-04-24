@@ -7,7 +7,7 @@ import {
     TypeCrossFunction,
 } from 'reactjs-social-login';
 
-import { login } from '../../services/login';
+import { login } from '../../../components/auth/services/login';
 import { REDIRECT_URI } from '../../../../../constants';
 
 // import { AppButton, AppInput } from '../../../../shared/forms/components';

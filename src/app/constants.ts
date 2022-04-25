@@ -7,6 +7,8 @@ export const REDIRECT_URI = 'http://localhost:3000/login';
 
 export const currentYear = new Date().getFullYear();
 
+export const copyright = `© ${currentYear} Prnts`;
+
 export const network = {
     localhost,
     mumbaiTestnet,

@@ -1,3 +1,5 @@
+import { initialState } from "./app/state/reducer";
+
 declare global {
 	interface Window {
 		ethereum: any;
@@ -19,4 +21,8 @@ export declare type objectType = {
 export type UserProfile = {
 	provider: string,
 	data?: objectType;
+};
+
+export type TReducerState = {
+	globalReducer: typeof initialState;
 };

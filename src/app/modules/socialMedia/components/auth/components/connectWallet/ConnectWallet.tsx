@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { currentYear } from '../../../../../../constants';
+import { currentYear, copyright } from '../../../../../../constants';
 import CheckIcon from '../../../../../../icons/CheckIcon';
 import XIcon from '../../../../../../icons/XIcon';
 import Stepper from '../signUp/Stepper';
@@ -58,7 +58,7 @@ const ConnectWallet = (props: Props) => {
                             Wallet Connected
                         </div>
                     </div>
-                    <p className="">© {currentYear} Prnts</p>
+                    <p className="">{copyright}</p>
                 </div>
             );
         // When wallet has error
@@ -81,7 +81,7 @@ const ConnectWallet = (props: Props) => {
                             <button className="white-btn px-8 text-base">Retry</button>
                         </div>
                     </div>
-                    <p className="">© {currentYear} Prnts</p>
+                    <p className="">{copyright}</p>
                 </div>
             );
         // When wallet is disconnected / not connected
@@ -100,7 +100,7 @@ const ConnectWallet = (props: Props) => {
                             </button>
                         </div>
                     </div>
-                    <p className="">© {currentYear} Prnts</p>
+                    <p className="">{copyright}</p>
                 </div>
             );
     }

@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
-import { currentYear, copyright } from '../../../../../../constants';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { copyright } from '../../../../../../constants';
 import GoogleIcon from '../../../../../../icons/GoogleIcon';
 import InstagramIcon from '../../../../../../icons/InstagramIcon';
 import TwitterIcon from '../../../../../../icons/TwitterIcon';
 import Stepper from './Stepper';
 import Toggle from './Toggle';
+import { signUp } from '../../services/auth.services';
 
-interface UpdatePasswordProps {
-    // onSuccess: () => void;
-    // email: string;
+interface SignUpProps {}
+
+interface FormValues {
+    email: string;
+    username: string;
+    password: string;
+    isArtist: boolean;
 }
 
-const SignUp: React.FC<UpdatePasswordProps> = (props) => {
+const SignUp: React.FC<SignUpProps> = () => {
     // const { email, onSuccess } = props;
     const [errorMessage, setErrorMessage] = useState<string | undefined>();
-    const [toggle, setToggle] = useState<boolean>(false);
+    const { register, handleSubmit, control } = useForm<FormValues>();
 
-    const handleOnSubmit = () => {
-        // updatePassword({ ...values, email }).subscribe(
-        //   () => {
-        //     onSuccess();
-        //   },
-        //   (error: Error) => {
-        //     setErrorMessage(error.message || 'Error occurred while updating password. Please try again');
-        //   }
-        // );
-    };
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
+        console.log(data);
+        signUp(data);
+    }
 
     return (
         <div className="min-h-screen p-4 flex flex-col gap-4 items-center justify-center">
-           <Stepper step={1} />
+            <Stepper step={1} />
             <div className="relative sunken-element--dark w-full max-w-screen-xl bg-gray-900 py-4 px-12 rounded-2xl">
                 <div className="right-0 top-0 absolute sunken-element--dark p-8 rounded-bl-xl">
                     <img src="/prnts-logo.svg" alt="logo" />
@@ -41,13 +41,17 @@ const SignUp: React.FC<UpdatePasswordProps> = (props) => {
                 <div className="lg:flex justify-around ">
                     <div className="">
                         {/* Sign up Form */}
-                        <form className="max-w-md p-8 space-y-3 ">
+                        <form onSubmit={handleSubmit(onSubmit)} className="max-w-md p-8 space-y-3 ">
                             <div className="flex flex-col gap-1">
                                 <label className="pl-4">Email</label>
                                 <input
                                     type="email"
                                     placeholder="Enter email"
                                     className="primary-input"
+                                    {...register('email', {
+                                        required: true,
+                                        pattern: /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/i,
+                                    })}
                                 />
                             </div>
                             <div className="flex flex-col gap-1">
@@ -56,6 +60,10 @@ const SignUp: React.FC<UpdatePasswordProps> = (props) => {
                                     type="text"
                                     placeholder="Enter username"
                                     className="primary-input"
+                                    {...register('username', {
+                                        required: true,
+                                        pattern: /^[a-zA-Z0-9]+$/i,
+                                    })}
                                 />
                             </div>
                             <div className="flex flex-col gap-1">
@@ -64,11 +72,19 @@ const SignUp: React.FC<UpdatePasswordProps> = (props) => {
                                     type="password"
                                     placeholder="Enter Password"
                                     className="primary-input"
+                                    {...register('password', { required: true })}
                                 />
                             </div>
                             <div className="flex items-center gap-4 py-4 px-2">
-                                Are you an artist or represent one ?{' '}
-                                <Toggle enabled={toggle} setEnabled={setToggle} />
+                                Are you an artist or represent one ?
+                                <Controller
+                                    name="isArtist"
+                                    control={control}
+                                    render={({ field }) => {
+                                        const { onChange, value } = field;
+                                        return <Toggle enabled={!!value} onChange={onChange} />;
+                                    }}
+                                />
                             </div>
 
                             <button className="green-btn text-lg">Create Account</button>
@@ -92,13 +108,13 @@ const SignUp: React.FC<UpdatePasswordProps> = (props) => {
                     {/* Sign in with Socials */}
                     <div className="p-12 flex flex-col gap-8  lg:justify-center lg:items-center ">
                         <button className="white-btn w-72 text-lg">
-                            <GoogleIcon /> Sign in with Google
+                            <GoogleIcon /> Sign up with Google
                         </button>
                         <button className="white-btn w-72 text-lg">
-                            <TwitterIcon /> Sign in with Twitter
+                            <TwitterIcon /> Sign up with Twitter
                         </button>
                         <button className="white-btn w-72 text-lg">
-                            <InstagramIcon /> Sign in with Instagram
+                            <InstagramIcon /> Sign up with Instagram
                         </button>
                     </div>
                 </div>

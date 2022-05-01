@@ -12,3 +12,13 @@ export const USER_PROFILE_URI = 'USER_PROFILE_URI';
  * Stores the follow image URI of the user
  */
 export const USER_FOLLOW_URI = 'USER_FOLLOW_URI';
+
+/**
+ * Stores the access token received on login to our PRNTS server.
+ */
+export const ACCESS_TOKEN = 'ACCESS_TOKEN';
+
+/**
+ * Stores the refresh token received on login to our PRNTS server.
+ */
+export const REFRESH_TOKEN = 'REFRESH_TOKEN';

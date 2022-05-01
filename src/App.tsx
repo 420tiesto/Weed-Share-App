@@ -7,8 +7,8 @@ import store from './app/state';
 function App() {
     return (
         <Provider store={store}>
-            {/* <SignUp/> */}
-            {/* <ConnectWallet/> */}
+            <SignUp/>
+            <ConnectWallet/>
             <UploadNfts />
         </Provider>
     );

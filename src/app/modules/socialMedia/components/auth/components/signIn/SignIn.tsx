@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { currentYear, copyright } from '../../../../../../constants';
+import { copyright } from '../../../../../../constants';
 import GoogleIcon from '../../../../../../icons/GoogleIcon';
 import InstagramIcon from '../../../../../../icons/InstagramIcon';
 import TwitterIcon from '../../../../../../icons/TwitterIcon';
 import { useAppDispatch } from '../../../../../../state/configure-store';
-import { login } from '../../services/login';
+import { login } from '../../services/lens-login';
+
 interface UpdatePasswordProps {}
 
 const SignIn: React.FC<UpdatePasswordProps> = () => {

@@ -75,7 +75,7 @@
     }
 
     .green-btn{
-        @apply bg-primary duration-300 ease-out  w-full text-black py-2 hover:brightness-125 rounded-full font-semibold;
+        @apply bg-green-600 duration-300 ease-out  w-full text-white py-2 hover:bg-green-500 rounded-full font-semibold;
     }
 
     .white-btn{

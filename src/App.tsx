@@ -1,15 +1,17 @@
+import { useState } from 'react';
 import { Provider } from 'react-redux';
-import ConnectWallet from './app/modules/socialMedia/components/auth/components/connectWallet/ConnectWallet';
+import ConnectWalletModal from './app/modules/socialMedia/components/auth/components/connectWallet/ConnectWalletModal';
+import Login from './app/modules/socialMedia/components/auth/components/login/Login';
 import SignUp from './app/modules/socialMedia/components/auth/components/signUp/SignUp';
-import UploadNfts from './app/modules/socialMedia/components/auth/components/uploadNfts/UploadNfts';
 import store from './app/state';
 
 function App() {
+    const [isOpen,setIsOpen] = useState(true);
     return (
         <Provider store={store}>
-            <SignUp/>
-            <ConnectWallet/>
-            <UploadNfts />
+                {/* <SignUp/> */}
+                <Login/>
+                <ConnectWalletModal isOpen={isOpen} setIsOpen={setIsOpen}/>
         </Provider>
     );
 }

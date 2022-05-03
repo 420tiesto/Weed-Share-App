@@ -15,7 +15,7 @@
         @apply bg-transparent px-2 focus-within:outline-none ;
     }
     .primary-input {
-        @apply rounded-full ring-1 ring-gray-700 hover:ring-gray-600 focus:ring-primary duration-300 ease-out w-full h-full pl-6 py-3;
+        @apply rounded-full ring-1 ring-gray-700 hover:ring-gray-600 focus:ring-primary duration-300 ease-out w-full h-full pl-4 py-2;
     }
 }
 
@@ -75,10 +75,10 @@
     }
 
     .green-btn{
-        @apply bg-primary duration-300 ease-out  w-full text-black py-2 hover:brightness-125 rounded-full font-semibold;
+        @apply bg-green-600 duration-300 ease-out  w-full text-white py-2 hover:bg-green-500 rounded-full font-semibold;
     }
 
     .white-btn{
-        @apply whitespace-nowrap hover:-translate-y-1 hover:shadow-xl duration-300 ease-out flex justify-center items-center gap-2  bg-white text-gray-900 py-2  rounded-full font-semibold;
+        @apply whitespace-nowrap  hover:brightness-90 duration-300 ease-out flex justify-center items-center gap-2  bg-white text-gray-900 py-2  rounded-full font-semibold;
     }
 }

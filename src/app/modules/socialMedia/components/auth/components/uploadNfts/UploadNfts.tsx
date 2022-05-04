@@ -12,7 +12,12 @@ import { getStorageValue } from '../../../../../../utils/local-storage/local-sto
 import { USER_PROFILE_URI, USER_FOLLOW_URI } from '../../../../../../utils/local-storage/keys';
 import getIPFSImageLink from '../../../../../../utils/get-ipfs-image-link';
 
-const UploadNfts = () => {
+interface UploadNftsProps {
+    setStep: (step: number) => void;
+    submit: () => void;
+}
+
+const UploadNfts: React.FC<UploadNftsProps> = ({ setStep, submit }) => {
     const [loader, setLoader] = useState<LoaderState>({
         profileURILoading: false,
         followURILoading: false,
@@ -50,6 +55,10 @@ const UploadNfts = () => {
         setLoader({ ...loader, followURILoading: false });
     };
 
+    const goBack = () => {
+        setStep(1);
+    };
+
     return (
         <div className="min-h-screen p-4 flex flex-col gap-4 items-center justify-center">
             <Stepper step={3} />
@@ -76,7 +85,14 @@ const UploadNfts = () => {
                         imageLink={getIPFSImageLink(followURI)}
                     />
                 </div>
-                <button className="green-btn max-w-xs">Next</button>
+                <div className="flex flex-row pl-4 pr-4 justify-between w-3/4">
+                    <button onClick={goBack} className="green-btn w-48">
+                        Previous
+                    </button>
+                    <button onClick={submit} className="green-btn w-48">
+                        Create Profile
+                    </button>
+                </div>
             </div>
             <p className="mt-8 bottom-8">{copyright}</p>
         </div>

@@ -9,6 +9,12 @@ export const currentYear = new Date().getFullYear();
 
 export const copyright = `© ${currentYear} Prnts`;
 
+export const apiErrorCodes = {
+    handleTaken: 'HANDLE_TAKEN',
+    REJECTED: 'REJECTED',
+    WRONG_WALLET_SIGNED: 'WRONG_WALLET_SIGNED',
+  };
+
 export const network = {
     localhost,
     mumbaiTestnet,

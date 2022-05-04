@@ -1,6 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { storeLensToken, storeUserProfile, storeUserFollowURI, storeUserProfileURI } from './actions';
+import {
+    storeLensToken,
+    storeUserProfile,
+    storeUserFollowURI,
+    storeUserProfileURI,
+    setWalletModalOpen,
+} from './actions';
 
 export const initialState = {
     lensTokens: {
@@ -8,13 +14,16 @@ export const initialState = {
         refreshToken: '',
     },
     userProfile: {
-        provider: '',
-        userData: {},
+        username: '',
+        email: '',
     },
     userProfilePhotoURI: {
         profileURI: '',
         followURI: '',
-    }
+    },
+    walletModal: {
+        isOpen: false,
+    },
 };
 
 const globalReducer = createReducer(initialState, (builder) => {
@@ -23,14 +32,17 @@ const globalReducer = createReducer(initialState, (builder) => {
             state.lensTokens = action.payload;
         })
         .addCase(storeUserProfile, (state, action) => {
-            state.userProfile.provider = action?.payload?.provider || '';
-            state.userProfile.userData = { ...(action?.payload?.data || {}) };
+            state.userProfile.username = action?.payload?.username || '';
+            state.userProfile.email = action?.payload?.email;
         })
         .addCase(storeUserFollowURI, (state, action) => {
             state.userProfilePhotoURI.followURI = action?.payload || '';
         })
         .addCase(storeUserProfileURI, (state, action) => {
             state.userProfilePhotoURI.profileURI = action?.payload || '';
+        })
+        .addCase(setWalletModalOpen, (state, action) => {
+            state.walletModal.isOpen = action?.payload || false;
         });
 });
 

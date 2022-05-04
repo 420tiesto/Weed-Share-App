@@ -1,6 +1,6 @@
 import { getStorageValue, setStorageValue } from '../utils/local-storage/local-storage';
 import { ethers, Signature, utils } from 'ethers';
-import { JsonRpcSigner } from '@ethersproject/providers';
+import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
 import { Deferrable } from 'ethers/lib/utils';
@@ -9,6 +9,10 @@ export const ethersProvider = () => {
     return window?.ethereum
         ? new ethers.providers.Web3Provider(window.ethereum)
         : new ethers.providers.JsonRpcProvider(process.env.VITE_ALCHEMY_KEY);
+};
+
+export const getLibrary = (provider: any) => {
+    return new Web3Provider(provider);
 }
 
 export const getSigner = (): Wallet | JsonRpcSigner => {
@@ -62,8 +66,9 @@ export const isUsingWallet = async () => {
     const provider = new ethers.providers.Web3Provider(window?.ethereum);
     const addresses = await provider.listAccounts();
     // it doesn't create metamask popup
-    if (addresses.length) {
-        return true;
-    }
-    return false;
+    return !!(addresses && addresses.length > 0);
+};
+
+export const hasWallet = () => {
+    return window.ethereum !== undefined;
 };

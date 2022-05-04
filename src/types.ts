@@ -19,8 +19,8 @@ export declare type objectType = {
 };
 
 export type UserProfile = {
-	provider: string,
-	data?: objectType;
+	username: string,
+	email: string;
 };
 
 export type TReducerState = {

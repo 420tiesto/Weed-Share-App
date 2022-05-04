@@ -15,3 +15,10 @@ export const setStorageValue = (key: string, value: any) => {
 		localStorage.setItem(key, JSON.stringify(value));
 	}
 };
+
+export const removeStorageValue = (key: string) => {
+	if (!key) {
+		return;
+	}
+	localStorage.removeItem(key);
+};

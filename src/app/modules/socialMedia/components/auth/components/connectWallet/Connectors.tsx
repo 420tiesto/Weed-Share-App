@@ -1,11 +1,15 @@
-import React from 'react';
+import { init } from '../../../../../../services/ethers-service';
 
 type Props = {};
 
 const Connectors = (props: Props) => {
+    const handleMetamaskConnect = () => {
+        init();
+    };
+
     return (<>
         <div className="sunken-element--dark cursor-pointer overflow-y-hidden rounded-2xl w-full">
-            <div className="sunken-element--dark   py-4 px-6 w-full">
+            <div onClick={handleMetamaskConnect} className="sunken-element--dark   py-4 px-6 w-full">
                 <div className="flex justify-between gap-4 items-center ">
                     <img src="metamask.png" alt="metamask" className="h-6" />
                     <p className="font-medium flex-1 ">Metamask</p>

@@ -32,7 +32,6 @@ const SignIn: React.FC<UpdatePasswordProps> = () => {
     };
 
     const handleSocialLoginSuccess = ({ provider, data }: IResolveParams) => {
-        dispatch(storeUserProfile({ provider, data }));
     };
 
     return (

@@ -1,5 +1,5 @@
-import { apolloClient } from "../../../../services/apollo-client";
-import { gql } from "@apollo/client/core";
+import { apolloClient } from '../../../../services/apollo-client';
+import { gql } from '@apollo/client/core';
 
 const CREATE_PROFILE = `
   mutation($request: CreateProfileRequest!) { 
@@ -15,21 +15,20 @@ const CREATE_PROFILE = `
  }
 `;
 
-export const createProfileRequest = (handle: string) => {
-	return {
-		handle: handle,
-		profilePictureUri: "pictureUri",
-		followModule: {
-			emptyFollowModule: true,
-		},
-	};
+export const createProfileRequest = (handle: string, pictureUri: string, followNFTURI: string) => {
+    return {
+        handle: handle,
+        profilePictureUri: pictureUri,
+		followNFTURI,
+        followModule: null,
+    };
 };
 
-export const createProfile = (createProfileRequest: string) => {
-	return apolloClient.mutate({
-		mutation: gql(CREATE_PROFILE),
-		variables: {
-			request: createProfileRequest,
-		},
-	});
+export const createProfile = (createProfileRequest: object) => {
+    return apolloClient.mutate({
+        mutation: gql(CREATE_PROFILE),
+        variables: {
+            request: createProfileRequest,
+        },
+    });
 };

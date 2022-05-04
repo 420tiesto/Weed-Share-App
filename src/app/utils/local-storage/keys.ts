@@ -22,3 +22,8 @@ export const ACCESS_TOKEN = 'ACCESS_TOKEN';
  * Stores the refresh token received on login to our PRNTS server.
  */
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
+
+/**
+ * Stores the username and email temporarily while signing up
+ */
+export const USER_PROFILE = 'USER_PROFILE';

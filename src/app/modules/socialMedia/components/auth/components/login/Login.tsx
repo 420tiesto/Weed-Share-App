@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { copyright } from '../../../../../../constants';
 import Connectors from '../connectWallet/Connectors';
 
@@ -13,19 +13,21 @@ const Login = (props: Props) => {
                     <img src="/prnts-logo.svg" alt="logo" />
                 </div>
                 <h1 className="text-4xl mb-1 font-bold">Login</h1>
-                <p>
-                    Already have an account ?
-                    <a className="text-primary pl-1" href="#">
-                        Log in
-                    </a>
-                </p>
+                <Link to="/signup">
+                    <p>
+                        Don't have an account ?
+                        <a className="text-primary pl-1" href="#">
+                            Sign Up
+                        </a>
+                    </p>
+                </Link>
                 <div className="flex-grow flex flex-col items-center m-8 ">
                     <p className="mb-4">
                         Connect with one of our available{' '}
                         <span className="text-primary"> wallet </span> providers or create a new
                         one.
                     </p>
-                    <Connectors/>       
+                    <Connectors />
                 </div>
             </div>
             <p>{copyright}</p>

@@ -1,15 +1,19 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import Connectors from './Connectors';
+import { getWalletModalState } from '../../../../../../state/selectors';
+import { useAppDispatch } from '../../../../../../state/configure-store';
+import { setWalletModalOpen } from '../../../../../../state/actions';
 
-type Props = {
-    isOpen: boolean;
-    setIsOpen: any;
-};
+type Props = {};
 
-const ConnectWalletModal = ({ isOpen, setIsOpen }: Props) => {
+const ConnectWalletModal = (props: Props) => {
+    const isOpen = useSelector(getWalletModalState);
+    const dispatch = useAppDispatch();
+
     const closeModal = () => {
-        setIsOpen(false);
+        dispatch(setWalletModalOpen(false));
     };
 
     return (

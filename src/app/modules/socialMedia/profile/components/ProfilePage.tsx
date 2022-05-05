@@ -38,7 +38,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
                 <Tab.Group defaultIndex={0}>
-                    <Tab.List className="elevated-element flex items-center justify-center gap-8">
+                    <Tab.List className="elevated-card flex items-center justify-center gap-8">
                         <StyledTab>Projects Created</StyledTab>
                         <StyledTab>Projects Joined </StyledTab>
                         <StyledTab>Timeline</StyledTab>

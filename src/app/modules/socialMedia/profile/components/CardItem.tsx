@@ -10,7 +10,7 @@ interface CardItemProps {
 
 const CardItem = ({ imgSrc, text, subText, likeCount }: CardItemProps) => {
     return (
-        <div className="elevated-element hover:scale-105 duration-200 ease-out cursor-pointer flex max-w-[260px]  flex-col rounded-3xl overflow-hidden">
+        <div className="elevated-card hover:scale-105 duration-200 ease-out cursor-pointer flex max-w-[260px]  flex-col rounded-3xl overflow-hidden">
             <div className="h-[160px]">
                 <img src={imgSrc} alt={text} className=" object-cover object-center" />
             </div>

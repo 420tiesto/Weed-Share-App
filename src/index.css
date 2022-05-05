@@ -86,7 +86,7 @@
         @apply whitespace-nowrap  hover:brightness-90 duration-300 ease-out flex justify-center items-center gap-2  bg-white text-gray-900 py-2  rounded-full font-semibold;
     }
 
-    .elevated-element{
+    .elevated-card{
         box-shadow: -6px -6px 12px theme('colors.gray[700]'), 6px 6px 12px theme('colors.gray[900]');
     }
     .shadow-bottom{

@@ -78,7 +78,18 @@
         @apply bg-green-600 duration-300 ease-out  w-full text-white py-2 hover:bg-green-500 rounded-full font-semibold;
     }
 
+    .green-outline-btn{
+        @apply ring-1  ring-primary duration-300 ease-out  w-full text-primary hover:text-white py-2 hover:bg-green-500 rounded-full font-semibold;
+    }
+
     .white-btn{
         @apply whitespace-nowrap  hover:brightness-90 duration-300 ease-out flex justify-center items-center gap-2  bg-white text-gray-900 py-2  rounded-full font-semibold;
+    }
+
+    .elevated-element{
+        box-shadow: -6px -6px 12px theme('colors.gray[700]'), 6px 6px 12px theme('colors.gray[900]');
+    }
+    .shadow-bottom{
+        box-shadow:  6px 6px 18px theme('colors.gray[900]'); 
     }
 }

@@ -10,6 +10,7 @@ interface UploadProps {
     displayText: string;
     accepts?: string;
     imageLink?: string;
+    helpText?:string;
 }
 
 const Upload: React.FC<UploadProps> = ({
@@ -18,6 +19,7 @@ const Upload: React.FC<UploadProps> = ({
     showLoader = false,
     accepts = 'image/*',
     imageLink = '',
+    helpText
 }) => {
     const { getRootProps, getInputProps } = useDropzone({
         onDrop: uploadHelper,
@@ -44,6 +46,7 @@ const Upload: React.FC<UploadProps> = ({
                     )}
                 </div>
                 {displayText}
+                <p className='text-xs'>{helpText}</p>
             </div>
         </>
     );

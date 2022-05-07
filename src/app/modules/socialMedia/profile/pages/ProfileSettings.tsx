@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../../../components/header/navbar/Navbar';
-import Avatar from './Avatar';
+import Avatar from '../components/Avatar';
 import { LightBulbIcon } from '@heroicons/react/solid';
 import TwitterIcon from '../../../../icons/TwitterIcon';
 
@@ -10,7 +10,7 @@ const ProfileSettings = (props: Props) => {
     return (
         <>
             <div className=" mx-auto flex flex-col gap-8 items-center justify-center max-w-screen-xl min-h-screen sunken-element">
-				<h1 className='text-4xl font-bold'>Profile Settings</h1>
+                <h1 className="text-4xl font-bold">Profile Settings</h1>
                 <div className="flex gap-4">
                     <div className="p-8 col-span-5">
                         <div className="flex items-center gap-8">

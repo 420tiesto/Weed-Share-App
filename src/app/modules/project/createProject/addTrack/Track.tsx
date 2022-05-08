@@ -1,49 +1,71 @@
+import { useState } from 'react';
 import { Disclosure } from '@headlessui/react';
-import { ChevronDownIcon, ChevronUpIcon, TrashIcon, UploadIcon } from '@heroicons/react/outline';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from '@heroicons/react/outline';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { type TrackDetails } from '../../types';
+import UploadMusic from '../../../../components/common-ui/upload-music';
+import styles from './styles';
+import { pinImageToIPFS } from '../../../../utils/upload-file';
+import { pinJSONToIPFS } from '../../../../utils/upload-json';
 
 type Props = {
     index: number;
+    updateTrack: (index: number, value: TrackDetails, ipfsHash: string) => void;
+    removeTrack: (index: number) => void;
 };
 
-interface TrackDetails {
-    songTitle: string;
-    hasFeaturedArtist: boolean;
-    isRadioEdit: boolean;
-    // audioFile: File
-    songType: 'original' | 'cover';
-    songWriterFirstName: string;
-    songWriterLastName: string;
-    hasExplicitLyrics: boolean;
-    isInstrumental: boolean;
-    specifyPreview: boolean;
-    trackPrice: number;
-    maticTrackPrice: number;
-}
-
-const Track = ({ index }: Props) => {
+const Track = ({ index, removeTrack, updateTrack }: Props) => {
+    const [loader, setLoader] = useState(false);
     const {
         register,
         formState: { errors },
         handleSubmit,
+        getValues,
+        setError,
+        setValue,
+        control,
     } = useForm<TrackDetails>({ mode: 'onBlur' });
 
-    const onSubmit: SubmitHandler<TrackDetails> = (data: TrackDetails) => {
-        console.log(data);
+    // TODO: Add proper typescript definition event for e
+    const onDelete = (e: any) => {
+        e.stopPropagation();
+        const result = confirm('Are you sure you want to delete this track?');
+        if (result) {
+            removeTrack(index);
+        }
     };
 
-    const styles = {
-        disclosure: `sunken-element bg-dark-gray text-xl font-medium py-3 flex gap-4  px-6 rounded-full w-full`,
-        disclosureText: `flex-grow text-left`,
-        trashIcon: `h-5 w-5 text-red-500`,
-        chevronIcon: `text-primary h-5 w-5`,
-        formContainer: `divide-y divide-neutral-400`,
-        inputContainer: `flex flex-wrap md:gap-12 items-center px-4 py-8`,
-        label: `max-w-[180px] flex-grow`,
-        textInput: `primary-input max-w-md`,
-        errorText: `text-red-500 text-sm absolute  -bottom-6`,
-        radioInput: `h-5 w-5 relative top-1`,
+    const onSubmit: SubmitHandler<TrackDetails> = async (data: TrackDetails) => {
+        console.log(data);
+        const metadata = {
+            name: data.songTitle,
+        };
+        const { IpfsHash } = await pinJSONToIPFS(data, metadata);
+        updateTrack(index, data, IpfsHash);
+    };
+
+    const uploadTrackFile = async (files: any) => {
+        const songTitle = getValues('songTitle');
+        if (!songTitle) {
+            setError(
+                'songTitle',
+                { type: 'focus', message: 'This field is required!' },
+                { shouldFocus: true }
+            );
+            return;
+        }
+        setLoader(true);
+        const file = files[0];
+        console.log(file, '****** check file');
+        const pinataMetadata = {
+            name: songTitle,
+        };
+        const { type } = file;
+        const ipfsData = await pinImageToIPFS(file, JSON.stringify(pinataMetadata));
+        const { IpfsHash: ipfsHash } = ipfsData;
+        setValue('audioFile', ipfsHash);
+        setValue('audioFileType', type);
+        setLoader(false);
     };
 
     return (
@@ -52,7 +74,9 @@ const Track = ({ index }: Props) => {
                 <>
                     <Disclosure.Button className={styles.disclosure}>
                         <p className={styles.disclosureText}> Track {index + 1} </p>
-                        <TrashIcon className={styles.trashIcon} />
+                        <div className="hover:bg-slate-600" onClick={onDelete}>
+                            <TrashIcon className={styles.trashIcon} />
+                        </div>
                         {open && <ChevronUpIcon className={styles.chevronIcon} />}
                         {!open && <ChevronDownIcon className={styles.chevronIcon} />}
                     </Disclosure.Button>
@@ -122,13 +146,30 @@ const Track = ({ index }: Props) => {
                             <div className={styles.inputContainer}>
                                 <label className="max-w-[180px] flex-grow">Audio File</label>
                                 <div className="flex justify-between items-center flex-grow">
-                                    <div className="border-dashed border-2 border-gray-400 p-4 flex flex-col items-center justify-center rounded-2xl">
-                                        <UploadIcon className="h-10 w-10" />
-                                        <p className=" font-medium">Upload audio file</p>
-                                        <span className="text-xs text-gray-400">
-                                            WAV, MP3, M4A, FLAC, AIFF, WMA
-                                        </span>
-                                    </div>
+                                    <Controller
+                                        name="audioFile"
+                                        control={control}
+                                        rules={{ required: true }}
+                                        render={({ field }) => {
+                                            const { value } = field;
+                                            const uploaded = !!value;
+                                            return (
+                                                <UploadMusic
+                                                    showLoader={loader}
+                                                    uploadHelper={uploadTrackFile}
+                                                    displayText={
+                                                        uploaded ? 'Uploaded' : 'Upload audio file'
+                                                    }
+                                                    helpText={
+                                                        !uploaded
+                                                            ? 'WAV, MP3, M4A, FLAC, AIFF, WMA'
+                                                            : ''
+                                                    }
+                                                    uploaded={uploaded}
+                                                />
+                                            );
+                                        }}
+                                    />
                                     <p className="text-primary">Already got an isrc code ?</p>
                                 </div>
                             </div>
@@ -229,7 +270,7 @@ const Track = ({ index }: Props) => {
                             />
                         </div> */}
                                     <button className="absolute right-0 bottom-1  text-primary">
-                                        Add another songwriter + 
+                                        Add another songwriter +
                                     </button>
                                 </div>
                             </div>
@@ -265,12 +306,13 @@ const Track = ({ index }: Props) => {
                             {/* Is this a radio edit */}
                             <div className={styles.inputContainer}>
                                 <label className={styles.label}>Is this a "radio edit" ?</label>
-                                <div className='relative flex-grow'>
+                                <div className="relative flex-grow">
                                     <input
                                         type="radio"
                                         {...register('isRadioEdit', {
                                             required: { value: true, message: ' required' },
                                         })}
+                                        value="no"
                                         className={styles.radioInput}
                                     />
                                     <label className="pl-4">
@@ -282,6 +324,7 @@ const Track = ({ index }: Props) => {
                                         {...register('isRadioEdit', {
                                             required: { value: true, message: ' required' },
                                         })}
+                                        value="yes"
                                         className={styles.radioInput}
                                     />
                                     <label className="pl-4">
@@ -305,6 +348,7 @@ const Track = ({ index }: Props) => {
                                                 message: 'Please select one ',
                                             },
                                         })}
+                                        value="no"
                                         className={styles.radioInput}
                                     />
                                     <label className="pl-4">No</label>
@@ -318,6 +362,7 @@ const Track = ({ index }: Props) => {
                                                 message: 'Please select one ',
                                             },
                                         })}
+                                        value="yes"
                                         className={styles.radioInput}
                                     />
                                     <label className="pl-4">Yes</label>
@@ -343,6 +388,7 @@ const Track = ({ index }: Props) => {
                                                 message: 'Please select one ',
                                             },
                                         })}
+                                        value="no"
                                         className={styles.radioInput}
                                     />
                                     <label className="pl-4">Let streaming services decide</label>
@@ -355,6 +401,7 @@ const Track = ({ index }: Props) => {
                                                 message: 'Please select one ',
                                             },
                                         })}
+                                        value="yes"
                                         className={styles.radioInput}
                                     />
                                     <label className="pl-4">

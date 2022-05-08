@@ -1,4 +1,5 @@
 import { initialState } from "./app/state/reducer";
+import { initialState as projectInitialState } from './app/modules/project/state/reducer';
 
 declare global {
 	interface Window {
@@ -25,4 +26,5 @@ export type UserProfile = {
 
 export type TReducerState = {
 	globalReducer: typeof initialState;
+	projectReducer: typeof projectInitialState;
 };

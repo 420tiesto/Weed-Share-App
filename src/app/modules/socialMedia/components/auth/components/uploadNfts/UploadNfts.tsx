@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { copyright } from '../../../../../../constants';
 import Stepper from '../signUp/Stepper';
-import Upload from '../../../../../../components/common-ui/upload';
+import UploadImage from '../../../../../../components/common-ui/upload-image';
 import { pinImageToIPFS } from '../../../../../../utils/upload-file';
 import { type LoaderState } from './types';
 import { storeProfileURI, storeFollowURI } from '../../services/store-image-uris';
@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../../../../../state/configure-store';
 import { getImageURIs } from '../../../../../../state/selectors';
 import { getStorageValue } from '../../../../../../utils/local-storage/local-storage';
 import { USER_PROFILE_URI, USER_FOLLOW_URI } from '../../../../../../utils/local-storage/keys';
-import getIPFSImageLink from '../../../../../../utils/get-ipfs-image-link';
+import getIPFSImageLink from '../../../../../../utils/get-ipfs-url-link';
 
 interface UploadNftsProps {
     setStep: (step: number) => void;
@@ -70,7 +70,7 @@ const UploadNfts: React.FC<UploadNftsProps> = ({ setStep, submit }) => {
                     <p className="text-center">PNG,JPG,GIF Files are allowed</p>
                 </div>
                 <div className="flex justify-around w-full flex-wrap">
-                    <Upload
+                    <UploadImage
                         uploadHelper={uploadProfile}
                         showLoader={loader.profileURILoading}
                         displayText="Upload Profile NFT Image"
@@ -78,7 +78,7 @@ const UploadNfts: React.FC<UploadNftsProps> = ({ setStep, submit }) => {
                     />
                     {/* Divider */}
                     <div className="hidden md:flex w-[2px] bg-gray-500"></div>
-                    <Upload
+                    <UploadImage
                         uploadHelper={uploadFollow}
                         showLoader={loader.followURILoading}
                         displayText="Upload Follow NFT Image"

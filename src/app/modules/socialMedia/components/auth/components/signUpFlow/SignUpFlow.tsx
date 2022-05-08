@@ -14,7 +14,7 @@ import { storeUserProfile } from '../../../../../../state/actions';
 import SignUp from '../signUp/SignUp';
 import UploadNfts from '../uploadNfts/UploadNfts';
 import { createProfileRequest, createProfile } from '../../../../profile/services/create-profile';
-import { pollUntilIndexed } from '../../../../../../services/hasTransactionBeenIndexed';
+import { pollUntilIndexed } from '../../../../../../services/has-transaction-been-indexed';
 import { apiErrorCodes } from '../../../../../../constants';
 import { login } from '../../services/lens-login';
 import { useNavigate } from 'react-router-dom';

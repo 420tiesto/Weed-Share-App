@@ -2,7 +2,7 @@ import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { useController, UseControllerProps } from 'react-hook-form';
-import { AlbumDetails } from './UploadMusic';
+import { type AlbumDetails } from '../types';
 
 export type SelectOption = {
     name: string;

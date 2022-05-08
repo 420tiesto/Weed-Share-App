@@ -1,7 +1,6 @@
 import { useDropzone } from 'react-dropzone';
 import UploadIcon from '../../../icons/UploadIcon';
 import Loader from '../loader';
-import getIPFSImageLink from '../../../utils/get-ipfs-image-link';
 import classNames from 'classnames';
 
 interface UploadProps {

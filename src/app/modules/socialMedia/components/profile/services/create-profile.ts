@@ -1,5 +1,5 @@
-import { apolloClient } from '../../../../services/apollo-client';
 import { gql } from '@apollo/client/core';
+import { apolloClient } from '../../../../../services/apollo-client';
 
 const CREATE_PROFILE = `
   mutation($request: CreateProfileRequest!) { 
@@ -19,7 +19,7 @@ export const createProfileRequest = (handle: string, pictureUri: string, followN
     return {
         handle: handle,
         profilePictureUri: pictureUri,
-		followNFTURI,
+        followNFTURI,
         followModule: null,
     };
 };

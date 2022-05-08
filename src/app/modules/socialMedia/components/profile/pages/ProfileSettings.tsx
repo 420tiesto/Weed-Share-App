@@ -1,7 +1,7 @@
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import React from 'react';
-import InstagramIcon from '../../../../icons/InstagramIcon';
-import SpotifyIcon from '../../../../icons/SpotifyIcon';
+import InstagramIcon from '../../../../../icons/InstagramIcon';
+import SpotifyIcon from '../../../../../icons/SpotifyIcon';
 
 type Props = {};
 
@@ -96,21 +96,17 @@ const ProfileSettings = (props: Props) => {
             </form>
             <form className="space-y-4  flex-grow p-8 rounded-xl sunken-element">
                 <div>
-                    <label className="font-medium text-lg flex-grow ">
-                        Profile Image
-                    </label>
-                    <img 
-                        className='rounded-full h-32 w-32 mt-4'
+                    <label className="font-medium text-lg flex-grow ">Profile Image</label>
+                    <img
+                        className="rounded-full h-32 w-32 mt-4"
                         src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
                         alt="avatar"
                     />
                 </div>
                 <div>
-                    <label className="font-medium text-lg flex-grow ">
-                      Cover
-                    </label>
-                    <img 
-                        className='rounded-2xl h-40 w-full mt-4'
+                    <label className="font-medium text-lg flex-grow ">Cover</label>
+                    <img
+                        className="rounded-2xl h-40 w-full mt-4"
                         src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
                         alt="cover"
                     />

@@ -1,30 +1,30 @@
-import { initialState } from "./app/state/reducer";
-import { initialState as projectInitialState } from './app/modules/project/state/reducer';
+import { initialState } from './app/state/reducer';
+import { initialState as projectInitialState } from './app/modules/socialMedia/components/project/state/reducer';
 
 declare global {
-	interface Window {
-		ethereum: any;
-	}
-	var __DEV__: boolean
+    interface Window {
+        ethereum: any;
+    }
+    var __DEV__: boolean;
 }
 
-declare module "*.module.css";
+declare module '*.module.css';
 
 export type AuthTokens = {
-	accessToken: string;
-	refreshToken: string;
-}
+    accessToken: string;
+    refreshToken: string;
+};
 
 export declare type objectType = {
     [key: string]: any;
 };
 
 export type UserProfile = {
-	username: string,
-	email: string;
+    username: string;
+    email: string;
 };
 
 export type TReducerState = {
-	globalReducer: typeof initialState;
-	projectReducer: typeof projectInitialState;
+    globalReducer: typeof initialState;
+    projectReducer: typeof projectInitialState;
 };

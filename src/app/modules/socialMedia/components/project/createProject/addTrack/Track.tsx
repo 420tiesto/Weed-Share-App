@@ -3,10 +3,10 @@ import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from '@heroicons/react/outline';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { type TrackDetails } from '../../types';
-import UploadMusic from '../../../../components/common-ui/upload-music';
 import styles from './styles';
-import { pinImageToIPFS } from '../../../../utils/upload-file';
-import { pinJSONToIPFS } from '../../../../utils/upload-json';
+import UploadMusic from '../../../../../../components/common-ui/upload-music';
+import { pinJSONToIPFS } from '../../../../../../utils/upload-json';
+import { pinImageToIPFS } from '../../../../../../utils/upload-file';
 
 type Props = {
     index: number;

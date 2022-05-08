@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getStorageValue, removeStorageValue } from '../../../../../../utils/local-storage/local-storage';
+import {
+    getStorageValue,
+    removeStorageValue,
+} from '../../../../../../utils/local-storage/local-storage';
 import { storeProfileURI, storeFollowURI } from '../../services/store-image-uris';
 import {
     USER_PROFILE_URI,
@@ -13,11 +16,11 @@ import { getImageURIs, getUserProfile } from '../../../../../../state/selectors'
 import { storeUserProfile } from '../../../../../../state/actions';
 import SignUp from '../signUp/SignUp';
 import UploadNfts from '../uploadNfts/UploadNfts';
-import { createProfileRequest, createProfile } from '../../../../profile/services/create-profile';
 import { pollUntilIndexed } from '../../../../../../services/has-transaction-been-indexed';
 import { apiErrorCodes } from '../../../../../../constants';
 import { login } from '../../services/lens-login';
 import { useNavigate } from 'react-router-dom';
+import { createProfile, createProfileRequest } from '../../../profile/services/create-profile';
 
 interface SignUpFlowProps {}
 
@@ -90,7 +93,7 @@ const SignUpFlow: React.FC<SignUpFlowProps> = () => {
             if (error) {
                 const e = error as any;
                 console.log(e.message, '******* checkthis');
-                if (e.message === "User not authenticated") {
+                if (e.message === 'User not authenticated') {
                     console.log('Am I coming here?????');
                     dispatch(login());
                 }

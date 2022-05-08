@@ -1,5 +1,5 @@
 import React from 'react';
-import HeartIcon from '../../../../icons/HeartIcon';
+import HeartIcon from '../../../../../icons/HeartIcon';
 
 interface CardItemProps {
     imgSrc: string;

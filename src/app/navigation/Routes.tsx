@@ -2,12 +2,11 @@ import { Routes, Route } from 'react-router-dom';
 import Login from '../modules/socialMedia/components/auth/components/login/Login';
 import Home from '../modules/socialMedia/components/home/Home';
 import SignUpFlow from '../modules/socialMedia/components/auth/components/signUpFlow/SignUpFlow';
-import ProfilePage from '../modules/socialMedia/profile/pages/ProfilePage';
-import CreateProjectFlow from '../modules/project/createProject/createProjectFlow';
-import AddTrack from '../modules/project/createProject/addTrack/AddTrack';
 import Container from '../components/common-ui/container/Container';
-import ProjectPage from '../modules/project/projectPage/components/ProjectPage';
-import ProfileSettingsPage from '../modules/socialMedia/profile/pages/ProfileSettingsPage';
+import ProfilePage from '../modules/socialMedia/components/profile/pages/ProfilePage';
+import ProfileSettingsPage from '../modules/socialMedia/components/profile/pages/ProfileSettingsPage';
+import CreateProjectFlow from '../modules/socialMedia/components/project/createProject/createProjectFlow';
+import ProjectPage from '../modules/socialMedia/components/project/projectPage/components/ProjectPage';
 
 const AppRoutes = () => {
     return (

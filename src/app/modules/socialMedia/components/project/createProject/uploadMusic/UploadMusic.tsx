@@ -1,18 +1,16 @@
 import React, { useState, useImperativeHandle, useRef, forwardRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import Container from '../../../../components/common-ui/container/Container';
-import Upload from '../../../../components/common-ui/upload-image';
-import { copyright } from '../../../../constants';
 import AutocompleteFormInput from './AutcompleteFormInput';
 import { LightBulbIcon } from '@heroicons/react/solid';
-import { pinImageToIPFS } from '../../../../utils/upload-file';
-import getIPFSImageLink from '../../../../utils/get-ipfs-url-link';
+import getIPFSImageLink from '../../../../../../utils/get-ipfs-url-link';
 import { type AlbumDetails } from '../types';
-import { type SelectOption } from '../../../../components/common-ui/AutocompleteSelect/Autocomplete';
-import { useAppDispatch } from '../../../../state/configure-store';
 import { storeAlbumDetails } from '../../state/actions';
 import { useSelector } from 'react-redux';
 import { getAlbumDetails } from '../../state/selectors';
+import Upload from '../../../../../../components/common-ui/upload-image/UploadImage';
+import { pinImageToIPFS } from '../../../../../../utils/upload-file';
+import { SelectOption } from '../../../../../../components/common-ui/AutocompleteSelect/Autocomplete';
+import { useAppDispatch } from '../../../../../../state/configure-store';
 
 type Props = {};
 
@@ -40,12 +38,12 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
         setValue,
         getValues,
         formState: { errors },
-    } = useForm<AlbumDetails>({ 
+    } = useForm<AlbumDetails>({
         mode: 'onBlur',
         defaultValues: {
             ...albumDetails,
-        }
-     });
+        },
+    });
 
     const onSubmit: SubmitHandler<AlbumDetails> = async (data: AlbumDetails) => {
         console.log(data);

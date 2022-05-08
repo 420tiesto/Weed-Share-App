@@ -1,8 +1,7 @@
 import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline';
 import { EyeIcon, HeartIcon } from '@heroicons/react/solid';
 import React from 'react';
-import HashTagIcon from '../../../../icons/HashTagIcon';
-import MaticIcon from '../../../../icons/MaticIcon';
+import MaticIcon from '../../../../../../icons/MaticIcon';
 import AirdropDetails from './AirdropDetails';
 import ProjectActivity from './ProjectActivity';
 import ProjectImageCard from './ProjectImageCard';
@@ -55,14 +54,14 @@ const ProjectPage = (props: Props) => {
                             <MaticIcon /> 7.6{' '}
                             <span className="text-base text-slate-400">($ 617.3)</span>
                         </div>
-                        <div className='flex gap-4'>
+                        <div className="flex gap-4">
                             <button className="green-btn w-32">Join</button>
                             <button className="green-outline-btn w-32">Show Details</button>
                         </div>
                     </div>
                 </div>
-                        {/* Spotify Integration */}
-                        <ProjectActivity/>
+                {/* Spotify Integration */}
+                <ProjectActivity />
             </div>
         </div>
     );

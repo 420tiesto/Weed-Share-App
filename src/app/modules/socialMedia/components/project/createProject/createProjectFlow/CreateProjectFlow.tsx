@@ -3,23 +3,22 @@ import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import UploadMusic from '../uploadMusic/UploadMusic';
 import AddTrack from '../addTrack/AddTrack';
-import Navbar from '../../../../components/header/navbar/Navbar';
-import Container from '../../../../components/common-ui/container/Container';
-import { copyright } from '../../../../constants';
 import { storeAlbumDetails } from '../../state/actions';
-import { useAppDispatch } from '../../../../state/configure-store';
 import { getAlbumDetails } from '../../state/selectors';
-import { isUsingWallet } from '../../../../services/ethers-service';
-import { setWalletModalOpen } from '../../../../state/actions';
 
 import { type AlbumDetails } from '../types';
 import { type TrackDetails } from '../../types';
-import getIPFSUrlLink from '../../../../utils/get-ipfs-url-link';
-import { createPostMetadata } from '../../../../utils/create-post-metadata';
-import getAttributeType from '../../../../utils/get-attribute-type';
-import { pinJSONToIPFS } from '../../../../utils/upload-json';
 import postPublication from '../../services/post-publication';
-import { login } from '../../../socialMedia/components/auth/services/lens-login';
+import getAttributeType from '../../../../../../utils/get-attribute-type';
+import getIPFSUrlLink from '../../../../../../utils/get-ipfs-url-link';
+import { createPostMetadata } from '../../../../../../utils/create-post-metadata';
+import { pinJSONToIPFS } from '../../../../../../utils/upload-json';
+import Navbar from '../../../../../../components/header/navbar/Navbar';
+import Container from '../../../../../../components/common-ui/container/Container';
+import { copyright } from '../../../../../../constants';
+import { isUsingWallet } from '../../../../../../services/ethers-service';
+import { setWalletModalOpen } from '../../../../../../state/actions';
+import { useAppDispatch } from '../../../../../../state/configure-store';
 
 const CreateProjectFlow = () => {
     const dispatch = useAppDispatch();
@@ -85,7 +84,7 @@ const CreateProjectFlow = () => {
                             item: getIPFSUrlLink(track.audioFile),
                             type: track.audioFileType,
                         });
-                        attributes.push(getAttributeType('string', `Track ${i}`, track.ipfsHash))
+                        attributes.push(getAttributeType('string', `Track ${i}`, track.ipfsHash));
                     }
                 }
                 const postMetadata = createPostMetadata({
@@ -96,7 +95,7 @@ const CreateProjectFlow = () => {
                     attributes: attributes,
                 });
                 const jsonMetadata = {
-                    name: recordLabel
+                    name: recordLabel,
                 };
                 const contentURI = await pinJSONToIPFS(postMetadata, jsonMetadata);
                 await postPublication({ postMetadata: contentURI });

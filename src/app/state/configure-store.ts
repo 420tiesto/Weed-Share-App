@@ -1,9 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import globalReducer from './reducer';
+import { projectReducer } from '../modules/project/state';
 
 // Import and combine all the reducers here
-const rootReducer = combineReducers({ globalReducer });
+const rootReducer = combineReducers({ globalReducer, projectReducer });
 
 const store = configureStore({
 	reducer: rootReducer,

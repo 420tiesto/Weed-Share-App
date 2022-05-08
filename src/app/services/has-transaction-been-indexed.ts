@@ -80,7 +80,7 @@ const HAS_TX_BEEN_INDEXED = `
   }
 `
 
-const hasTxBeenIndexed = (txHash) => {
+const hasTxBeenIndexed = (txHash: string) => {
     return apolloClient.query({
         query: gql(HAS_TX_BEEN_INDEXED),
         variables: {
@@ -92,11 +92,11 @@ const hasTxBeenIndexed = (txHash) => {
     })
 }
 
-const sleep = (milliseconds) => {
+const sleep = (milliseconds: number) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
-export const pollUntilIndexed = async (txHash) => {
+export const pollUntilIndexed = async (txHash: string) => {
     while (true) {
         const result = await hasTxBeenIndexed(txHash);
         console.log('pool until indexed: result', result.data);

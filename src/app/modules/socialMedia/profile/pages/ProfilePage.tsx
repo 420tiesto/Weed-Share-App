@@ -1,14 +1,52 @@
 import { Tab } from '@headlessui/react';
-import React from 'react';
-import Avatar from './Avatar';
-import ProjectsCreated from './ProjectsCreated';
-import SearchBar from './SearchBar';
-import StyledTab from './StyledTab';
-import ProfileDetails from './ProfileDetails';
-import ProfileSocials from './ProfileSocials';
-
+import React, { useEffect } from 'react';
+import Avatar from '../components/Avatar';
+import ProjectsCreated from '../components/ProjectsCreated';
+import SearchBar from '../components/SearchBar';
+import StyledTab from '../components/StyledTab';
+import ProfileDetails from '../components/ProfileDetails';
+import ProfileSocials from '../components/ProfileSocials';
+import { getProfileByAddressRequest, getProfiles } from '../services/get-profiles';
+import { getPublications } from '../services/get-publications';
 
 const ProfilePage = () => {
+    useEffect(() => {
+        getProfileDetails();
+        getCollectedPublications();
+    }, []);
+
+    // get the profile following and flowwers cout here
+    // get profile image and cover page etc.
+    // save them in state so that they can used in profile settings
+    // once eupdated again save to state.
+    const getProfileDetails = () => {
+        getProfiles({
+            ownedBy: ['0x7ED96dB37a3B20BF96F138950571E71EbFCc4B7c'],
+            limit: 10,
+        }).then((profile) => {
+            console.log(profile.data);
+            getProfilePublications(profile.data.profiles.items[0].id);
+        });
+    };
+
+    const getProfilePublications = (id: string) => {
+        console.log(id, 'id');
+        getPublications({ profileId: id, publicationTypes: ['POST', 'COMMENT', 'MIRROR'] }).then(
+            (publications) => {
+                console.log(publications, 'puvb');
+            }
+        );
+    };
+
+    const getCollectedPublications = () => {
+        getPublications({
+            collectedBy: '0x7ED96dB37a3B20BF96F138950571E71EbFCc4B7c',
+            publicationTypes: ['POST'],
+        }).then((publications) => {
+            console.log(publications, 'colectedpuvb');
+        });
+    };
+
     return (
         <div className="p-4 min-h-screen">
             <div className="overflow-hidden min-h-full  max-w-screen-xl mx-auto container sunken-element">

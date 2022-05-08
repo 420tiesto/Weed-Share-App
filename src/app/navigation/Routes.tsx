@@ -7,6 +7,7 @@ import UploadMusic from '../modules/project/createProject/uploadMusic/UploadMusi
 import AddTrack from '../modules/project/createProject/addTrack/AddTrack';
 import ProfileSettings from '../modules/socialMedia/profile/pages/ProfileSettings';
 import Container from '../components/common-ui/container/Container';
+import ProjectPage from '../modules/project/projectPage/components/ProjectPage';
 
 const AppRoutes = () => {
     return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
                 <Route path="/profile-settings" element={<ProfileSettings />} />
                 <Route path="/upload-music" element={<UploadMusic />} />
                 <Route path="/add-track" element={<AddTrack />} />
+                <Route path="/project" element={<ProjectPage />} />
             </Routes>
         </Container>
     );

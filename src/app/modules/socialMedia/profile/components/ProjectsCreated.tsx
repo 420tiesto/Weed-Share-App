@@ -33,7 +33,7 @@ const ProjectsCreated = () => {
                 subText="coldInnerFire"
                 imgSrc={PLACEHOLDER_IMAGE_SRC}
             />
-               <CardItem
+            <CardItem
                 text="Cold Inner fire"
                 likeCount={34}
                 subText="coldInnerFire"

@@ -55,13 +55,7 @@
         /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
     }
-    .stepper-bullet-gradient {
-        /* background: linear-gradient(to bottom right,rgba(0,0,0,0.8) , theme('colors.gray[800]') ) padding-box, */
-            /* linear-gradient(to bottom right,theme('colors.gray[500]') ,rgba(0,0,0,0.5)) border-box; */
-        /* border: theme('borderWidth.2') solid transparent; */
-        /* border-radius: ; */
-        /* box-shadow: -6px -6px 12px theme('colors.gray[600]'), 6px 6px 12px theme('colors.gray[900]'); */
-    }
+   
     .light-hover-animation {
         /* @apply hover:bg-gray-700 duration-300 ease-out hover:text-white; */
     }
@@ -75,15 +69,13 @@
     .sunken-element{
         box-shadow: inset -6px -6px 12px rgba(255, 255, 255, 0.1), inset 6px 6px 12px rgba(0, 0, 0, 0.25);
     }
-    .sunken-element--dark{
-        /* box-shadow: inset 6px 6px 12px rgba(0,0,0,0.4), inset -6px -6px 12px theme('colors.gray[700]'); */
-    }
+ 
     .elevated-element{
         box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.15), 6px 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     .green-btn{
-        @apply bg-green-600 duration-300 ease-out  w-full text-white py-2 hover:bg-green-500 rounded-full font-semibold;
+        @apply bg-green-500  duration-300 ease-out  w-full text-white py-2 hover:bg-primary rounded-full font-semibold;
     }
 
     .green-outline-btn{

@@ -34,11 +34,11 @@ const Track = ({ index }: Props) => {
     };
 
     const styles = {
-        disclosure: `elevated-element py-3 flex gap-4  px-6 rounded-full w-full`,
+        disclosure: `sunken-element bg-dark-gray text-xl font-medium py-3 flex gap-4  px-6 rounded-full w-full`,
         disclosureText: `flex-grow text-left`,
         trashIcon: `h-5 w-5 text-red-500`,
         chevronIcon: `text-primary h-5 w-5`,
-        formContainer: `divide-y divide-gray-600`,
+        formContainer: `divide-y divide-neutral-400`,
         inputContainer: `flex flex-wrap md:gap-12 items-center px-4 py-8`,
         label: `max-w-[180px] flex-grow`,
         textInput: `primary-input max-w-md`,

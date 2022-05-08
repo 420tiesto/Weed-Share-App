@@ -48,7 +48,7 @@ const AutcompleteFormInput = (props: Props) => {
                             onChange={(event) => setQuery(event.target.value)}
                         />
                         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-                            <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                            <SelectorIcon className="h-5 w-5 text-primary" aria-hidden="true" />
                         </Combobox.Button>
                     </div>
                     <Transition
@@ -57,7 +57,7 @@ const AutcompleteFormInput = (props: Props) => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                         afterLeave={() => setQuery('')}>
-                        <Combobox.Options className=" bg-gray-900 z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl py-2">
+                        <Combobox.Options className="bg-dark-gray z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl py-2">
                             {filteredOptions.length === 0 && query !== '' ? (
                                 <div className="relative cursor-default select-none py-2 px-4 ">
                                     Nothing found.
@@ -67,8 +67,8 @@ const AutcompleteFormInput = (props: Props) => {
                                     <Combobox.Option
                                         key={value.id}
                                         className={({ active }) =>
-                                            `relative backdrop-blur-xl  cursor-default select-none py-2 pl-10 pr-4 ${
-                                                active ? 'bg-gray-700  ' : null
+                                            `relative bg-dark-gray cursor-default select-none py-2 pl-10 pr-4 ${
+                                                active ? 'brightness-125  ' : null
                                             }`
                                         }
                                         value={value}>

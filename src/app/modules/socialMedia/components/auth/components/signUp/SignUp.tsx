@@ -46,10 +46,10 @@ const SignUp: React.FC<Props> = ({ setStep }) => {
     };
 
     return (
-        <div className="flex flex-col gap-4 items-center mx-auto justify-center max-w-screen-lg min-h-screen  p-8 ">
-            <div className="relative sunken-element--dark flex flex-col bg-gray-900 rounded-2xl h-[80vh]  w-full  py-8 px-16">
+        <div className="flex flex-col gap-4 items-center mx-auto mt-8 max-w-screen-lg  ">
+            <div className="relative sunken-element overflow-hidden bg-dark-gray flex flex-col  rounded-2xl h-[80vh]  w-full  py-8 px-16">
                 {/* Prnts Logo */}
-                <div className="absolute right-0 top-0 p-8 rounded-bl-2xl sunken-element--dark">
+                <div className="absolute right-0 top-0 p-8 rounded-bl-2xl sunken-element">
                     <img src="/prnts-logo.svg" alt="logo" />
                 </div>
                 <h1 className="text-4xl mb-1 font-bold">SignUp</h1>
@@ -64,7 +64,7 @@ const SignUp: React.FC<Props> = ({ setStep }) => {
                 <div className="flex-grow flex items-center justify-center">
                     <form
                         onSubmit={handleSubmit(onSubmit)}
-                        className="max-w-sm flex flex-col p-8 gap-3  ">
+                        className=" flex flex-col p-8 gap-3  ">
                         <label htmlFor="email" className="pl-4">
                             Email
                         </label>
@@ -95,7 +95,7 @@ const SignUp: React.FC<Props> = ({ setStep }) => {
                     </form>
                 </div>
             </div>
-            <p>{copyright}</p>
+
         </div>
     );
 };

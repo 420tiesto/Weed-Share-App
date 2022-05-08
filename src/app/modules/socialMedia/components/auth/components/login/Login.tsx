@@ -6,8 +6,8 @@ type Props = {};
 
 const Login = (props: Props) => {
     return (
-        <div className="flex flex-col gap-4 items-center mx-auto justify-center max-w-screen-lg min-h-screen  p-8 ">
-            <div className="relative sunken-element--dark flex flex-col bg-gray-900 rounded-2xl h-[80vh]  w-full  py-8 px-16">
+        <div className="flex flex-col gap-4 items-center mx-auto max-w-screen-lg mt-8 ">
+            <div className="relative sunken-element bg-dark-gray flex flex-col bg-gray-900 rounded-2xl h-[80vh]  w-full  py-8 px-16">
                 {/* Prnts Logo */}
                 <div className="absolute right-0 top-0 p-8 rounded-bl-2xl sunken-element--dark">
                     <img src="/prnts-logo.svg" alt="logo" />
@@ -30,7 +30,6 @@ const Login = (props: Props) => {
                     <Connectors />
                 </div>
             </div>
-            <p>{copyright}</p>
         </div>
     );
 };

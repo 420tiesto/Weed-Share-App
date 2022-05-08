@@ -45,15 +45,13 @@ const UploadMusic = (props: Props) => {
     };
 
     return (
-        <>
-            <Navbar />
-            <Container>
-                <h1 className="text-2xl text-center mb-2 font-bold ">Upload Music</h1>
-                <h2 className="text-xl mb-2 font-bold pl-8">Album details</h2>
+        <div className='p-8'>
+                <h1 className="text-2xl text-center mb-8 font-bold ">Upload Music</h1>
+                <h2 className="text-xl mb-8 font-bold ">Album details</h2>
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="lg:grid lg:grid-cols-2   justify-center divide-gray-600">
-                    <div className="space-y-8 lg:p-8">
+                    <div className="space-y-8 ">
                         <div className="grid grid-cols-5 items-center">
                             <label className="col-span-2" htmlFor="artistName">
                                 Artist / Band Name
@@ -184,13 +182,13 @@ const UploadMusic = (props: Props) => {
                     </div>
                     <div className="col-span-2 flex justify-end">
                         <button type="submit" className="green-btn max-w-fit px-10 ">
-                            Next{' '}
+                            Next
                         </button>
                     </div>
-                    <p className="mx-auto bottom-4 col-span-2">{copyright}</p>
+                
                 </form>
-            </Container>
-        </>
+
+        </div>
     );
 };
 

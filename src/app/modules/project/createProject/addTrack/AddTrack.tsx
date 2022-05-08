@@ -16,9 +16,7 @@ const AddTrack = (props: Props) => {
 
 
     return (
-        <>
-            <Navbar />
-            <Container>
+        <div className='pt-8 '>
                 <h1 className="text-2xl text-center mb-4 font-bold ">Upload Music</h1>
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-xl  font-semibold">Tracks</h2>
@@ -37,8 +35,7 @@ const AddTrack = (props: Props) => {
                     <button className="green-btn max-w-fit px-10 mt-8">Previous </button>
                     <button className="green-btn max-w-fit px-10 mt-8">Next </button>
                 </div>
-            </Container>
-        </>
+        </div>
     );
 };
 

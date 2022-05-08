@@ -50,11 +50,11 @@ const ProfilePage = () => {
     return (
         <div className="p-4 min-h-screen">
             <div className="overflow-hidden min-h-full  max-w-screen-xl mx-auto container sunken-element">
-                <div className="relative">
+                <div className="relative p-4">
                     <img
                         src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
                         alt=""
-                        className="w-full h-56 abg-gray-700"
+                        className="w-full h-56 bg-dark-gray"
                     />
 
                     <div className="absolute top-36 pl-8 ">
@@ -76,7 +76,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
                 <Tab.Group defaultIndex={0}>
-                    <Tab.List className="elevated-card flex items-center justify-center gap-8">
+                    <Tab.List className="elevated-element flex items-center justify-center gap-8">
                         <StyledTab>Projects Created</StyledTab>
                         <StyledTab>Projects Joined </StyledTab>
                         <StyledTab>Timeline</StyledTab>

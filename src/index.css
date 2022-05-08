@@ -4,83 +4,82 @@
 
 @layer base {
     body {
-        @apply bg-gray-800 text-white;
+        @apply bg-gray text-white;
     }
     .App {
         @apply min-h-screen flex justify-center ;
     }
-
     input,
     textarea {
-        color-scheme:dark;
+
         @apply bg-transparent px-2 focus-within:outline-none ;
     }
-
     input[type='radio'] {
         accent-color: theme('colors.primary');
+        color-scheme:dark;
     }
-
+    
     .primary-input {
-        @apply rounded-full ring-1 ring-gray-700 hover:ring-gray-600 focus:ring-primary duration-300 ease-out w-full h-full pl-4 py-2;
+        @apply rounded-full bg-white duration-300 ease-out w-[360px] text-black h-full pl-4 py-2 ring-1 ring-gray;
     }
 }
 
 @layer components {
     .gradient-border-primary-dark-bg {
-        background: linear-gradient(to left,theme('colors.gray[900]'), theme('colors.gray[900]')) padding-box,
-            linear-gradient(to top right,theme('colors.green[300]') , theme('colors.gray[800]'),theme('colors.green[300]')) border-box;
-        border: theme('borderWidth.0') solid transparent;
+        /* background: linear-gradient(to left,theme('colors.gray[900'), theme('colors.gray')) padding-box, */
+            /* linear-gradient(to top right,theme('colors.green[300') , theme('colors.'),theme('colors.green[300]')) border-box; */
+        /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
     }
     .gradient-border-primary-light-bg {
-        background: linear-gradient(to top right,theme('colors.gray[800]') , theme('colors.gray[900]')) padding-box,
-            linear-gradient(to top right,theme('colors.green[300]') , theme('colors.gray[800]'),theme('colors.green[300]')) border-box;
-        border: theme('borderWidth.0') solid transparent;
+        /* background: linear-gradient(to top right,theme('colors.gray[800]') , theme('colors.gray[900]')) padding-box, */
+            /* linear-gradient(to top right,theme('colors.green[300]') , theme('colors.gray[800]'),theme('colors.green[300]')) border-box; */
+        /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
     }
     .gradient-border-tl-primary-light-bg {
-        background: linear-gradient(to top right,theme('colors.gray[800]') , theme('colors.gray[900]') ) padding-box,
-            linear-gradient(to top left,theme('colors.green[300]') , theme('colors.gray[800]'),theme('colors.green[300]')) border-box;
-        border: theme('borderWidth.0') solid transparent;
+        /* background: linear-gradient(to top right,theme('colors.gray[800]') , theme('colors.gray[900]') ) padding-box, */
+            /* linear-gradient(to top left,theme('colors.green[300]') , theme('colors.gray[800]'),theme('colors.green[300]')) border-box; */
+        /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
     }
     .gradient-border-secondary-dark-bg {
-        background: linear-gradient(to left,theme('colors.gray[900]'), theme('colors.gray[900]')) padding-box,
-            linear-gradient(to top right,theme('colors.blue[300]') , theme('colors.gray[800]'),theme('colors.blue[300]')) border-box;
-        border: theme('borderWidth.0') solid transparent;
+        /* background: linear-gradient(to left,theme('colors.gray[900]'), theme('colors.gray[900]')) padding-box, */
+            /* linear-gradient(to top right,theme('colors.blue[300]') , theme('colors.gray[800]'),theme('colors.blue[300]')) border-box; */
+        /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
     }
     .gradient-border-secondary-light-bg {
-        background: linear-gradient(to top right,theme('colors.gray[800]') , theme('colors.gray[900]') ) padding-box,
-            linear-gradient(to top right,theme('colors.blue[300]') , theme('colors.gray[800]'),theme('colors.blue[300]')) border-box;
-        border: theme('borderWidth.0') solid transparent;
+        /* background: linear-gradient(to top right,theme('colors.gray[800]') , theme('colors.gray[900]') ) padding-box, */
+            /* linear-gradient(to top right,theme('colors.blue[300]') , theme('colors.gray[800]'),theme('colors.blue[300]')) border-box; */
+        /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
     }
     .stepper-bullet-gradient {
-        background: linear-gradient(to bottom right,rgba(0,0,0,0.8) , theme('colors.gray[800]') ) padding-box,
-            linear-gradient(to bottom right,theme('colors.gray[500]') ,rgba(0,0,0,0.5)) border-box;
-        border: theme('borderWidth.2') solid transparent;
+        /* background: linear-gradient(to bottom right,rgba(0,0,0,0.8) , theme('colors.gray[800]') ) padding-box, */
+            /* linear-gradient(to bottom right,theme('colors.gray[500]') ,rgba(0,0,0,0.5)) border-box; */
+        /* border: theme('borderWidth.2') solid transparent; */
         /* border-radius: ; */
-        box-shadow: -6px -6px 12px theme('colors.gray[600]'), 6px 6px 12px theme('colors.gray[900]');
+        /* box-shadow: -6px -6px 12px theme('colors.gray[600]'), 6px 6px 12px theme('colors.gray[900]'); */
     }
     .light-hover-animation {
-        @apply hover:bg-gray-700 duration-300 ease-out hover:text-white;
+        /* @apply hover:bg-gray-700 duration-300 ease-out hover:text-white; */
     }
     .light-hover-btn {
-        @apply hover:bg-gray-700 duration-300 ease-out hover:text-white py-1 px-2 flex items-center gap-2;
-        @apply rounded-md;
+        /* @apply hover:bg-gray-700 duration-300 ease-out hover:text-white py-1 px-2 flex items-center gap-2; */
+        /* @apply rounded-md; */
     }
     .primary-light-hover-animation {
-        @apply hover:bg-primary hover:bg-opacity-10  duration-300 ease-out;
+        /* @apply hover:bg-primary hover:bg-opacity-10  duration-300 ease-out; */
     }
     .sunken-element{
-        box-shadow: inset 10px 10px 20px theme('colors.gray[900]');
+        box-shadow: inset -6px -6px 12px rgba(255, 255, 255, 0.1), inset 6px 6px 12px rgba(0, 0, 0, 0.25);
     }
     .sunken-element--dark{
-        box-shadow: inset 6px 6px 12px rgba(0,0,0,0.4), inset -6px -6px 12px theme('colors.gray[700]');
+        /* box-shadow: inset 6px 6px 12px rgba(0,0,0,0.4), inset -6px -6px 12px theme('colors.gray[700]'); */
     }
     .elevated-element{
-        box-shadow: inset -6px -6px 12px theme('colors.gray[700]'), inset 6px 6px 12px theme('colors.gray[900]');
+        box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.15), 6px 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     .green-btn{
@@ -92,13 +91,10 @@
     }
 
     .white-btn{
-        @apply whitespace-nowrap  hover:brightness-90 duration-300 ease-out flex justify-center items-center gap-2  bg-white text-gray-900 py-2  rounded-full font-semibold;
+        @apply whitespace-nowrap  hover:brightness-90 duration-300 ease-out flex justify-center items-center gap-2  bg-white text-black py-2  rounded-full font-semibold;
     }
 
-    .elevated-card{
-        box-shadow: -6px -6px 12px theme('colors.gray[700]'), 6px 6px 12px theme('colors.gray[900]');
-    }
     .shadow-bottom{
-        box-shadow:  6px 6px 18px theme('colors.gray[900]'); 
+        box-shadow:  6px 6px 18px rgba(0, 0, 0, 0.25); 
     }
 }

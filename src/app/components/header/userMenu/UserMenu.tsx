@@ -22,7 +22,7 @@ const UserMenu = (props: Props) => {
             </div>
             <Menu.Items
                 className={
-                    'absolute right-0  mt-1 bg-black bg-opacity-20 origin-top-right backdrop-blur-xl  rounded-md shadow-lg ring-1 ring-white ring-opacity-5 focus:outline-none'
+                    'absolute right-0 z-50 mt-1 bg-black bg-opacity-20 origin-top-right backdrop-blur-xl  rounded-md shadow-lg ring-1 ring-white ring-opacity-5 focus:outline-none'
                 }>
                 <Menu.Item>
                     <a

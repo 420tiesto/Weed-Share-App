@@ -3,7 +3,6 @@ import Login from '../modules/socialMedia/components/auth/components/login/Login
 import Home from '../modules/socialMedia/components/home/Home';
 import SignUpFlow from '../modules/socialMedia/components/auth/components/signUpFlow/SignUpFlow';
 import ProfilePage from '../modules/socialMedia/profile/pages/ProfilePage';
-import UploadMusic from '../modules/project/createProject/uploadMusic/UploadMusic';
 import CreateProjectFlow from '../modules/project/createProject/createProjectFlow';
 import AddTrack from '../modules/project/createProject/addTrack/AddTrack';
 import Container from '../components/common-ui/container/Container';

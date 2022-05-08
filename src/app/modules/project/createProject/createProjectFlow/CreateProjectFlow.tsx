@@ -57,15 +57,6 @@ const CreateProjectFlow = () => {
                 if (!tracks[tracks.length - 1].ipfsHash) {
                     alert('Please save the track before creating the project');
                 }
-                let media = [];
-                for (let track of tracks) {
-                    if (track.ipfsHash) {
-                        media.push({
-                            item: getIPFSUrlLink(track.ipfsHash),
-                            type: track.audioFileType,
-                        });
-                    }
-                }
                 const currentAlbumDetails = albumDetails as any;
                 const {
                     albumCover,
@@ -86,6 +77,17 @@ const CreateProjectFlow = () => {
                     getAttributeType('string', 'Secondary Genre', secondaryGenre),
                     getAttributeType('number', 'Number of Tracks', tracks.length),
                 ];
+                let media = [];
+                for (let i = 0; i < tracks.length; i++) {
+                    const track = tracks[i];
+                    if (track.ipfsHash) {
+                        media.push({
+                            item: getIPFSUrlLink(track.audioFile),
+                            type: track.audioFileType,
+                        });
+                        attributes.push(getAttributeType('string', `Track ${i}`, track.ipfsHash))
+                    }
+                }
                 const postMetadata = createPostMetadata({
                     media,
                     albumName: recordLabel,

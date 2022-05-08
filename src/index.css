@@ -26,7 +26,7 @@
 
 @layer components {
     .gradient-border-primary-dark-bg {
-        /* background: linear-gradient(to left,theme('colors.gray[900'), theme('colors.gray')) padding-box, */
+        /* background: linear-gradient(to left,theme('colors.slate[900]'), theme('colors.gray')) padding-box, */
             /* linear-gradient(to top right,theme('colors.green[300') , theme('colors.'),theme('colors.green[300]')) border-box; */
         /* border: theme('borderWidth.0') solid transparent; */
         /* border-radius: ; */
@@ -57,11 +57,11 @@
     }
    
     .light-hover-animation {
-        /* @apply hover:bg-gray-700 duration-300 ease-out hover:text-white; */
+        @apply hover:bg-slate-700 duration-300 ease-out hover:text-white;
     }
     .light-hover-btn {
-        /* @apply hover:bg-gray-700 duration-300 ease-out hover:text-white py-1 px-2 flex items-center gap-2; */
-        /* @apply rounded-md; */
+        @apply hover:bg-slate-700 duration-300 ease-out hover:text-white py-1 px-2 flex items-center gap-2;
+        @apply rounded-md;
     }
     .primary-light-hover-animation {
         /* @apply hover:bg-primary hover:bg-opacity-10  duration-300 ease-out; */

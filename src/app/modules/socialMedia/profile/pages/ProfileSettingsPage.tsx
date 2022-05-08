@@ -12,14 +12,17 @@ type Props = {};
 
 const ProfileSettingsPage = (props: Props) => {
     return (
-        <div className="p-4 gap-4 flex">
+        <div className="p-4 gap-8 flex">
             <Tab.Group vertical>
-                <Tab.List className="grid  gap-4  max-w-[200px] ">
+                <div className='max-w-[320px] w-full'>
+
+                <Tab.List className="grid  gap-4  ">
                     <StyledSettingsTab><UserIcon className='h-5 w-5'/> Profile</StyledSettingsTab>
                     <StyledSettingsTab><ShareIcon className='h-5 w-5'/> Allowance</StyledSettingsTab>
                     <StyledSettingsTab danger>  <ShieldExclamationIcon className='h-5 w-5'/>Danger Zone</StyledSettingsTab>
                 </Tab.List>
-                <Tab.Panels className=" flex-grow p-8 rounded-xl sunken-element">
+                </div>
+                <Tab.Panels className="flex-grow">
                     <Tab.Panel>
                         <ProfileSettings/>
                     </Tab.Panel>

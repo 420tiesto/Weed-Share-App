@@ -46,7 +46,7 @@ const SignUp: React.FC<Props> = ({ setStep }) => {
     };
 
     return (
-        <div className="flex flex-col gap-4 items-center mx-auto mt-8 max-w-screen-lg ">
+        <div className="flex flex-col gap-4 items-center mx-auto mt-8 max-w-screen-lg  ">
             <div className="relative sunken-element overflow-hidden bg-dark-gray flex flex-col  rounded-2xl h-[80vh]  w-full  py-8 px-16">
                 {/* Prnts Logo */}
                 <div className="absolute right-0 top-0 p-8 rounded-bl-2xl sunken-element">

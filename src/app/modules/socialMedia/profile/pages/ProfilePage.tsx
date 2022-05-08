@@ -48,7 +48,7 @@ const ProfilePage = () => {
     };
 
     return (
-        <div className="p-4 min-h-screen">
+        <div className="min-h-screen">
             <div className="overflow-hidden min-h-full  max-w-screen-xl mx-auto container sunken-element">
                 <div className="relative p-4">
                     <img

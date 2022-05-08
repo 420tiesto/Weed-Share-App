@@ -11,9 +11,9 @@ type Props = {
 const Container = ({ children }: Props) => {
     return <>
     <Navbar/>
-    <div className='max-w-screen-xl pt-16 mx-auto  container p-4'>{children}</div>
+    <div className='max-w-screen-xl pt-16 mx-auto  container'>{children}</div>
     <div className='flex justify-center'>
-    <p className="mx- mb-4">{copyright}</p>
+    <p className=" my-4">{copyright}</p>
     </div>
     </> 
 }

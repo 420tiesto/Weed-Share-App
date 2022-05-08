@@ -422,3 +422,61 @@ export const CREATE_POST_TYPED_DATA = `
    }
  }
 `;
+
+export const CREATE_SET_PROFILE_METADATA_TYPED_DATA = `
+  mutation($request: CreatePublicSetProfileMetadataURIRequest!) { 
+    createSetProfileMetadataTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          SetProfileMetadataURIWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          metadata
+        }
+      }
+    }
+  }
+`;
+
+export const CREATE_SET_PROFILE_IMAGE_URI_TYPED_DATA = `
+  mutation($request: UpdateProfileImageRequest!) { 
+    createSetProfileImageURITypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          SetProfileImageURIWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+            deadline
+            imageURI
+            profileId
+        }
+      }
+    }
+ }
+`;

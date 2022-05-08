@@ -26,6 +26,7 @@ export function login() {
         const tokens = await authenticate(address, signature);
         dispatch(storeLensToken(tokens.data.authenticate));
         setStorageValue(LENS_TOKENS, JSON.stringify(tokens.data.authenticate));
+        console.log(tokens, 'tokens');
         return tokens;
     };
 }

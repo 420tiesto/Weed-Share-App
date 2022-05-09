@@ -74,6 +74,10 @@
         box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.15), 6px 6px 12px rgba(0, 0, 0, 0.3);
     }
 
+    .btn{
+        @apply rounded-full font-semibold py-2 px-6 flex items-center gap-2 duration-300 ease-out whitespace-nowrap;        
+    }
+
     .green-btn{
         @apply bg-green-500  duration-300 ease-out  w-full text-white py-2 hover:bg-primary rounded-full font-semibold;
     }

@@ -5,7 +5,7 @@ import { splitSignature } from '../../../../../services/ethers-service';
 
 const postPublication = async ({
     postMetadata,
-    profileId = '0x01f3',
+    profileId = '0x63',
 }: {
     profileId?: string;
     postMetadata: string;
@@ -36,9 +36,9 @@ const postPublication = async ({
         profileId: typedData.value.profileId,
         contentURI: typedData.value.contentURI,
         collectModule: typedData.value.collectModule,
-        collectModuleData: typedData.value.collectModuleData,
+        collectModuleInitData: typedData.value.collectModuleInitData,
         referenceModule: typedData.value.referenceModule,
-        referenceModuleData: typedData.value.referenceModuleData,
+        referenceModuleInitData: typedData.value.referenceModuleInitData,
         sig: {
             v,
             r,

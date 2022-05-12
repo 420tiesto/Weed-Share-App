@@ -5,6 +5,17 @@ export const pinJSONToIPFS = async (json: object, pinataMetadata?: object) => {
     const data = {
         pinataContent: json,
         pinataMetadata: {},
+        pinataOptions: {
+            cidVersion: 1,
+        },
+        customPinPolicy: {
+            regions: [
+                {
+                    id: 'NYC1',
+                    desiredReplicationCount: 2
+                }
+            ]
+        }
     };
     if (pinataMetadata) {
         data.pinataMetadata = pinataMetadata;
@@ -13,7 +24,6 @@ export const pinJSONToIPFS = async (json: object, pinataMetadata?: object) => {
     const pinataSecretApiKey = process.env.REACT_APP_PINATA_API_SECRET || '';
     try {
         const res = await axios.post(url, data, {
-            maxContentLength: Infinity,
             headers: {
                 pinata_api_key: pinataApiKey,
                 pinata_secret_api_key: pinataSecretApiKey,

@@ -414,13 +414,13 @@ export const CREATE_POST_TYPED_DATA = `
         profileId
         contentURI
         collectModule
-        collectModuleData
+        collectModuleInitData
         referenceModule
-        referenceModuleData
+        referenceModuleInitData
       }
     }
-   }
- }
+  }
+  }
 `;
 
 export const CREATE_SET_PROFILE_METADATA_TYPED_DATA = `

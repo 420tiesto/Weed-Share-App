@@ -13,12 +13,11 @@ import getAttributeType from '../../../../../../utils/get-attribute-type';
 import getIPFSUrlLink from '../../../../../../utils/get-ipfs-url-link';
 import { createPostMetadata } from '../../../../../../utils/create-post-metadata';
 import { pinJSONToIPFS } from '../../../../../../utils/upload-json';
-import Navbar from '../../../../../../components/header/navbar/Navbar';
-import Container from '../../../../../../components/common-ui/container/Container';
 import { copyright } from '../../../../../../constants';
 import { isUsingWallet } from '../../../../../../services/ethers-service';
 import { setWalletModalOpen } from '../../../../../../state/actions';
 import { useAppDispatch } from '../../../../../../state/configure-store';
+import { login } from '../../../auth/services/lens-login';
 
 const CreateProjectFlow = () => {
     const dispatch = useAppDispatch();
@@ -41,7 +40,6 @@ const CreateProjectFlow = () => {
         });
     };
 
-    console.log(albumDetails, '****** check this');
     const createProject = async () => {
         // TODO: Check if user has selected a profile
         const isUsingMetamaskWallet = await isUsingWallet();
@@ -63,13 +61,13 @@ const CreateProjectFlow = () => {
                     language,
                     primaryGenre,
                     recordLabel,
-                    recordDate,
+                    releaseDate,
                     secondaryGenre,
                     albumCoverType,
                 } = currentAlbumDetails;
                 const attributes = [
                     getAttributeType('string', 'Artist Name', artistName),
-                    getAttributeType('date', 'Release Date', new Date(recordDate)),
+                    getAttributeType('date', 'Release Date', new Date(releaseDate)),
                     getAttributeType('string', 'Record Label', recordLabel),
                     getAttributeType('string', 'Language', language.name),
                     getAttributeType('string', 'Primary Genre', primaryGenre.name),
@@ -97,7 +95,7 @@ const CreateProjectFlow = () => {
                 const jsonMetadata = {
                     name: recordLabel,
                 };
-                const contentURI = await pinJSONToIPFS(postMetadata, jsonMetadata);
+                const { IpfsHash: contentURI } = await pinJSONToIPFS(postMetadata, jsonMetadata);
                 await postPublication({ postMetadata: contentURI });
             },
         });
@@ -124,24 +122,21 @@ const CreateProjectFlow = () => {
     };
     return (
         <>
-            <Navbar />
-            <Container>
-                {step === 1 && <UploadMusic ref={uploadMusicRef} />}
-                {step === 2 && <AddTrack ref={createProjectRef} />}
-                <div className="flex justify-between">
-                    <button
-                        onClick={previousStep}
-                        className={classNames('green-btn max-w-fit px-10 mt-8', {
-                            invisible: step === 1,
-                        })}>
-                        Previous
-                    </button>
-                    <button onClick={nextStep} className="green-btn max-w-fit px-10 mt-8">
-                        {step === 2 ? 'Create Project' : 'Next'}
-                    </button>
-                </div>
-                <p className="mx-auto bottom-4 col-span-2">{copyright}</p>
-            </Container>
+            {step === 1 && <UploadMusic ref={uploadMusicRef} />}
+            {step === 2 && <AddTrack ref={createProjectRef} />}
+            <div className="flex justify-between">
+                <button
+                    onClick={previousStep}
+                    className={classNames('green-btn max-w-fit px-10 mt-8', {
+                        invisible: step === 1,
+                    })}>
+                    Previous
+                </button>
+                <button onClick={nextStep} className="green-btn max-w-fit px-10 mt-8">
+                    {step === 2 ? 'Create Project' : 'Next'}
+                </button>
+            </div>
+            <p className="mx-auto bottom-4 col-span-2">{copyright}</p>
         </>
     );
 };

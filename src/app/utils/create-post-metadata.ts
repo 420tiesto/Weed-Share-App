@@ -1,8 +1,3 @@
-/*
-    (c) 2022 b.trax
-    This code is licensed under GPLv3 license (see LICENSE for details)
-*/
-
 import { v4 as uuid } from 'uuid';
 import { appId } from '../constants';
 

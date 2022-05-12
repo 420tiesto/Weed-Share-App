@@ -1,3 +1,4 @@
-import store from './configure-store';
+import store, { persistor } from './configure-store';
 
 export default store;
+export { persistor };

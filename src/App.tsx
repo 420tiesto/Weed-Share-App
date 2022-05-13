@@ -12,12 +12,12 @@ function App() {
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
             <Provider store={store}>
-                <PersistGate loading={<Loader />} persistor={persistor}>
+                {/* <PersistGate loading={<Loader />} persistor={persistor}> */}
                     <Router>
                         <AppRoutes />
                         <ConnectWalletModal />
                     </Router>
-                </PersistGate>
+                {/* </PersistGate> */}
             </Provider>
         </Web3ReactProvider>
     );

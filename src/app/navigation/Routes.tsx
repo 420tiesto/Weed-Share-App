@@ -7,6 +7,7 @@ import ProfilePage from '../modules/socialMedia/components/profile/pages/Profile
 import ProfileSettingsPage from '../modules/socialMedia/components/profile/pages/ProfileSettingsPage';
 import CreateProjectFlow from '../modules/socialMedia/components/project/createProject/createProjectFlow';
 import ProjectPage from '../modules/socialMedia/components/project/projectPage/components/ProjectPage';
+import DesignSystem from '../components/common-ui/DesignSystem';
 
 const AppRoutes = () => {
     return (
@@ -19,6 +20,8 @@ const AppRoutes = () => {
                 <Route path="/profile-settings" element={<ProfileSettingsPage />} />
                 <Route path="/upload-music" element={<CreateProjectFlow />} />
                 <Route path="/project" element={<ProjectPage />} />
+                {/* Dev Route for Design System reference */}
+                <Route path="/design" element={<DesignSystem />} />
             </Routes>
         </Container>
     );

@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
                     'border-red-500 hover:bg-red-500 active:bg-red-500 focus:bg-red-500  text-red-500 hover:text-red-400 focus:text-red-400 focus:ring-0 ': outline && variant === 'danger',
                     'border hover:bg-opacity-10 active:bg-opacity-10 focus:bg-opacity-10':outline,
                     'flex items-center  justify-center space-x-3': (icon || loading) && children,
-                    'px-4 py-1 text-sm':size === 'sm',
+                    'px-3 py-1 text-sm':size === 'sm',
                     'px-6 py-2':size === 'md',
                     'px-12 py-3 text-lg':size === 'lg',
                 },

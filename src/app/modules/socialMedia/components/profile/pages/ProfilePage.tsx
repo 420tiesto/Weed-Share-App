@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSetState } from 'react-use';
 import { Tab } from '@headlessui/react';
+import { useParams } from 'react-router';
 
 import Avatar from '../components/Avatar';
 import ProjectsCreated from '../components/ProjectsCreated';
@@ -12,45 +13,58 @@ import { getProfileByAddressRequest, getProfiles } from '../services/get-profile
 import { getPublications } from '../services/get-publications';
 import getIPFSUrlLink from '../../../../../utils/get-ipfs-url-link';
 import ProjectsJoined from '../components/ProjectsJoined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../../state/configure-store';
+import { useSelector } from 'react-redux';
+import { getUserProfile } from '../../auth/state/auth.reducer';
+import { getStorageValue } from '../../../../../utils/local-storage/local-storage';
+import { PUBLIC_KEY } from '../../../../../utils/local-storage/keys';
+import { setUserProfile } from '../../auth/state/auth.action';
 
-type Props = {};
+interface Props {
+    authenthicated: boolean;
+}
 
 interface State {
-    profileDetails: any[];
+    profileDetails: any;
     ownedPublications: any[];
     collectedPublications: any[];
     loading: boolean;
+    publicKey: string | null;
 }
 
 const ProfilePage: React.FC<Props> = (props: Props) => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { handle } = useParams();
     const [state, setState] = useSetState<State>({
-        profileDetails: [],
+        profileDetails: {},
         ownedPublications: [],
         collectedPublications: [],
         loading: false,
+        publicKey: getStorageValue(PUBLIC_KEY),
     });
 
-    const { profileDetails, loading, ownedPublications, collectedPublications } = state;
+    const { authenthicated } = props;
+    const { loading, ownedPublications, collectedPublications, profileDetails, publicKey } = state;
 
     useEffect(() => {
-        getProfileDetails();
+        // getProfileDetails();
+        console.log(handle, 'handle', authenthicated);
+        getProfileDetailsByHandle(handle!);
         getCollectedPublications();
-    }, []);
+    }, [profileDetails]);
 
-    // get the profile following and flowwers cout here
-    // get profile image and cover page etc.
-    // save them in state so that they can used in profile settings
-    // once eupdated again save to state.
-    const getProfileDetails = () => {
+    const getProfileDetailsByHandle = (handle: string) => {
         getProfiles({
-            ownedBy: ['0x7ED96dB37a3B20BF96F138950571E71EbFCc4B7c'],
-            limit: 10,
+            handles: [handle],
+            limit: 1,
         }).then((profile) => {
-            console.log(profile.data);
-            setState({ profileDetails: profile.data.profiles.items });
+            console.log(profile.data.profiles.items);
+            setState({ profileDetails: profile.data.profiles.items[0] });
+            dispatch(setUserProfile(profile.data.profiles.items[0]));
+            // getIPFSUrlLink(profileDetails.picture.original.url);
             getProfilePublications(profile.data.profiles.items[0].id);
-            console.log(getIPFSUrlLink(profile.data.profiles.items[0].picture.original.url));
         });
     };
 
@@ -66,7 +80,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
 
     const getCollectedPublications = () => {
         getPublications({
-            collectedBy: '0x7ED96dB37a3B20BF96F138950571E71EbFCc4B7c',
+            collectedBy: '0xBCbdb07a47f6E9dA7d4e40AFeAfe7f52053731Fd',
             publicationTypes: ['POST'],
         }).then((publications) => {
             console.log(publications, 'colectedpuvb');
@@ -78,7 +92,8 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         <div className="min-h-screen">
             <div className="overflow-hidden min-h-full  max-w-screen-xl mx-auto container sunken-element">
                 <>
-                    {profileDetails && profileDetails.length > 0 ? (
+                    {console.log(profileDetails)}
+                    {Object.keys(profileDetails).length !== 0 ? (
                         <div className="relative p-4">
                             <img
                                 src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
@@ -87,14 +102,14 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                             />
 
                             <div className="absolute top-36 pl-8 ">
-                                <Avatar imgSrc={profileDetails[0].picture.original.url} />
+                                <Avatar imgSrc={profileDetails.coverPicture} />
                             </div>
                             <div className="flex justify-between  p-8">
                                 <ProfileDetails
-                                    name={profileDetails[0].name || profileDetails[0].handle}
-                                    about={`@${profileDetails[0].handle}`}
-                                    followerCount={profileDetails[0].stats.totalFollowing}
-                                    followingCount={profileDetails[0].stats.totalFollowers}
+                                    name={profileDetails.name || profileDetails.handle}
+                                    about={`@${profileDetails.handle}`}
+                                    followerCount={profileDetails.stats.totalFollowers}
+                                    followingCount={profileDetails.stats.totalFollowing}
                                 />
                                 <div className="flex flex-col gap-4 justify-end items-end">
                                     {/* <a href="#" className="green-outline-btn px-4 max-w-fit">
@@ -102,7 +117,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                                     </a> */}
                                     <Link
                                         className="green-outline-btn px-4 max-w-fit"
-                                        to="/profile-settings">
+                                        to="/profile/settings">
                                         Edit Profile
                                     </Link>
                                     <ProfileSocials
@@ -116,37 +131,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                             </div>
                         </div>
                     ) : (
-                        <div className="relative p-4">
-                            <img
-                                src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
-                                alt=""
-                                className="w-full h-56 bg-dark-gray"
-                            />
-
-                            <div className="absolute top-36 pl-8 ">
-                                <Avatar imgSrc="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80" />
-                            </div>
-                            <div className="flex justify-between  p-8">
-                                <ProfileDetails
-                                    name="Memories of Moon"
-                                    about="memories of moon"
-                                    followerCount={50}
-                                    followingCount={200}
-                                />
-                                <div className="flex flex-col gap-4 justify-end items-end">
-                                    <a href="#" className="green-outline-btn px-4 max-w-fit">
-                                        Edit Profile
-                                    </a>
-                                    <ProfileSocials
-                                        fb=""
-                                        google=""
-                                        instagram=""
-                                        shareLink=""
-                                        twitter=""
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <div>Loading..</div>
                     )}
                 </>
 

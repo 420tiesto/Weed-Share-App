@@ -102,7 +102,7 @@ const SignUpFlow: React.FC<SignUpFlowProps> = () => {
     };
 
     if (step === 1) {
-        return <SignUp setStep={setStep} />;
+        // return <SignUp setStep={setStep} />;
     }
 
     return <UploadNfts setStep={setStep} submit={submit} />;

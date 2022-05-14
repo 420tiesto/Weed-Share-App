@@ -54,7 +54,7 @@ const ConnectWalletModal = (props: Props) => {
                                     <span className="text-primary"> wallet </span> providers or
                                     create a new one.
                                 </p>
-                                <Connectors />
+                                {/* <Connectors /> */}
                             </div>
                         </div>
                     </Transition.Child>

@@ -4,6 +4,7 @@ import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { Wallet } from '@ethersproject/wallet';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
 import { Deferrable } from 'ethers/lib/utils';
+import { PRIVATE_KEY, PUBLIC_KEY } from '../utils/local-storage/keys';
 
 export const ethersProvider = () => {
     return window?.ethereum
@@ -13,7 +14,7 @@ export const ethersProvider = () => {
 
 export const getLibrary = (provider: any) => {
     return new Web3Provider(provider);
-}
+};
 
 export const getSigner = (): Wallet | JsonRpcSigner => {
     if (window?.ethereum) {
@@ -30,7 +31,8 @@ export const getSigner = (): Wallet | JsonRpcSigner => {
     } else {
         signer = ethers.Wallet.createRandom();
         signer.connect(ethersProvider());
-        setStorageValue('PRIVATE_KEY', signer.privateKey);
+        setStorageValue(PRIVATE_KEY, signer.privateKey);
+        setStorageValue(PUBLIC_KEY, signer.publicKey);
     }
     return signer;
 };

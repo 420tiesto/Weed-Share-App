@@ -27,3 +27,7 @@ export const REFRESH_TOKEN = 'REFRESH_TOKEN';
  * Stores the username and email temporarily while signing up
  */
 export const USER_PROFILE = 'USER_PROFILE';
+
+export const PRIVATE_KEY = 'PRIVATE_KEY';
+
+export const PUBLIC_KEY = 'PUBLIC_KEY';

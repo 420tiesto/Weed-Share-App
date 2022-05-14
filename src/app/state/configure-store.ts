@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
+import { authReducer } from '../modules/socialMedia/components/auth/state/auth.reducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { projectReducer } from '../modules/socialMedia/components/project/state';
@@ -12,16 +13,16 @@ const persistConfig = {
 };
 
 // Import and combine all the reducers here
-const rootReducer = combineReducers({ globalReducer, projectReducer });
+const rootReducer = combineReducers({ globalReducer, projectReducer, authReducer });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 

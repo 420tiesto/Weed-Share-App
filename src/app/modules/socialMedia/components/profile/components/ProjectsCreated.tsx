@@ -13,7 +13,7 @@ const ProjectsCreated: React.FC<Props> = (props: Props) => {
     // console.log(ownedPublications);
     return (
         <>
-            {ownedPublications && ownedPublications.length > 0 ? (
+            {/* {ownedPublications && ownedPublications.length > 0 ? ( */}
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow  gap-8 p-4">
                     <CardItem
                         text="Cold Inner fire"
@@ -58,9 +58,9 @@ const ProjectsCreated: React.FC<Props> = (props: Props) => {
                         imgSrc={PLACEHOLDER_IMAGE_SRC}
                     />
                 </div>
-            ) : (
-                <div>No Projects Created</div>
-            )}
+            {/* ) : ( */}
+                {/* <div>No Projects Created</div> */}
+            {/* )} */}
         </>
     );
 };

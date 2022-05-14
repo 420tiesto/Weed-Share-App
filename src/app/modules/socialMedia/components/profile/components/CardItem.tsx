@@ -1,5 +1,6 @@
+import { HeartIcon } from '@heroicons/react/outline';
 import React from 'react';
-import HeartIcon from '../../../../../icons/HeartIcon';
+import { Card } from '../../../../../components/common-ui/atoms/Card';
 
 interface CardItemProps {
     imgSrc: string;
@@ -10,19 +11,19 @@ interface CardItemProps {
 
 const CardItem = ({ imgSrc, text, subText, likeCount }: CardItemProps) => {
     return (
-        <div className="elevated-element hover:scale-105 duration-200 ease-out cursor-pointer flex max-w-[260px]  flex-col rounded-3xl overflow-hidden">
-            <div className="h-[200px] ">
+        <Card variant='elevated' rounded='2xl' className='max-w-[280px]'>
+            <div className="h-[200px]">
                 <img src={imgSrc} alt={text} className="h-full object-cover object-center" />
             </div>
             <div className="p-4 shadow-bottom">
-                <p className="text-gray-500 text-sm font-medium">{subText}</p>
+                <p className="text-slate-500 text-sm font-medium">{subText}</p>
                 <p className="font-semibold">{text}</p>
             </div>
-            <button className="flex items-center gap-2 justify-end p-4">
-                <HeartIcon />
+            <button className="flex w-full items-center gap-2 justify-end p-4">
+                <HeartIcon className="h-6 w-6" />
                 {likeCount}
             </button>
-        </div>
+        </Card>
     );
 };
 

@@ -10,6 +10,7 @@ import ProjectPage from '../modules/socialMedia/components/project/projectPage/c
 import SignUp from '../modules/socialMedia/components/auth/components/signUp/SignUp';
 import Home from '../modules/socialMedia/components/home/pages/Home';
 import DesignSystem from '../components/common-ui/DesignSystem';
+import ExplorePage from '../modules/socialMedia/components/explore/components/ExplorePage';
 
 export const HOME_PAGE = '/';
 export const LOGIN = '/login';
@@ -38,6 +39,7 @@ const AppRoutes: React.FC<Props> = (props: Props) => {
                 />
                 <Route path="/upload-music" element={<CreateProjectFlow />} />
                 <Route path="/project" element={<ProjectPage />} />
+                <Route path="/explore" element={<ExplorePage />} />
                 <Route path={HOME_PAGE} element={<Home />} />
                 {/* Dev Route for Design System reference */}
                 <Route path="/design" element={<DesignSystem />} />

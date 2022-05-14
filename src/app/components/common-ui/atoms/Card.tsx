@@ -29,7 +29,7 @@ export const Card: React.FC<CardProps> = ({ children,rounded, className, color, 
                     'bg-gray': color === 'light',
                     'bg-dark-gray': color === 'dark',
                 },
-                `rounded-${rounded}`,
+                `rounded-${rounded} overflow-hidden`,
                 className
             )}>
             {children}

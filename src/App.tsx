@@ -1,7 +1,6 @@
 import { Provider } from 'react-redux';
 import { Web3ReactProvider } from '@web3-react/core';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react'
 import ConnectWalletModal from './app/modules/socialMedia/components/auth/components/connectWallet/ConnectWalletModal';
 import store, { persistor } from './app/state';
 import AppRoutes from './app/navigation/Routes';
@@ -13,10 +12,10 @@ function App() {
         <Web3ReactProvider getLibrary={getLibrary}>
             <Provider store={store}>
                 {/* <PersistGate loading={<Loader />} persistor={persistor}> */}
-                    <Router>
-                        <AppRoutes />
-                        <ConnectWalletModal />
-                    </Router>
+                <Router>
+                    <AppRoutes />
+                    <ConnectWalletModal />
+                </Router>
                 {/* </PersistGate> */}
             </Provider>
         </Web3ReactProvider>

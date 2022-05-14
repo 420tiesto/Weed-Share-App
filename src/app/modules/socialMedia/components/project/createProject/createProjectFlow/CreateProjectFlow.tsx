@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import classNames from 'classnames';
+import clsx from 'clsx';
+
 import UploadMusic from '../uploadMusic/UploadMusic';
 import AddTrack from '../addTrack/AddTrack';
 import { storeAlbumDetails } from '../../state/actions';
@@ -12,7 +13,7 @@ import postPublication from '../../services/post-publication';
 import getAttributeType from '../../../../../../utils/get-attribute-type';
 import getIPFSUrlLink from '../../../../../../utils/get-ipfs-url-link';
 import { createPostMetadata } from '../../../../../../utils/create-post-metadata';
-import { pinJSONToIPFS } from '../../../../../../utils/upload-json';
+import { uploadWeb3Json } from '../../../../../../utils/upload-json';
 import { copyright } from '../../../../../../constants';
 import { isUsingWallet } from '../../../../../../services/ethers-service';
 import { setWalletModalOpen } from '../../../../../../state/actions';
@@ -72,6 +73,8 @@ const CreateProjectFlow = () => {
                     getAttributeType('string', 'Language', language.name),
                     getAttributeType('string', 'Primary Genre', primaryGenre.name),
                     getAttributeType('string', 'Secondary Genre', secondaryGenre),
+                    getAttributeType('string', 'Album Cover', getIPFSUrlLink(albumCover)),
+                    getAttributeType('string', 'Album Cover Type', albumCoverType),
                     getAttributeType('number', 'Number of Tracks', tracks.length),
                 ];
                 let media = [];
@@ -95,7 +98,7 @@ const CreateProjectFlow = () => {
                 const jsonMetadata = {
                     name: recordLabel,
                 };
-                const { IpfsHash: contentURI } = await pinJSONToIPFS(postMetadata, jsonMetadata);
+                const contentURI = await uploadWeb3Json(recordLabel, JSON.stringify(postMetadata));
                 await postPublication({ postMetadata: contentURI });
             },
         });
@@ -127,7 +130,7 @@ const CreateProjectFlow = () => {
             <div className="flex justify-between">
                 <button
                     onClick={previousStep}
-                    className={classNames('green-btn max-w-fit px-10 mt-8', {
+                    className={clsx('green-btn max-w-fit px-10 mt-8', {
                         invisible: step === 1,
                     })}>
                     Previous

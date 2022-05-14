@@ -5,7 +5,7 @@ import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { type TrackDetails } from '../../types';
 import styles from './styles';
 import UploadMusic from '../../../../../../components/common-ui/upload-music';
-import { pinJSONToIPFS } from '../../../../../../utils/upload-json';
+import { uploadWeb3Json } from '../../../../../../utils/upload-json';
 import { pinImageToIPFS } from '../../../../../../utils/upload-file';
 
 type Props = {
@@ -37,11 +37,8 @@ const Track = ({ index, removeTrack, updateTrack }: Props) => {
 
     const onSubmit: SubmitHandler<TrackDetails> = async (data: TrackDetails) => {
         console.log(data);
-        const metadata = {
-            name: data.songTitle,
-        };
-        const { IpfsHash } = await pinJSONToIPFS(data, metadata);
-        updateTrack(index, data, IpfsHash);
+        const contentUri = await uploadWeb3Json(data.songTitle, JSON.stringify(data));
+        updateTrack(index, data, contentUri);
     };
 
     const uploadTrackFile = async (files: any) => {

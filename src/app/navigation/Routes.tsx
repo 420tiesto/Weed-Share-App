@@ -18,7 +18,7 @@ export const SIGNUP = '/signup';
 export const PROFILE = '/profile/:handle';
 export const CREATE_PROJECT = '/upload-music';
 export const PROFILE_SETTINGS = '/profile/settings';
-export const PROJECT = '/project';
+export const PROJECT = '/project/:projectId';
 
 interface Props {
     authenthicated: boolean;
@@ -38,7 +38,7 @@ const AppRoutes: React.FC<Props> = (props: Props) => {
                     element={<ProfileSettingsPage authenticated={authenthicated} />}
                 />
                 <Route path="/upload-music" element={<CreateProjectFlow />} />
-                <Route path="/project" element={<ProjectPage />} />
+                <Route path={PROJECT} element={<ProjectPage />} />
                 <Route path="/explore" element={<ExplorePage />} />
                 <Route path={HOME_PAGE} element={<Home />} />
                 {/* Dev Route for Design System reference */}

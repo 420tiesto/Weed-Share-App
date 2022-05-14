@@ -1,7 +1,7 @@
 import { useDropzone } from 'react-dropzone';
+import clsx from 'clsx';
 import UploadIcon from '../../../icons/UploadIcon';
 import Loader from '../loader';
-import classNames from 'classnames';
 
 interface UploadProps {
     uploadHelper: (evt: any) => void;
@@ -30,7 +30,7 @@ const Upload: React.FC<UploadProps> = ({
             <div className="pt-4">
                 <div
                     {...getRootProps()}
-                    className={classNames(
+                    className={clsx(
                         { 'p-16': !imageLink },
                         { 'w-64 h-64': !!imageLink },
                         'bg-gray-700 mb-4 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-400'

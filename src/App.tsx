@@ -1,6 +1,7 @@
 import { Provider, useDispatch } from 'react-redux';
 import { Web3ReactProvider } from '@web3-react/core';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { QueryClientProvider } from 'react-query';
 import ConnectWalletModal from './app/modules/socialMedia/components/auth/components/connectWallet/ConnectWalletModal';
 import store, { persistor } from './app/state';
 import AppRoutes from './app/navigation/Routes';
@@ -9,6 +10,7 @@ import { useEffect } from 'react';
 import { useSetState } from 'react-use';
 import { getStorageValue } from './app/utils/local-storage/local-storage';
 import { LENS_TOKENS } from './app/utils/local-storage/keys';
+import queryClient from './app/services/query-client';
 import { setUserAuthenticated } from './app/modules/socialMedia/components/auth/state/auth.action';
 
 interface State {
@@ -45,6 +47,7 @@ function App(): JSX.Element {
     });
 
     return (
+        <QueryClientProvider client={queryClient}>
         <Web3ReactProvider getLibrary={getLibrary}>
             <Provider store={store}>
                 {/* <PersistGate loading={<Loader />} persistor={persistor}> */}
@@ -54,7 +57,7 @@ function App(): JSX.Element {
                 </Router>
                 {/* </PersistGate> */}
             </Provider>
-        </Web3ReactProvider>
+        </Web3ReactProvider></QueryClientProvider>
     );
 }
 

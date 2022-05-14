@@ -1,8 +1,6 @@
 import { useDropzone } from 'react-dropzone';
 import { UploadIcon, CheckIcon } from '@heroicons/react/outline';
 import Loader from '../loader';
-import classNames from 'classnames';
-
 interface UploadProps {
     uploadHelper: (evt: any) => void;
     showLoader?: boolean;

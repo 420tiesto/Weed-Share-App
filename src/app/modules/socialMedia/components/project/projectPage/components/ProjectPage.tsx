@@ -1,16 +1,42 @@
 import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline';
 import { EyeIcon, HeartIcon } from '@heroicons/react/solid';
-import React from 'react';
+import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime';
 import MaticIcon from '../../../../../../icons/MaticIcon';
 import AirdropDetails from './AirdropDetails';
 import ProjectActivity from './ProjectActivity';
 import ProjectImageCard from './ProjectImageCard';
+import { useGetPublication } from '../../services/get-publication';
+import Loader from '../../../../../../components/common-ui/loader';
+
+dayjs.extend(relativeTime)
 
 type Props = {};
 
 const ProjectPage = (props: Props) => {
-    const imageLink =
-        'https://images.unsplash.com/photo-1651648814980-55936f67f9f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80';
+    const { projectId } = useParams();
+    const { data: { data: { publication = {} } = {} } = {}, isLoading } = useGetPublication(
+        projectId,
+        {
+            enabled: !!projectId,
+        }
+    );
+
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    const {
+        metadata: { attributes },
+        profile: { stats }
+    } = publication as any;
+    const [artistName, releaseDate, recordLabel, , , , albumCover, , , ...tracks] =
+        attributes as any;
+
+    const imageLink = albumCover.value;
+    const releaseDateFromNow = dayjs(releaseDate.value).fromNow();
+
     return (
         <div className="sunken-element flex gap-8 p-8">
             {/* Left Section */}
@@ -18,25 +44,25 @@ const ProjectPage = (props: Props) => {
                 <ProjectImageCard likes={101} imgSrc={imageLink} />
                 <div className="flex item-center gap-4 mt-4">
                     <HashtagIcon className="h-6 w-6" />
-                    0x325gg54y
+                    {projectId}
                 </div>
                 <div className="flex item-center gap-4 mt-4">
-                    <UsersIcon className="h-6 w-6" />4 members
+                    <UsersIcon className="h-6 w-6" />{stats.totalFollowers} members
                 </div>
                 <div className="flex item-center gap-4 mt-4">
-                    <UsersIcon className="h-6 w-6" />4 posts
+                    <UsersIcon className="h-6 w-6" />{stats.totalPosts} posts
                 </div>
                 <div className="flex item-center gap-4 mt-4">
-                    <ClockIcon className="h-6 w-6" />7 days ago
+                    <ClockIcon className="h-6 w-6" />{releaseDateFromNow}
                 </div>
             </div>
             {/* Right Section */}
             <div className="flex-grow">
-                <p className="text-sm text-primary">Cold inner Fire </p>
-                <h6 className="text-2xl font-bold mb-3">Cold Inner Fire #3447</h6>
+                {/* <p className="text-sm text-primary">Cold inner Fire </p> */}
+                <h6 className="text-2xl font-bold mb-3">{recordLabel.value}</h6>
                 <div className="flex items-center  gap-4 text-slate-400 ">
                     <p>
-                        Owned by <span className="text-primary">cold inner fire</span>
+                        Owned by <span className="text-primary">{artistName.value}</span>
                     </p>
                     <div className="flex items-center gap-4">
                         <EyeIcon className="h-5 w-5" /> 230 views

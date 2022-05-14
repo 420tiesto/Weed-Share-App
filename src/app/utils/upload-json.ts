@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Web3Storage } from 'web3.storage';
 
 export const pinJSONToIPFS = async (json: object, pinataMetadata?: object) => {
     const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
@@ -37,3 +38,14 @@ export const pinJSONToIPFS = async (json: object, pinataMetadata?: object) => {
         return {};
     }
 };
+
+export const uploadWeb3Json = async (name: string, data: string) => {
+    const client = new Web3Storage({token: process.env.REACT_APP_WEB3KEY || ''})
+
+    const blob = new Blob([data], {type: 'application/json'});
+    const files = [new File([blob], name)];
+    const cid = await client.put(files, { wrapWithDirectory: false});
+
+    console.log('stored files with cid:', cid);
+    return cid;
+}

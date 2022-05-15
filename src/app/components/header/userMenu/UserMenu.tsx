@@ -41,7 +41,9 @@ const UserMenu: React.FC<Props> = (props: Props) => {
                 name={profileDetails.name}
                 handle={profileDetails.handle}
                 imageURI={
-                    profileDetails.picture !== null ? profileDetails.picture.original.url : ''
+                    Object.keys(profileDetails).length !== 0
+                        ? profileDetails.picture.original.url
+                        : ''
                 }
             />
             {/* If menu is in default state */}

@@ -1,21 +1,30 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import UserMenu from '../userMenu/UserMenu';
 import Navlink from './Navlink';
+import { CREATE_PROJECT, EXPLORE } from '../../../routes/Routes';
+import { getUserHandle } from '../../../../modules/auth/state/auth.reducer';
 
 export type NavlinkType = {
     name: string;
     href: string;
 };
 
-const NAVBAR_LINKS: NavlinkType[] = [
-    { name: 'Home', href: '/' },
-    { name: 'Explore', href: '/explore' },
-    // {name:'Communities',href:'/communities'},
-    // {name:'More',href:'/more'},
-];
-
-const Navbar: React.FC = (props) => {
+const Navbar: React.FC = ({}) => {
+    const userHandle = useSelector(getUserHandle);
+    const NAVBAR_LINKS: NavlinkType[] = [
+        { name: 'Home', href: '/' },
+        { name: 'Explore', href: EXPLORE },
+        // { name: 'Upload Album', href: CREATE_PROJECT },
+        // {name:'Communities',href:'/communities'},
+        // {name:'More',href:'/more'},
+    ];
+    if (userHandle) {
+        NAVBAR_LINKS.push(
+            { name: 'Upload Album', href: CREATE_PROJECT },
+        );
+    }
     return (
         <header className="bg-dark-gray px-4 fixed w-full shadow h-16 top-0 z-40 py-2">
             <nav className="flex items-center h-full justify-between max-w-screen-xl mx-auto">

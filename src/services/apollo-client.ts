@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import { ApolloClient, DefaultOptions } from '@apollo/client/core';
 import { InMemoryCache } from '@apollo/client/cache';
 import { ApolloLink } from '@apollo/client/link/core';
 import { LENS_TOKENS } from '../utils/local-storage/keys';
@@ -26,7 +26,19 @@ const authLink = new ApolloLink((operation, forward) => {
     return forward(operation);
 });
 
+const defaultOptions: DefaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  };
+
 export const apolloClient = new ApolloClient({
     link: authLink.concat(network.mumbaiTestnet),
     cache: new InMemoryCache(),
+    defaultOptions,
 });

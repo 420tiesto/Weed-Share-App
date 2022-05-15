@@ -17,7 +17,7 @@ interface State {
     authenticated: boolean;
 }
 
-const AppContainer: React.FC<Props> = (props: Props) => {
+const AppContainer: React.FC<Props> = ({}: Props) => {
     const dispatch = useDispatch();
     const auth = getStorageValue(LENS_TOKENS);
     const address = getStorageValue(PRNTS_PUBLIC_KEY);

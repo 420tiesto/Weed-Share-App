@@ -1,16 +1,99 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
-import { storeAlbumDetails } from './actions';
+import {
+    storeAlbumDetails,
+    addTrackDetails,
+    deleteTrackDetails,
+    updateTrackDetails,
+    resetAllDetails,
+} from './actions';
+import { type TrackDetails, type AlbumDetails } from '../types';
 
-export const initialState = {
-    albumDetails: {},
-    tracks: [],
+export const initialState: {
+    albumDetails: AlbumDetails;
+    tracks: TrackDetails[];
+} = {
+    albumDetails: {
+        artistName: '',
+        releaseDate: new Date(),
+        recordLabel: '',
+        language: {
+            name: '',
+            id: 0,
+            value: '',
+        },
+        primaryGenre: {
+            name: '',
+            id: 0,
+            value: '',
+        },
+        secondaryGenre: '',
+        albumCover: '',
+        albumCoverType: '',
+    },
+    tracks: [
+        {
+            id: uuidv4(),
+            songTitle: '',
+            hasFeaturedArtist: false,
+            isRadioEdit: false,
+            audioFile: '',
+            audioFileType: '',
+            songType: 'original',
+            songWriterFirstName: '',
+            songWriterLastName: '',
+            hasExplicitLyrics: false,
+            isInstrumental: false,
+            specifyPreview: false,
+            trackPrice: 0,
+            maticTrackPrice: 0,
+            ipfsHash: '',
+        },
+    ],
 };
 
 const projectReducer = createReducer(initialState, (builder) => {
-    builder.addCase(storeAlbumDetails, (state, action) => {
-        state.albumDetails = { ...action.payload || {} };
-    })
+    builder
+        .addCase(storeAlbumDetails, (state, action) => {
+            state.albumDetails = { ...(action.payload || {}) };
+        })
+        .addCase(addTrackDetails, (state, action) => {
+            state.tracks.push(action.payload);
+        })
+        .addCase(deleteTrackDetails, (state, action) => {
+            state.tracks = state.tracks.filter((track) => track.id !== action.payload.id);
+        })
+        .addCase(updateTrackDetails, (state, action) => {
+            state.tracks = state.tracks.map((track) => {
+                if (track.id === action.payload.id) {
+                    return { ...track, ...action.payload };
+                }
+                return track;
+            });
+        })
+        .addCase(resetAllDetails, (state) => {
+            state.albumDetails = { ...initialState.albumDetails };
+            state.tracks = [
+                {
+                    id: uuidv4(),
+                    songTitle: '',
+                    hasFeaturedArtist: false,
+                    isRadioEdit: false,
+                    audioFile: '',
+                    audioFileType: '',
+                    songType: 'original',
+                    songWriterFirstName: '',
+                    songWriterLastName: '',
+                    hasExplicitLyrics: false,
+                    isInstrumental: false,
+                    specifyPreview: false,
+                    trackPrice: 0,
+                    maticTrackPrice: 0,
+                    ipfsHash: '',
+                },
+            ];
+        });
 });
 
 export default projectReducer;

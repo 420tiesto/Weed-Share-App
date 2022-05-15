@@ -20,7 +20,7 @@ export const HOME_PAGE = '/';
 export const LOGIN = '/login';
 export const SIGNUP = '/signup';
 export const PROFILE = '/profile/:handle';
-export const CREATE_PROJECT = '/upload-music';
+export const CREATE_PROJECT = '/upload-album';
 export const PROFILE_SETTINGS = '/profile/settings';
 export const PROJECT = '/project/:projectId';
 export const EXPLORE = '/explore';
@@ -53,7 +53,7 @@ const AppRoutes: React.FC<Props> = (props: Props) => {
             <Route path={LOGIN} element={<Login />} />
             <Route path={PROFILE} element={<ProfilePage />} />
             <Route path={PROFILE_SETTINGS} element={<ProfileSettingsPage />} />
-            <Route path="/upload-music" element={<CreateProjectFlow />} />
+            <Route path={CREATE_PROJECT} element={<CreateProjectFlow />} />
             <Route path={PROJECT} element={<ProjectPage />} />
             <Route path={EXPLORE} element={<ExplorePage />} />
             <Route path={HOME_PAGE} element={<Home />} />

@@ -1,16 +1,16 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
 import UploadMusic from '../uploadMusic/UploadMusic';
 import AddTrack from '../addTrack/AddTrack';
-import { storeAlbumDetails } from '../../state/actions';
+import { resetAllDetails, storeAlbumDetails } from '../../state/actions';
 import { getAlbumDetails } from '../../state/selectors';
 
-import { type AlbumDetails } from '../types';
-import { type TrackDetails } from '../../types';
-import postPublication from '../../services/post-publication';
 import { login } from '../../../auth/services/lens-login';
+import { type AlbumDetails, type TrackDetails } from '../../types';
+import postPublication from '../../services/post-publication';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { setWalletModalOpen } from '../../../../state/actions';
 import { isUsingWallet } from '../../../../services/ethers-service';
@@ -18,10 +18,16 @@ import getAttributeType from '../../../../utils/get-attribute-type';
 import getIPFSUrlLink from '../../../../utils/get-ipfs-url-link';
 import { createPostMetadata } from '../../../../utils/create-post-metadata';
 import { uploadWeb3Json } from '../../../../utils/upload-json';
-import { copyright } from '../../../../app/constants';
+import { getUserProfile } from '../../../auth/state/auth.reducer';
+import Button from '../../../../app/components/common-ui/atoms/Button';
+import { getPublications } from '../../../profile/services/get-publications';
+import { pollUntilIndexed } from '../../../../services/has-transaction-been-indexed';
 
 const CreateProjectFlow = () => {
+    const [loader, setLoader] = useState(false);
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { id } = useSelector(getUserProfile);
     const [step, setStep] = useState(1);
     const albumDetails = useSelector(getAlbumDetails);
     const uploadMusicRef = useRef();
@@ -49,12 +55,14 @@ const CreateProjectFlow = () => {
             return;
         }
         // TODO: Check if user is logged in to lens
-        // dispatch(login());
+        // await dispatch(login());
         (createProjectRef?.current as any)?.onSubmit({
             async onSuccess(tracks: TrackDetails[]) {
                 if (!tracks[tracks.length - 1].ipfsHash) {
                     alert('Please save the track before creating the project');
+                    return;
                 }
+                setLoader(true);
                 const currentAlbumDetails = albumDetails as any;
                 const {
                     albumCover,
@@ -95,11 +103,26 @@ const CreateProjectFlow = () => {
                     albumCoverType,
                     attributes: attributes,
                 });
-                const jsonMetadata = {
-                    name: recordLabel,
-                };
                 const contentURI = await uploadWeb3Json(recordLabel, JSON.stringify(postMetadata));
-                await postPublication({ postMetadata: contentURI });
+                try {
+                    const tx = await postPublication({ postMetadata: contentURI, profileId: id });
+                    await pollUntilIndexed(tx.hash);
+                } catch (e) {
+                    console.error(e, '******* check this');
+                    setLoader(false);
+                    return;
+                    // TODO: Handle the error here
+                }
+                // TODO: Handle case when user cancels the transaction
+                const getPublicationsResult = await getPublications({ profileId: id, publicationTypes: ['POST'] });
+                const publicationID = getPublicationsResult?.data?.publications?.items[0]?.id;
+                setLoader(false);
+                if (publicationID) {
+                    dispatch(resetAllDetails());
+                    navigate(`/project/${publicationID}`);
+                } else {
+                    // TODO: Show error toast here and
+                }
             },
         });
     };
@@ -128,18 +151,20 @@ const CreateProjectFlow = () => {
             {step === 1 && <UploadMusic ref={uploadMusicRef} />}
             {step === 2 && <AddTrack ref={createProjectRef} />}
             <div className="flex justify-between">
-                <button
-                    onClick={previousStep}
-                    className={clsx('green-btn max-w-fit px-10 mt-8', {
+                <div
+                    className={clsx('mt-8', {
                         invisible: step === 1,
                     })}>
-                    Previous
-                </button>
-                <button onClick={nextStep} className="green-btn max-w-fit px-10 mt-8">
-                    {step === 2 ? 'Create Project' : 'Next'}
-                </button>
+                    <Button onClick={previousStep} variant="primary">
+                        Previous
+                    </Button>
+                </div>
+                <div className="mt-8">
+                    <Button loading={loader} onClick={nextStep} variant="primary">
+                        {step === 2 ? 'Create Project' : 'Next'}
+                    </Button>
+                </div>
             </div>
-            <p className="mx-auto bottom-4 col-span-2">{copyright}</p>
         </>
     );
 };

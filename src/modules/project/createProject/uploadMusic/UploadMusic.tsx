@@ -2,7 +2,7 @@ import React, { useState, useImperativeHandle, useRef, forwardRef } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import AutocompleteFormInput from './AutcompleteFormInput';
 import { LightBulbIcon } from '@heroicons/react/solid';
-import { type AlbumDetails } from '../types';
+import { type AlbumDetails } from '../../types';
 import { storeAlbumDetails } from '../../state/actions';
 import { useSelector } from 'react-redux';
 import { getAlbumDetails } from '../../state/selectors';

@@ -7,15 +7,20 @@ import styles from './styles';
 import { uploadWeb3Json } from '../../../../utils/upload-json';
 import { pinImageToIPFS } from '../../../../utils/upload-file';
 import UploadMusic from '../../../../app/components/common-ui/upload-music';
+import Button from '../../../../app/components/common-ui/atoms/Button';
 
 type Props = {
     index: number;
-    updateTrack: (index: number, value: TrackDetails, ipfsHash: string) => void;
-    removeTrack: (index: number) => void;
+    track: TrackDetails;
+    updateTrack: (value: TrackDetails, ipfsHash: string) => void;
+    removeTrack: (track: TrackDetails) => void;
 };
 
-const Track = ({ index, removeTrack, updateTrack }: Props) => {
-    const [loader, setLoader] = useState(false);
+const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
+    const [loader, setLoader] = useState({
+        uploadMusicFile: false,
+        uploadTrack: false,
+    });
     const {
         register,
         formState: { errors },
@@ -24,21 +29,27 @@ const Track = ({ index, removeTrack, updateTrack }: Props) => {
         setError,
         setValue,
         control,
-    } = useForm<TrackDetails>({ mode: 'onBlur' });
+    } = useForm<TrackDetails>({
+        mode: 'onBlur',
+        defaultValues: {
+            ...track,
+        },
+    });
 
     // TODO: Add proper typescript definition event for e
     const onDelete = (e: any) => {
         e.stopPropagation();
         const result = confirm('Are you sure you want to delete this track?');
         if (result) {
-            removeTrack(index);
+            removeTrack(track);
         }
     };
 
     const onSubmit: SubmitHandler<TrackDetails> = async (data: TrackDetails) => {
-        console.log(data);
+        setLoader(oldValue => ({ ...oldValue, uploadTrack: true }));
         const contentUri = await uploadWeb3Json(data.songTitle, JSON.stringify(data));
-        updateTrack(index, data, contentUri);
+        updateTrack(data, contentUri);
+        setLoader(oldValue => ({ ...oldValue, uploadTrack: false }));
     };
 
     const uploadTrackFile = async (files: any) => {
@@ -51,9 +62,8 @@ const Track = ({ index, removeTrack, updateTrack }: Props) => {
             );
             return;
         }
-        setLoader(true);
+        setLoader(oldValue => ({ ...oldValue, uploadMusicFile: true }));
         const file = files[0];
-        console.log(file, '****** check file');
         const pinataMetadata = {
             name: songTitle,
         };
@@ -62,12 +72,12 @@ const Track = ({ index, removeTrack, updateTrack }: Props) => {
         const { IpfsHash: ipfsHash } = ipfsData;
         setValue('audioFile', ipfsHash);
         setValue('audioFileType', type);
-        setLoader(false);
+        setLoader(oldValue => ({ ...oldValue, uploadMusicFile: false }));
     };
 
     return (
         <Disclosure defaultOpen={index == 0 ? true : false}>
-            {({ open }) => (
+            {({ open }: { open: any }) => (
                 <>
                     <Disclosure.Button className={styles.disclosure}>
                         <p className={styles.disclosureText}> Track {index + 1} </p>
@@ -152,7 +162,7 @@ const Track = ({ index, removeTrack, updateTrack }: Props) => {
                                             const uploaded = !!value;
                                             return (
                                                 <UploadMusic
-                                                    showLoader={loader}
+                                                    showLoader={loader.uploadMusicFile}
                                                     uploadHelper={uploadTrackFile}
                                                     displayText={
                                                         uploaded ? 'Uploaded' : 'Upload audio file'
@@ -458,10 +468,7 @@ const Track = ({ index, removeTrack, updateTrack }: Props) => {
                                     </p>
                                 </div>
                             </div>
-                            <button type="submit" className="white-btn px-10 max-w-fit">
-                                {' '}
-                                Save Track{' '}
-                            </button>
+                            <Button loading={loader.uploadTrack} type="submit" variant="secondary">Save Track</Button>
                         </form>
                     </Disclosure.Panel>
                 </>

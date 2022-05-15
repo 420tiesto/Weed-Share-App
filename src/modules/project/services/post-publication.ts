@@ -2,12 +2,13 @@ import { splitSignature } from '../../../services/ethers-service';
 import { lensHub } from '../../../services/lens-hub';
 import { signedTypeData } from '../../../services/signed-typed-data';
 import { createPostTypedData } from './create-publication';
+import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
 
 const postPublication = async ({
+    profileId,
     postMetadata,
-    profileId = '0x63',
 }: {
-    profileId?: string;
+    profileId: string;
     postMetadata: string;
 }) => {
     // TODO: Add profile flow here
@@ -47,6 +48,7 @@ const postPublication = async ({
         },
     });
     console.log(tx.hash);
+    return tx;
     // 0x64464dc0de5aac614a82dfd946fc0e17105ff6ed177b7d677ddb88ec772c52d3
     // you can look at how to know when its been indexed here:
     //   - https://docs.lens.dev/docs/has-transaction-been-indexed

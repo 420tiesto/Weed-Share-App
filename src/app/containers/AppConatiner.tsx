@@ -9,7 +9,7 @@ import { getStorageValue } from '../../utils/local-storage/local-storage';
 import { getUserAuthenticated } from '../../modules/auth/state/auth.reducer';
 import Navbar from '../components/header/navbar/Navbar';
 import { copyright } from '../constants';
-import {Toaster, useToaster} from 'react-hot-toast';
+import { Toaster, useToaster } from 'react-hot-toast';
 
 interface Props {}
 
@@ -17,7 +17,7 @@ interface State {
     authenticated: boolean;
 }
 
-const AppContainer: React.FC<Props> = ({}: Props) => {
+const AppContainer: React.FC<Props> = (props: Props) => {
     const dispatch = useDispatch();
     const auth = getStorageValue(LENS_TOKENS);
     const address = getStorageValue(PRNTS_PUBLIC_KEY);
@@ -46,7 +46,7 @@ const AppContainer: React.FC<Props> = ({}: Props) => {
 
     return (
         <BrowserRouter>
-        <Toaster position='top-right' />
+            <Toaster position="top-right" />
             <Navbar />
             <div className="max-w-screen-xl pt-16 mx-auto  container">
                 <AppRoutes />

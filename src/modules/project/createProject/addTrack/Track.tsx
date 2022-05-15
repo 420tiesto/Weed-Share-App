@@ -46,10 +46,10 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
     };
 
     const onSubmit: SubmitHandler<TrackDetails> = async (data: TrackDetails) => {
-        setLoader(oldValue => ({ ...oldValue, uploadTrack: true }));
+        setLoader((oldValue) => ({ ...oldValue, uploadTrack: true }));
         const contentUri = await uploadWeb3Json(data.songTitle, JSON.stringify(data));
         updateTrack(data, contentUri);
-        setLoader(oldValue => ({ ...oldValue, uploadTrack: false }));
+        setLoader((oldValue) => ({ ...oldValue, uploadTrack: false }));
     };
 
     const uploadTrackFile = async (files: any) => {
@@ -62,7 +62,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
             );
             return;
         }
-        setLoader(oldValue => ({ ...oldValue, uploadMusicFile: true }));
+        setLoader((oldValue) => ({ ...oldValue, uploadMusicFile: true }));
         const file = files[0];
         const pinataMetadata = {
             name: songTitle,
@@ -72,7 +72,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
         const { IpfsHash: ipfsHash } = ipfsData;
         setValue('audioFile', ipfsHash);
         setValue('audioFileType', type);
-        setLoader(oldValue => ({ ...oldValue, uploadMusicFile: false }));
+        setLoader((oldValue) => ({ ...oldValue, uploadMusicFile: false }));
     };
 
     return (
@@ -468,7 +468,9 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                     </p>
                                 </div>
                             </div>
-                            <Button loading={loader.uploadTrack} type="submit" variant="secondary">Save Track</Button>
+                            <Button loading={loader.uploadTrack} type="submit" variant="secondary">
+                                Save Track
+                            </Button>
                         </form>
                     </Disclosure.Panel>
                 </>

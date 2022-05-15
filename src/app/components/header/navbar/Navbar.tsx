@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 
 import UserMenu from '../userMenu/UserMenu';
 import Navlink from './Navlink';
-import { CREATE_PROJECT, EXPLORE } from '../../../routes/Routes';
+import { CREATE_PROJECT, EXPLORE, LOGIN } from '../../../routes/Routes';
 import { getUserHandle } from '../../../../modules/auth/state/auth.reducer';
+import { useNavigate } from 'react-router-dom';
 
 export type NavlinkType = {
     name: string;
@@ -12,6 +13,7 @@ export type NavlinkType = {
 };
 
 const Navbar: React.FC = ({}) => {
+    const navigate = useNavigate();
     const userHandle = useSelector(getUserHandle);
     const NAVBAR_LINKS: NavlinkType[] = [
         { name: 'Home', href: '/' },
@@ -21,10 +23,12 @@ const Navbar: React.FC = ({}) => {
         // {name:'More',href:'/more'},
     ];
     if (userHandle) {
-        NAVBAR_LINKS.push(
-            { name: 'Upload Album', href: CREATE_PROJECT },
-        );
+        NAVBAR_LINKS.push({ name: 'Upload Album', href: CREATE_PROJECT });
     }
+
+    const handleNavigate = () => {
+        navigate(LOGIN);
+    };
     return (
         <header className="bg-dark-gray px-4 fixed w-full shadow h-16 top-0 z-40 py-2">
             <nav className="flex items-center h-full justify-between max-w-screen-xl mx-auto">
@@ -36,7 +40,7 @@ const Navbar: React.FC = ({}) => {
                         <Navlink href={href} name={name} key={name} />
                     ))}
                 </div>
-                <UserMenu />
+                {userHandle ? <UserMenu /> : <button onClick={handleNavigate}>Login</button>}
             </nav>
         </header>
     );

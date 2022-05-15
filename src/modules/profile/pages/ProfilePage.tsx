@@ -23,6 +23,8 @@ import { createProfileMetadata } from '../../../utils/create-profile-metadata';
 import { appId } from '../../../app/constants';
 import getAttributeType from '../../../utils/get-attribute-type';
 import { uploadWeb3Json } from '../../../utils/upload-json';
+import updateProfielMetaData from '../services/update-profile-metadata';
+import getIPFSUrlLink from '../../../utils/get-ipfs-url-link';
 
 interface Props {
     // authenthicated: boolean;
@@ -61,7 +63,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         }
         getProfileDetailsByHandle(handle!);
         getCollectedPublications();
-    }, [profileDetails]);
+    }, []);
 
     const getProfileDetailsByHandle = (handle: string) => {
         getProfiles({
@@ -73,6 +75,9 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
             dispatch(setUserProfile(profile.data.profiles.items[0]));
             // getIPFSUrlLink(profileDetails.picture.original.url);
             getProfilePublications(profile.data.profiles.items[0].id);
+            if (isNewUser) {
+                saveProfileMetadata();
+            }
         });
     };
 
@@ -109,6 +114,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
             profileId: profileDetails.id,
             url: contentURI,
         };
+        await updateProfielMetaData(createProfileMetadataRequest);
     };
 
     return (
@@ -119,13 +125,21 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                     {Object.keys(profileDetails).length !== 0 ? (
                         <div className="relative p-4">
                             <img
-                                src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
-                                alt=""
+                                src={
+                                    profileDetails.coverPicture === null
+                                        ? ''
+                                        : profileDetails.coverPicture.original.url
+                                }
+                                alt="Cover Image"
                                 className="w-full h-56 bg-dark-gray"
+                                hidden={profileDetails.coverPicture === null ? true : false}
                             />
+                            <div
+                                hidden={profileDetails.coverPicture === null ? false : true}
+                                className="w-full h-56 bg-dark-gray"></div>
 
                             <div className="absolute top-36 pl-8 ">
-                                <Avatar imgSrc={profileDetails.coverPicture} />
+                                <Avatar imgSrc={profileDetails.picture.original.url} />
                             </div>
                             <div className="flex justify-between  p-8">
                                 <ProfileDetails

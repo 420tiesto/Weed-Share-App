@@ -28,14 +28,14 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const defaultOptions: DefaultOptions = {
     watchQuery: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'ignore',
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'ignore',
     },
     query: {
-      fetchPolicy: 'no-cache',
-      errorPolicy: 'all',
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'all',
     },
-  };
+};
 
 export const apolloClient = new ApolloClient({
     link: authLink.concat(network.mumbaiTestnet),

@@ -22,6 +22,7 @@ import { getUserProfile } from '../../state/auth.reducer';
 import { init, isUsingWallet } from '../../../../services/ethers-service';
 import { USER_PROFILE } from '../../../../utils/local-storage/keys';
 import { setStorageValue } from '../../../../utils/local-storage/local-storage';
+import { HOME_PAGE } from '../../../../app/routes/Routes';
 
 type Props = {
     // setStep: (step: number) => void;
@@ -93,7 +94,7 @@ const SignUp: React.FC<Props> = () => {
                     await dispatch(login());
                     dispatch(setUserProfile(profile.profiles.items[0]));
                     console.log('user logged in', profile.profiles.items[0]);
-                    navigate(`/profile/${profile.profiles.items[0].handle}`);
+                    navigate(HOME_PAGE);
                 } else {
                     console.log('user needs to be created', 'Signup Pop shown');
                     setState({ showModal: true });

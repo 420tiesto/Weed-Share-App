@@ -18,6 +18,7 @@ import getAttributeType from '../../../../utils/get-attribute-type';
 import getIPFSUrlLink from '../../../../utils/get-ipfs-url-link';
 import { createPostMetadata } from '../../../../utils/create-post-metadata';
 import { uploadWeb3Json } from '../../../../utils/upload-json';
+import { copyright } from '../../../../app/constants';
 import { getUserProfile } from '../../../auth/state/auth.reducer';
 import Button from '../../../../app/components/common-ui/atoms/Button';
 import { getPublications } from '../../../profile/services/get-publications';
@@ -114,7 +115,10 @@ const CreateProjectFlow = () => {
                     // TODO: Handle the error here
                 }
                 // TODO: Handle case when user cancels the transaction
-                const getPublicationsResult = await getPublications({ profileId: id, publicationTypes: ['POST'] });
+                const getPublicationsResult = await getPublications({
+                    profileId: id,
+                    publicationTypes: ['POST'],
+                });
                 const publicationID = getPublicationsResult?.data?.publications?.items[0]?.id;
                 setLoader(false);
                 if (publicationID) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CardItem from './CardItem';
 
 interface Props {
@@ -10,57 +10,26 @@ const PLACEHOLDER_IMAGE_SRC =
 
 const ProjectsCreated: React.FC<Props> = (props: Props) => {
     const { ownedPublications } = props;
-    // console.log(ownedPublications);
+    console.log(ownedPublications);
+
     return (
         <>
-            {/* {ownedPublications && ownedPublications.length > 0 ? ( */}
+            {ownedPublications && ownedPublications.length > 0 ? (
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow  gap-8 p-4">
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
+                    {ownedPublications.map(
+                        (pub: any): JSX.Element => (
+                            <CardItem
+                                text="Cold Inner fire"
+                                likeCount={34}
+                                subText="coldInnerFire"
+                                imgSrc={PLACEHOLDER_IMAGE_SRC}
+                            />
+                        )
+                    )}
                 </div>
-            {/* ) : ( */}
-                {/* <div>No Projects Created</div> */}
-            {/* )} */}
+            ) : (
+                <div> No Projects</div>
+            )}
         </>
     );
 };

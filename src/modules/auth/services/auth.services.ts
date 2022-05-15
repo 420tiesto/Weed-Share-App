@@ -1,5 +1,6 @@
 import { init } from '../../../services/ethers-service';
 import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
+import getIPFSUrlLink from '../../../utils/get-ipfs-url-link';
 import { createProfile } from '../../profile/services/create-profile';
 import { getProfiles } from '../../profile/services/get-profiles';
 import { setUserProfile } from '../state/auth.action';
@@ -56,7 +57,10 @@ export const signup = async () => {
 export const createProfileLens = async (handle: string) => {
     return createProfile({
         handle: handle,
-        profilePictureUri: null,
+        profilePictureUri:
+            'https://prnts.mypinata.cloud/ipfs/QmUDKC6zKTfDh25yNceRXRodi3R8MZZ5fKJFgVkkKwTGHt',
+        followNFTURI:
+            'https://prnts.mypinata.cloud/ipfs/QmUDKC6zKTfDh25yNceRXRodi3R8MZZ5fKJFgVkkKwTGHt',
         followModule: {
             freeFollowModule: true,
         },

@@ -8,7 +8,7 @@ import SwitchUserIcon from '../../../icons/SwitchUserIcon';
 import MenuAccountItem from './MenuAccountItem';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { useSelector } from 'react-redux';
-import { getUserProfile } from '../../../../modules/auth/state/auth.reducer';
+import { getUserHandle, getUserProfile } from '../../../../modules/auth/state/auth.reducer';
 
 type MenuState = 'default' | 'accounts';
 
@@ -19,15 +19,17 @@ const UserMenu: React.FC<Props> = (props: Props) => {
     const [menuState, setMenuState] = useState<MenuState>('default');
 
     const profileDetails = useSelector(getUserProfile);
+    const userHandle = useSelector(getUserHandle);
 
     useEffect(() => {
-        // if (!authenticated) {
-        //     // redirect to home pahe
-        //     navigate(HOME_PAGE);
-        //     // ideally have a not found page and direct to home
-        // }
-        console.log(profileDetails, 'profile');
-    }, [profileDetails]);
+        console.log(profileDetails, userHandle, 'profile');
+    }, [profileDetails, userHandle]);
+
+    const handleLogout = () => {
+        // clear local storage
+        // dispatch saying auth false
+        // switch to normal user mode
+    };
 
     const styles = {
         menuContainer: `relative inline-block text-left`,
@@ -35,7 +37,13 @@ const UserMenu: React.FC<Props> = (props: Props) => {
     };
     return (
         <Menu as="div" className={styles.menuContainer}>
-            <MenuButton name={profileDetails.name} handle={profileDetails.handle} />
+            <MenuButton
+                name={profileDetails.name}
+                handle={profileDetails.handle}
+                imageURI={
+                    profileDetails.picture !== null ? profileDetails.picture.original.url : ''
+                }
+            />
             {/* If menu is in default state */}
             <MenuItems>
                 {menuState === 'default' && (
@@ -93,7 +101,7 @@ const UserMenu: React.FC<Props> = (props: Props) => {
                 )}
                 {/* Logout */}
                 <Menu.Item as="button" className={styles.menuItem}>
-                    <LogoutIcon className="h-5 w-5" /> Log out
+                    <LogoutIcon onClick={handleLogout} className="h-5 w-5" /> Log out
                 </Menu.Item>
             </MenuItems>
         </Menu>

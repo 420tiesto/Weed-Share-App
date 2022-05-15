@@ -23,6 +23,8 @@ import getIPFSImageLink from '../../../utils/get-ipfs-url-link';
 import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
 import { useSelector } from 'react-redux';
 import { getUserProfile } from '../../auth/state/auth.reducer';
+import { getPinataImageURL } from '../services/getPinataURL';
+import { appId } from '../../../app/constants';
 
 interface Props {
     profileDetails: any;
@@ -60,7 +62,12 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
     useEffect(() => {
         // getProfileDetails();
         console.log(profileDetails);
-        setState({ coverImageURI: profileDetails.coverPicture });
+        setState({
+            coverImageURI:
+                profileDetails.coverPicture === null
+                    ? ''
+                    : profileDetails.coverPicture.original.url,
+        });
         setState({
             profileImageURI:
                 profileDetails.picture === null ? '' : profileDetails.picture.original.url,
@@ -72,7 +79,7 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         const file = files[0];
         const ipfsData = await pinImageToIPFS(file);
         const { IpfsHash: ipfsHash } = ipfsData;
-        setState({ coverImageURI: ipfsHash });
+        setState({ coverImageURI: getIPFSUrlLink(ipfsHash) });
         setState({ coverImageLoading: false });
     };
 
@@ -81,7 +88,9 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         const file = files[0];
         const ipfsData = await pinImageToIPFS(file);
         const { IpfsHash: ipfsHash } = ipfsData;
-        setState({ profileImageURI: ipfsHash });
+        console.log(getIPFSUrlLink(ipfsHash));
+        console.log(ipfsData);
+        setState({ profileImageURI: getIPFSUrlLink(ipfsHash) });
         setState({ coverImageLoading: false });
     };
 
@@ -114,13 +123,13 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                 attributes: [
                     {
                         traitType: 'string',
-                        key: 'app',
-                        value: 'Lenster',
+                        key: 'appId',
+                        value: appId,
                     },
                 ],
                 version: '1.0.0',
                 metadata_id: uuidv4(),
-                appId: 'Lenster',
+                appId: appId,
             },
             metadata
         ).finally(() => setState({ loading: false }));
@@ -178,10 +187,9 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
 
     const updateProfileImage: SubmitHandler<any> = async (data) => {
         await dispatch(login());
-        console.log(getIPFSUrlLink(coverImageURI));
         const setProfileImageUriRequest = {
             profileId: profileDetails.id,
-            url: `ipfs://${coverImageURI}`,
+            url: profileImageURI,
         };
 
         const result = await createSetProfileImageUriTypedData(setProfileImageUriRequest);
@@ -302,8 +310,8 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                             <UploadImage
                                 uploadHelper={uploadCoverPage}
                                 showLoader={coverImageLoading}
-                                displayText="Upload Profile NFT Image"
-                                imageLink={getIPFSImageLink(coverImageURI)}
+                                displayText="Upload Cover Image"
+                                imageLink={coverImageURI}
                             />
                         </div>
 
@@ -346,7 +354,7 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                                 uploadHelper={uploadProfileImage}
                                 showLoader={coverImageLoading}
                                 displayText="Upload Profile NFT Image"
-                                imageLink={getIPFSImageLink(profileImageURI)}
+                                imageLink={profileImageURI}
                             />
                         </div>
                         <button className="green-btn max-w-fit px-6" type="submit">

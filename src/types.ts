@@ -1,5 +1,5 @@
-import { initialState } from './app/state/reducer';
-import { initialState as projectInitialState } from './app/modules/socialMedia/components/project/state/reducer';
+import { initialState as projectInitialState } from './modules/project/state/reducer';
+import { initialState } from './state/reducer';
 
 declare global {
     interface Window {

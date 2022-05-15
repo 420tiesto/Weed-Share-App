@@ -3,14 +3,31 @@ import MenuButton from './MenuButton';
 import MenuItems from './MenuItems';
 import { ArrowLeftIcon, CogIcon, LogoutIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SwitchUserIcon from '../../../icons/SwitchUserIcon';
 import MenuAccountItem from './MenuAccountItem';
+import { useAppDispatch } from '../../../../state/configure-store';
+import { useSelector } from 'react-redux';
+import { getUserProfile } from '../../../../modules/auth/state/auth.reducer';
 
 type MenuState = 'default' | 'accounts';
 
-const UserMenu = () => {
+interface Props {}
+
+const UserMenu: React.FC<Props> = (props: Props) => {
+    const dispatch = useAppDispatch();
     const [menuState, setMenuState] = useState<MenuState>('default');
+
+    const profileDetails = useSelector(getUserProfile);
+
+    useEffect(() => {
+        // if (!authenticated) {
+        //     // redirect to home pahe
+        //     navigate(HOME_PAGE);
+        //     // ideally have a not found page and direct to home
+        // }
+        console.log(profileDetails, 'profile');
+    }, [profileDetails]);
 
     const styles = {
         menuContainer: `relative inline-block text-left`,
@@ -18,14 +35,16 @@ const UserMenu = () => {
     };
     return (
         <Menu as="div" className={styles.menuContainer}>
-            <MenuButton />
+            <MenuButton name={profileDetails.name} handle={profileDetails.handle} />
             {/* If menu is in default state */}
             <MenuItems>
                 {menuState === 'default' && (
                     <>
                         {/* Profile */}
                         <Menu.Item as="div">
-                            <Link to="/profile" className={styles.menuItem}>
+                            <Link
+                                to={`/profile/${profileDetails.handle}`}
+                                className={styles.menuItem}>
                                 <UserCircleIcon className="h-5 w-5" />
                                 Profile
                             </Link>
@@ -38,7 +57,7 @@ const UserMenu = () => {
                             Switch account
                         </button>
                         <Menu.Item as="div">
-                            <Link to="/profile-settings" className={styles.menuItem}>
+                            <Link to="/profile/settings" className={styles.menuItem}>
                                 <CogIcon className="h-5 w-5" />
                                 Settings
                             </Link>

@@ -23,9 +23,7 @@ export const userLogin = async () => {
                     // await dispatch(login());
                     // dispatch(setUserProfile(profile.data.profiles.items[0]));
                     // naivigate to previous route
-                    console.log('user logged in', profile.data.profiles.items[0]);
                 } else {
-                    console.log('no lens account');
                 }
             }
         });
@@ -38,14 +36,8 @@ export const signup = async () => {
             if (account) {
                 const profile = await getLensProfile(account);
                 if (profile!.profiles.items.length > 0) {
-                    // await dispatch(login());
-                    // dispatch(setUserProfile(profile.data.profiles.items[0]));
-                    // navigate to previous route
-                    console.log('user logged in', profile!.profiles.items[0]);
                     return { status: 200, msg: 'User Logged In' };
                 } else {
-                    // createProfileLens();
-                    console.log('user needs to be created');
                     return { staus: 400, msg: 'Need to create user' };
                 }
                 // get Lens Signature
@@ -65,11 +57,14 @@ export const createProfileLens = async (handle: string) => {
             freeFollowModule: true,
         },
     }).then(async (resp: any) => {
-        console.log(resp);
-        return await pollUntilIndexed(resp.data.createProfile.txHash).then((resp: any) => {
-            console.log(resp, 'Profile Created');
-            return true;
-        });
+        return await pollUntilIndexed(resp.data.createProfile.txHash)
+            .then((resp: any) => {
+                return true;
+            })
+            .catch((error: Error) => {
+                console.log(error);
+                return error;
+            });
     });
 };
 
@@ -78,17 +73,9 @@ export const getLensProfile = (account: string) => {
         ownedBy: [account],
         limit: 10,
     }).then((profile: any) => {
-        console.log(profile.data);
         if (profile.data.profiles.items.length > 0) {
-            // dispatch(login());
-            // navigate('/profile');
             return profile.data;
         }
-        // } else {
-        //     // show notification that no profile in lens
-        //     // navigate('/signup');
-        //     return [];
-        // }
     });
 };
 
@@ -97,12 +84,9 @@ export const checkForHandle = async (handle: string) => {
         handles: [handle + '.test'],
         limit: 1,
     }).then((profile: any) => {
-        console.log(profile, 'profile');
         if (profile.data.profiles.items.length > 0) {
-            console.log(true);
             return true;
         } else {
-            console.log(false);
             return false;
         }
     });

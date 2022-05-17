@@ -12,6 +12,7 @@ import { login } from '../../services/lens-login';
 import {
     setIsNewUser,
     setUserAdress,
+    setUserAuthenticated,
     setUserHandle,
     setUserProfile,
 } from '../../state/auth.action';
@@ -115,6 +116,7 @@ const SignUp: React.FC<Props> = () => {
         setStorageValue(PRNTS_USER_HANDLE, handle);
         dispatch(setUserHandle(handle));
         dispatch(setIsNewUser(true));
+        dispatch(setUserAuthenticated(true));
         navigate(`/profile/${handle}`);
     };
 
@@ -130,9 +132,7 @@ const SignUp: React.FC<Props> = () => {
                     <Link to="/signup">
                         <p>
                             Already Have an Account ?
-                            <span className="text-primary pl-1">
-                                Login
-                            </span>
+                            <span className="text-primary pl-1">Login</span>
                         </p>
                     </Link>
                     <div className="flex-grow flex flex-col items-center m-8 ">

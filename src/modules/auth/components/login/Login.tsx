@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Connectors from '../connectWallet/Connectors';
 import { getProfiles } from '../../../profile/services/get-profiles';
 import { login } from '../../services/lens-login';
-import { setUserHandle, setUserProfile } from '../../state/auth.action';
+import { setUserAuthenticated, setUserHandle, setUserProfile } from '../../state/auth.action';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { init } from '../../../../services/ethers-service';
 import { HOME_PAGE, SIGNUP } from '../../../../app/routes/Routes';
@@ -27,12 +27,14 @@ const Login: React.FC<Props> = (props: Props) => {
         getProfiles({
             ownedBy: [account],
             limit: 10,
-        }).then((profile: any) => {
+        }).then(async (profile: any) => {
             console.log(profile.data);
             if (profile.data.profiles.items.length > 0) {
+                await dispatch(login());
                 dispatch(setUserHandle(profile.data.profiles.items[0].handle));
                 dispatch(setUserProfile(profile.data.profiles.items[0]));
                 setStorageValue(PRNTS_USER_HANDLE, profile.data.profiles.items[0].handle);
+                dispatch(setUserAuthenticated(true));
                 navigate(HOME_PAGE);
             } else {
                 // To Do
@@ -58,10 +60,7 @@ const Login: React.FC<Props> = (props: Props) => {
                 <h1 className="text-4xl mb-1 font-bold">Login</h1>
                 <Link to="/signup">
                     <p>
-                        Don't have an account ?
-                        <span className="text-primary pl-1">
-                            Sign Up
-                        </span>
+                        Don't have an account ?<span className="text-primary pl-1">Sign Up</span>
                     </p>
                 </Link>
                 <div className="flex-grow flex flex-col items-center m-8 ">

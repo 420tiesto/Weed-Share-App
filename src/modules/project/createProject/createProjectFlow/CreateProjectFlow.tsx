@@ -18,11 +18,11 @@ import getAttributeType from '../../../../utils/get-attribute-type';
 import getIPFSUrlLink from '../../../../utils/get-ipfs-url-link';
 import { createPostMetadata } from '../../../../utils/create-post-metadata';
 import { uploadWeb3Json } from '../../../../utils/upload-json';
-import { copyright } from '../../../../app/constants';
 import { getUserProfile } from '../../../auth/state/auth.reducer';
 import Button from '../../../../app/components/common-ui/atoms/Button';
 import { getPublications } from '../../../profile/services/get-publications';
 import { pollUntilIndexed } from '../../../../services/has-transaction-been-indexed';
+import { successToast, promiseToast, errorToast } from '../../../../app/components/common-ui/toasts/CustomToast';
 
 const CreateProjectFlow = () => {
     const [loader, setLoader] = useState(false);
@@ -104,12 +104,21 @@ const CreateProjectFlow = () => {
                     albumCoverType,
                     attributes: attributes,
                 });
+                promiseToast('Uploading Content...', 'Uploading Album');
                 const contentURI = await uploadWeb3Json(recordLabel, JSON.stringify(postMetadata));
                 try {
+                    promiseToast('Creating post...', 'Uploading Album');
                     const tx = await postPublication({ postMetadata: contentURI, profileId: id });
+                    promiseToast('Indexing...', 'Uploading Album');
                     await pollUntilIndexed(tx.hash);
                 } catch (e) {
-                    console.error(e, '******* check this');
+                    const error = e as any;
+                    if (error.code === 4001) {
+                        errorToast('Cancelled!', 'Uploading Album');
+                    } else {
+                        errorToast('Something went wrong 😞. Please try again', 'Uploading Album');
+                    }
+                    console.error(e);
                     setLoader(false);
                     return;
                     // TODO: Handle the error here
@@ -122,6 +131,7 @@ const CreateProjectFlow = () => {
                 const publicationID = getPublicationsResult?.data?.publications?.items[0]?.id;
                 setLoader(false);
                 if (publicationID) {
+                    successToast('Post Created Successfully!!', 'Uploading Album');
                     dispatch(resetAllDetails());
                     navigate(`/project/${publicationID}`);
                 } else {

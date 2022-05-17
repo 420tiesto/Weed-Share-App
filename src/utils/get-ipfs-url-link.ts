@@ -1,5 +1,5 @@
 const getIPFSUrlLink = (qid: string) => {
-    return `https://ipfs.io/ipfs/${qid}`;
+    return `https://prnts.mypinata.cloud/ipfs/${qid}`;
 };
 
 export default getIPFSUrlLink;

@@ -5,7 +5,7 @@ import { lensHub, lensPeriphery } from '../../../services/lens-hub';
 import { signedTypeData } from '../../../services/signed-typed-data';
 import { CREATE_SET_PROFILE_METADATA_TYPED_DATA } from '../../../shared/constants';
 
-const updateProfielMetaData = async (createProfileMetadataRequest: any) => {
+const updateProfileMetaData = async (createProfileMetadataRequest: any) => {
     const result = await createSetProfileMetadataTypedData(
         createProfileMetadataRequest.profileId,
         createProfileMetadataRequest.metadata
@@ -31,7 +31,7 @@ const updateProfielMetaData = async (createProfileMetadataRequest: any) => {
     //   - https://docs.lens.dev/docs/has-transaction-been-indexed
 };
 
-export default updateProfielMetaData;
+export default updateProfileMetaData;
 
 export const createSetProfileMetadataTypedData = (profileId: string, metadata: string) => {
     return apolloClient.mutate({

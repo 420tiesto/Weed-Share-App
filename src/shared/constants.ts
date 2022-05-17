@@ -1136,3 +1136,42 @@ export const EXPLORE_PUBLICATIONS = `
     }
   }
 `
+
+export const CREATE_FOLLOW_TYPED_DATA = `
+  mutation($request: FollowRequest!) { 
+    createFollowTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        types {
+          FollowWithSig {
+            name
+            type
+          }
+        }
+        value {
+          nonce
+          deadline
+          profileIds
+          datas
+        }
+      }
+    }
+ }
+`
+
+export const DOES_FOLLOW = `
+  query($request: DoesFollowRequest!) {
+    doesFollow(request: $request) { 
+            followerAddress
+        profileId
+        follows
+        }
+  }
+`

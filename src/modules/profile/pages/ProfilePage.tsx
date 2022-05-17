@@ -23,8 +23,9 @@ import { createProfileMetadata } from '../../../utils/create-profile-metadata';
 import { appId } from '../../../app/constants';
 import getAttributeType from '../../../utils/get-attribute-type';
 import { uploadWeb3Json } from '../../../utils/upload-json';
-import updateProfielMetaData from '../services/update-profile-metadata';
+import updateProfileMetaData from '../services/update-profile-metadata';
 import getIPFSUrlLink from '../../../utils/get-ipfs-url-link';
+import { follow } from '../services/follow';
 
 interface Props {
     // authenthicated: boolean;
@@ -114,7 +115,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
             profileId: profileDetails.id,
             url: contentURI,
         };
-        await updateProfielMetaData(createProfileMetadataRequest);
+        await updateProfileMetaData(createProfileMetadataRequest);
     };
 
     return (

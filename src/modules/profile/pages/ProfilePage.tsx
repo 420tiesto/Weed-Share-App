@@ -14,7 +14,7 @@ import { getPublications } from '../services/get-publications';
 import ProjectsJoined from '../components/ProjectsJoined';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getIsNewUser, getUserProfile } from '../../auth/state/auth.reducer';
+import { getCurrentUserAdress, getIsNewUser, getUserProfile } from '../../auth/state/auth.reducer';
 import { setUserProfile } from '../../auth/state/auth.action';
 import { useAppDispatch } from '../../../state/configure-store';
 import { getStorageValue } from '../../../utils/local-storage/local-storage';
@@ -37,6 +37,7 @@ interface State {
     collectedPublications: any[];
     loading: boolean;
     publicKey: string | null;
+    isOwner: boolean;
 }
 
 const ProfilePage: React.FC<Props> = (props: Props) => {
@@ -49,13 +50,21 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         collectedPublications: [],
         loading: false,
         publicKey: getStorageValue(PRNTS_PUBLIC_KEY),
+        isOwner: false,
     });
 
     //redux state
     const isNewUser = useSelector(getIsNewUser);
+    const address = useSelector(getCurrentUserAdress);
 
-    // const { authenthicated } = props;
-    const { loading, ownedPublications, collectedPublications, profileDetails, publicKey } = state;
+    const {
+        loading,
+        ownedPublications,
+        collectedPublications,
+        profileDetails,
+        publicKey,
+        isOwner,
+    } = state;
 
     useEffect(() => {
         // getProfileDetails();
@@ -64,16 +73,24 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         }
         getProfileDetailsByHandle(handle!);
         getCollectedPublications();
-    }, []);
+    }, [handle]);
 
     const getProfileDetailsByHandle = (handle: string) => {
         getProfiles({
             handles: [handle],
             limit: 1,
         }).then((profile: any) => {
-            console.log(profile.data.profiles.items);
+            const isOwnerTemp =
+                profile.data.profiles.items[0].ownedBy.toLocaleLowerCase() == publicKey
+                    ? true
+                    : false;
+            setState({
+                isOwner: isOwnerTemp,
+            });
             setState({ profileDetails: profile.data.profiles.items[0] });
-            dispatch(setUserProfile(profile.data.profiles.items[0]));
+            if (isOwnerTemp) {
+                dispatch(setUserProfile(profile.data.profiles.items[0]));
+            }
             // getIPFSUrlLink(profileDetails.picture.original.url);
             getProfilePublications(profile.data.profiles.items[0].id);
             if (isNewUser) {
@@ -83,10 +100,8 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
     };
 
     const getProfilePublications = (id: string) => {
-        console.log(id, 'id');
         getPublications({ profileId: id, publicationTypes: ['POST', 'COMMENT', 'MIRROR'] }).then(
             (publications: any) => {
-                console.log(publications, 'puvb');
                 setState({ ownedPublications: publications.data.publications.items });
             }
         );
@@ -97,7 +112,6 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
             collectedBy: '0xBCbdb07a47f6E9dA7d4e40AFeAfe7f52053731Fd',
             publicationTypes: ['POST'],
         }).then((publications: any) => {
-            console.log(publications, 'colectedpuvb');
             setState({ collectedPublications: publications.data.publications.items });
         });
     };
@@ -122,26 +136,30 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         <div className="min-h-screen">
             <div className="overflow-hidden min-h-full  max-w-screen-xl mx-auto container sunken-element">
                 <>
-                    {console.log(profileDetails)}
                     {Object.keys(profileDetails).length !== 0 ? (
                         <div className="relative p-4">
-                            <img
-                                src={
-                                    profileDetails.coverPicture === null
-                                        ? ''
-                                        : profileDetails.coverPicture.original.url
-                                }
-                                alt="Cover Image"
-                                className="w-full h-56 bg-dark-gray"
-                                hidden={profileDetails.coverPicture === null ? true : false}
-                            />
-                            <div
-                                hidden={profileDetails.coverPicture === null ? false : true}
-                                className="w-full h-56 bg-dark-gray"></div>
+                            {profileDetails.coverPicture === null ? (
+                                <div
+                                    hidden={profileDetails.coverPicture === null ? false : true}
+                                    className="w-full h-56 bg-dark-gray"></div>
+                            ) : (
+                                <img
+                                    src={profileDetails.coverPicture.original.url}
+                                    alt="Cover Image"
+                                    className="w-full h-56 bg-dark-gray"
+                                />
+                            )}
 
-                            <div className="absolute top-36 pl-8 ">
-                                <Avatar imgSrc={profileDetails.picture.original.url} />
-                            </div>
+                            {profileDetails.picture === null ? (
+                                <div className="absolute top-36 pl-8 ">
+                                    <Avatar imgSrc="https://prnts.mypinata.cloud/ipfs/QmUDKC6zKTfDh25yNceRXRodi3R8MZZ5fKJFgVkkKwTGHt" />
+                                </div>
+                            ) : (
+                                <div className="absolute top-36 pl-8 ">
+                                    <Avatar imgSrc={profileDetails.picture.original.url} />
+                                </div>
+                            )}
+
                             <div className="flex justify-between  p-8">
                                 <ProfileDetails
                                     name={profileDetails.name || profileDetails.handle}
@@ -153,11 +171,19 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                                     {/* <a href="#" className="green-outline-btn px-4 max-w-fit">
                                         Edit Profile
                                     </a> */}
-                                    <Link
-                                        className="green-outline-btn px-4 max-w-fit"
-                                        to="/profile/settings">
-                                        Edit Profile
-                                    </Link>
+
+                                    {isOwner ? (
+                                        <Link
+                                            className="green-outline-btn px-4 max-w-fit"
+                                            to="/profile/settings">
+                                            Edit Profile
+                                        </Link>
+                                    ) : (
+                                        <Link className="green-outline-btn px-4 max-w-fit" to={''}>
+                                            Follow
+                                        </Link>
+                                    )}
+
                                     <ProfileSocials
                                         fb=""
                                         google=""

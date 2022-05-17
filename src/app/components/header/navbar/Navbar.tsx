@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import UserMenu from '../userMenu/UserMenu';
 import Navlink from './Navlink';
 import { CREATE_PROJECT, EXPLORE, LOGIN } from '../../../routes/Routes';
-import { getUserHandle } from '../../../../modules/auth/state/auth.reducer';
+import { getUserAuthenticated, getUserHandle } from '../../../../modules/auth/state/auth.reducer';
 import { useNavigate } from 'react-router-dom';
 
 export type NavlinkType = {
@@ -14,7 +14,11 @@ export type NavlinkType = {
 
 const Navbar: React.FC = ({}) => {
     const navigate = useNavigate();
+
+    //Redux State
     const userHandle = useSelector(getUserHandle);
+    const authenticatedState = useSelector(getUserAuthenticated);
+
     const NAVBAR_LINKS: NavlinkType[] = [
         { name: 'Home', href: '/' },
         { name: 'Explore', href: EXPLORE },
@@ -22,7 +26,10 @@ const Navbar: React.FC = ({}) => {
         // {name:'Communities',href:'/communities'},
         // {name:'More',href:'/more'},
     ];
-    if (userHandle) {
+
+    useEffect(() => {}, [authenticatedState]);
+
+    if (authenticatedState) {
         NAVBAR_LINKS.push({ name: 'Upload Album', href: CREATE_PROJECT });
     }
 
@@ -40,7 +47,11 @@ const Navbar: React.FC = ({}) => {
                         <Navlink href={href} name={name} key={name} />
                     ))}
                 </div>
-                {userHandle ? <UserMenu /> : <button onClick={handleNavigate}>Login</button>}
+                {authenticatedState ? (
+                    <UserMenu />
+                ) : (
+                    <button onClick={handleNavigate}>Login</button>
+                )}
             </nav>
         </header>
     );

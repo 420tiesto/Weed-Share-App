@@ -38,14 +38,7 @@ const AppRoutes: React.FC<Props> = (props: Props) => {
 
     useEffect(() => {
         console.log('routes');
-        if (auth && address) {
-            // setState({ authenticated: true });
-            dispatch(setUserAuthenticated(true));
-        } else {
-            dispatch(setUserAuthenticated(false));
-            navigate(LOGIN);
-        }
-    }, [authenticated]);
+    }, []);
 
     return (
         <Routes>

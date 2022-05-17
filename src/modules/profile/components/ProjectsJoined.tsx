@@ -10,7 +10,6 @@ const PLACEHOLDER_IMAGE_SRC =
 
 const ProjectsJoined: React.FC<Props> = (props: Props) => {
     const { collectedPublications } = props;
-    console.log(collectedPublications);
     return (
         <>
             {collectedPublications && collectedPublications.length > 0 ? (

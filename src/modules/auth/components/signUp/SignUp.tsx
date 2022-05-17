@@ -20,7 +20,7 @@ import { useSetState } from 'react-use';
 import { setWalletModalOpen, storeUserProfile } from '../../../../state/actions';
 import { getUserProfile } from '../../state/auth.reducer';
 import { init, isUsingWallet } from '../../../../services/ethers-service';
-import { USER_PROFILE } from '../../../../utils/local-storage/keys';
+import { PRNTS_USER_HANDLE, USER_PROFILE } from '../../../../utils/local-storage/keys';
 import { setStorageValue } from '../../../../utils/local-storage/local-storage';
 import { HOME_PAGE } from '../../../../app/routes/Routes';
 
@@ -112,6 +112,7 @@ const SignUp: React.FC<Props> = () => {
     const signUpSuccess = (handle: string) => {
         console.log('sucess', handle);
         setState({ showModal: false });
+        setStorageValue(PRNTS_USER_HANDLE, handle);
         dispatch(setUserHandle(handle));
         dispatch(setIsNewUser(true));
         navigate(`/profile/${handle}`);

@@ -21,9 +21,7 @@ const UserMenu: React.FC<Props> = (props: Props) => {
     const profileDetails = useSelector(getUserProfile);
     const userHandle = useSelector(getUserHandle);
 
-    useEffect(() => {
-        console.log(profileDetails, userHandle, 'profile');
-    }, [profileDetails, userHandle]);
+    useEffect(() => {}, [profileDetails, userHandle]);
 
     const handleLogout = () => {
         // clear local storage

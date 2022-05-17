@@ -10,7 +10,6 @@ const PLACEHOLDER_IMAGE_SRC =
 
 const ProjectsCreated: React.FC<Props> = (props: Props) => {
     const { ownedPublications } = props;
-    console.log(ownedPublications);
 
     return (
         <>

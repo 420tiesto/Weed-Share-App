@@ -7,6 +7,8 @@ import { setUserHandle, setUserProfile } from '../../state/auth.action';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { init } from '../../../../services/ethers-service';
 import { HOME_PAGE, SIGNUP } from '../../../../app/routes/Routes';
+import { setStorageValue } from '../../../../utils/local-storage/local-storage';
+import { PRNTS_USER_HANDLE } from '../../../../utils/local-storage/keys';
 
 type Props = {};
 
@@ -30,8 +32,10 @@ const Login: React.FC<Props> = (props: Props) => {
             if (profile.data.profiles.items.length > 0) {
                 dispatch(setUserHandle(profile.data.profiles.items[0].handle));
                 dispatch(setUserProfile(profile.data.profiles.items[0]));
+                setStorageValue(PRNTS_USER_HANDLE, profile.data.profiles.items[0].handle);
                 navigate(HOME_PAGE);
             } else {
+                // To Do
                 // show notification that no profile in lens
                 // show pop saying no accoutn in PRNTS, Signup?
                 navigate(SIGNUP);

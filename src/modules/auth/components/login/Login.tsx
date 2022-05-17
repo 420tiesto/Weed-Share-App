@@ -55,9 +55,9 @@ const Login: React.FC<Props> = (props: Props) => {
                 <Link to="/signup">
                     <p>
                         Don't have an account ?
-                        <a className="text-primary pl-1" href="#">
+                        <span className="text-primary pl-1">
                             Sign Up
-                        </a>
+                        </span>
                     </p>
                 </Link>
                 <div className="flex-grow flex flex-col items-center m-8 ">

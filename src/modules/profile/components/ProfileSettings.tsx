@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSetState } from 'react-use';
 import { v4 as uuidv4 } from 'uuid';
-
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import { getProfiles } from '../services/get-profiles';
 import { createSetProfileMetadataTypedData } from '../services/update-profile-metadata';
@@ -301,52 +300,32 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                                             showLoader={coverImageLoading}
                                             displayText="Upload Cover Image"
                                             imageLink={coverImageURI}
+                                            helpText=".jpg , .png or .gif extension"
                                         />
                                     </div>
-
-                                    <button className="green-btn max-w-fit px-6" type="submit">
-                                        Save
-                                    </button>
                                 </Stack>
-                                <h6 className="font-medium text-xl">Handle</h6>
-                                <div className="grid gap-2 relative">
-                                    <ClipboardCopyIcon className="absolute bottom-2 hover:text-black cursor-pointer right-3 text-slate-400 h-5 w-5" />
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Spotify Link"
-                                        className="primary-input w-full pr-10"
-                                        value={profileDetails.handle}
-                                    />
-                                </div>
-                                <h6 className="font-medium text-xl">Wallet address</h6>
-                                <div className="grid gap-2 relative">
-                                    <ClipboardCopyIcon className="absolute bottom-2 hover:text-black cursor-pointer right-3 text-slate-400 h-5 w-5" />
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Spotify Link"
-                                        className="primary-input w-full pr-10"
-                                        value={profileDetails.ownedBy}
-                                    />
+                                    <div className="flex justify-end">
+                                    <Button type="submit">Save</Button>
                                 </div>
                             </form>
-
+                        </CardBody>
+                    </Card>
+                    <Card variant="elevated" className="rounded-[30px] mt-8">
+                        <CardBody padding={8} className="px-12">
                             <form
-                                className="space-y-4  flex-grow p-8 rounded-xl sunken-element"
+                                className="space-y-4  "
                                 onSubmit={handleSubmit(updateProfileImage)}>
                                 <div>
                                     <label className="font-medium text-lg flex-grow ">
                                         Profile Image
                                     </label>
-                                    {/* <img
-                                className="rounded-full h-32 w-32 mt-4"
-                                src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
-                                alt="avatar"
-                            /> */}
+
                                     <UploadImage
                                         uploadHelper={uploadProfileImage}
                                         showLoader={coverImageLoading}
                                         displayText="Upload Profile NFT Image"
                                         imageLink={getIPFSImageLink(profileImageURI)}
+                                        helpText=".jpg , .png or .gif extension"
                                     />
                                 </div>
                                 <div className="flex justify-end">

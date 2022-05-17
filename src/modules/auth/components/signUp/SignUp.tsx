@@ -129,9 +129,9 @@ const SignUp: React.FC<Props> = () => {
                     <Link to="/signup">
                         <p>
                             Already Have an Account ?
-                            <a className="text-primary pl-1" href="#">
+                            <span className="text-primary pl-1">
                                 Login
-                            </a>
+                            </span>
                         </p>
                     </Link>
                     <div className="flex-grow flex flex-col items-center m-8 ">

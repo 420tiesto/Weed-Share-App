@@ -25,7 +25,7 @@ const AllowanceSettings = (props: Props) => {
 
     return (
         <>
-            <Card variant="elevated" className="rounded-[30px]">
+            <Card variant="elevated" className="rounded-[30px] ">
                 <CardBody padding={8} className="px-12">
                     <Stack spacing={4}>
                         <p className="font-medium">Allow / Revoke modules</p>

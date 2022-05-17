@@ -1,133 +1,90 @@
-import { MinusIcon, PlusIcon } from '@heroicons/react/outline';
-import React from 'react';
+import { ClockIcon, CogIcon, MinusIcon, PlayIcon, PlusIcon } from '@heroicons/react/outline';
+import React, { useState } from 'react';
+import Button from '../../../app/components/common-ui/atoms/Button';
+import { Card, CardBody } from '../../../app/components/common-ui/atoms/Card';
+import SelectInput, { SelectOption } from '../../../app/components/common-ui/atoms/SelectInput';
+import Stack from '../../../app/components/common-ui/atoms/Stack';
 
 type Props = {};
 
 const AllowanceSettings = (props: Props) => {
+    const CURRENCIES: SelectOption[] = [
+        { id: 1, name: 'Polygon MATIC', value: 'MATIC' },
+        { id: 2, name: 'Ethereum', value: 'ETH' },
+    ];
+    const [selectedCurrency, setSelectedCurrency] = useState<SelectOption>(CURRENCIES[0]);
+
     const cardStyle = {
-        container: `flex flex-wrap justify-between items-center elevated-element p-4 rounded-xl`,
+        container: `flex flex-wrap justify-between items- p-4 rounded-xl`,
         title: `font-bold flex items-center gap-2`,
         subtitle: `text-slate-400"`,
         icon: ``,
         allowBtn: `btn bg-green-500 hover:bg-green-400`,
         revokeBtn: `btn bg-amber-500 hover:bg-amber-400`,
     };
+
     return (
-        <div className="w-full space-y-8">
-            <h2 className="text-2xl font-medium">Allowance Settings</h2>
-            <div className="sunken-element space-y-8 p-8 rounded-2xl">
-                <h6 className="font-bold text-xl">Allow / Revoke modules</h6>
-                <p className="font-semibold">
-                    In order to use collect feature you need to allow the module you can allow and
-                    revoke the module anytime.
-                </p>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Limited Fee Collect</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
+        <>
+            <Card variant="elevated" className="rounded-[30px]">
+                <CardBody padding={8} className="px-12">
+                    <Stack spacing={4}>
+                        <p className="font-medium">Allow / Revoke modules</p>
+                        <p>
+                            In order to use collect feature you need to allow the module you use,
+                            you can allow and revoke the module anytime.
                         </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.revokeBtn}>
-                            <MinusIcon className="h-4 w-4" /> Revoke
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Fee Collect</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.revokeBtn}>
-                            <MinusIcon className="h-4 w-4" /> Revoke
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Limited Time Fee Collect</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.revokeBtn}>
-                            <MinusIcon className="h-4 w-4" /> Revoke
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Timed Fee Collect</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.allowBtn}>
-                            <PlusIcon className="h-4 w-4" /> Allow
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Fee Collect</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.allowBtn}>
-                            <PlusIcon className="h-4 w-4" /> Allow
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Revert Collect</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.allowBtn}>
-                            <PlusIcon className="h-4 w-4" /> Allow
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Fee Follow</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.allowBtn}>
-                            <PlusIcon className="h-4 w-4" /> Allow
-                        </button>
-                    </div>
-                </div>
-                <div className={cardStyle.container}>
-                    <div>
-                        <div className={cardStyle.title}>Follower only reference</div>
-                        <p className={cardStyle.subtitle}>
-                            0xAF1cB165fC9e95769292f6af8b106395f346bb77
-                        </p>
-                    </div>
-                    <div>
-                        <button className={cardStyle.allowBtn}>
-                            <PlusIcon className="h-4 w-4" /> Allow
-                        </button>
-                    </div>
-                </div>  
-            </div>
-            
-        </div>
+                        <div className="max-w-lg">
+                            <SelectInput
+                                label="Select Currency"
+                                value={selectedCurrency}
+                                setValue={setSelectedCurrency}
+                                options={CURRENCIES}
+                            />
+                        </div>
+                        <Card
+                            variant="sunken"
+                            rounded="xl"
+                            className="p-4 flex justify-between items-center">
+                            <div>
+                                <p className="font-bold inline-flex gap-1 items-center">
+                                    <ClockIcon className='h-4 w-4 text-indigo-500'/>
+                                    <CogIcon className='h-4 w-4 text-indigo-500'/>
+                                    <PlayIcon className='h-4 w-4 text-indigo-500'/>
+                                    Limited Fee Collect</p>
+                                <p className="text-slate-500">
+                                    0x343j3r2fsssfej4sfsSefsDr3w3rwrdf54vcx
+                                </p>
+                            </div>
+                            <div>
+                                <Button icon={<MinusIcon className="h-5 w-5" />} variant="warning" className='w-36 '>
+                                    Revoke
+                                </Button>
+                            </div>
+                            </Card>
+                            <Card
+                            variant="sunken"
+                            rounded="xl"
+                            className="p-4 flex justify-between items-center">
+                            <div>
+                                <p className="font-bold inline-flex gap-1 items-center">
+                                    <ClockIcon className='h-4 w-4 text-indigo-500'/>
+                                    <CogIcon className='h-4 w-4 text-indigo-500'/>
+                                    <PlayIcon className='h-4 w-4 text-indigo-500'/>
+                                    Limited Fee Collect</p>
+                                <p className="text-slate-500">
+                                    0x343j3r2fsssfej4sfsSefsDr3w3rwrdf54vcx
+                                </p>
+                            </div>
+                            <div>
+                                <Button icon={<PlusIcon className="h-5 w-5" />} variant="primary" className='w-36'>
+                                    Allow
+                                </Button>
+                            </div>
+                        </Card>
+                    </Stack>
+                </CardBody>
+            </Card>
+        </>
     );
 };
 

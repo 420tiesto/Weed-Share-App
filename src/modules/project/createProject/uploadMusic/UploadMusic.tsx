@@ -6,11 +6,11 @@ import { type AlbumDetails } from '../../types';
 import { storeAlbumDetails } from '../../state/actions';
 import { useSelector } from 'react-redux';
 import { getAlbumDetails } from '../../state/selectors';
-import { SelectOption } from '../../../../app/components/common-ui/AutocompleteSelect/Autocomplete';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { pinImageToIPFS } from '../../../../utils/upload-file';
 import Upload from '../../../../app/components/common-ui/upload-image/UploadImage';
 import getIPFSImageLink from '../../../../utils/get-ipfs-url-link';
+import { SelectOption } from '../../../../app/components/common-ui/atoms/SelectInput';
 
 type Props = {};
 

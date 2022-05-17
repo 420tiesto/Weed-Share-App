@@ -2,13 +2,10 @@ import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { useController, UseControllerProps } from 'react-hook-form';
-import { type AlbumDetails } from '../../types';
+import { SelectOption } from '../../../../app/components/common-ui/atoms/SelectInput';
+import { AlbumDetails } from '../../types';
 
-export type SelectOption = {
-    name: string;
-    id: number;
-    value: string;
-};
+
 
 type Props = {
     label: string;

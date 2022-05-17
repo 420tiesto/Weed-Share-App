@@ -7,9 +7,9 @@ import AppRoutes, { LOGIN } from '../routes/Routes';
 import { LENS_TOKENS, PRNTS_PUBLIC_KEY } from '../../utils/local-storage/keys';
 import { getStorageValue } from '../../utils/local-storage/local-storage';
 import { getUserAuthenticated } from '../../modules/auth/state/auth.reducer';
-import Navbar from '../components/header/navbar/Navbar';
-import { copyright } from '../constants';
 import { Toaster, useToaster } from 'react-hot-toast';
+import Container from '../components/common-ui/container/Container';
+import Navbar from '../components/header/navbar/Navbar';
 
 interface Props {}
 
@@ -50,9 +50,6 @@ const AppContainer: React.FC<Props> = (props: Props) => {
             <Navbar />
             <div className="max-w-screen-xl pt-16 mx-auto  container">
                 <AppRoutes />
-            </div>
-            <div className="flex justify-center">
-                <p className=" my-4">{copyright}</p>
             </div>
         </BrowserRouter>
     );

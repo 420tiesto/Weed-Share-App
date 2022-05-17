@@ -25,14 +25,14 @@
 }
 
 @layer components {
-  
 
     .sunken-element{
         box-shadow: inset -6px -6px 12px rgba(255, 255, 255, 0.1), inset 6px 6px 12px rgba(0, 0, 0, 0.25);
     }
- 
+
+  
     .elevated-element{
-        box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.15), 6px 6px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.1), 6px 6px 12px rgba(0, 0, 0, 0.3);
     }
 
     .elevated-btn{

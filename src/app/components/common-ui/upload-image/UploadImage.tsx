@@ -38,7 +38,7 @@ const Upload: React.FC<UploadProps> = ({
                     <input {...getInputProps()} />
                     {showLoader ? (
                         <Loader />
-                    ) : !!imageLink ? (
+                    ) : !imageLink ? (
                         <img className="w-fit" src={imageLink} alt="User Profile Image" />
                     ) : (
                         <UploadIcon />

@@ -15,6 +15,7 @@ interface CardHeaderProps {
 }
 
 interface CardBodyProps {
+    padding?: 2 | 4 | 6 | 8
     children?: React.ReactNode;
     className?: string;
 }
@@ -29,7 +30,7 @@ export const Card: React.FC<CardProps> = ({ children,rounded, className, color, 
                     'bg-gray': color === 'light',
                     'bg-dark-gray': color === 'dark',
                 },
-                `rounded-${rounded} overflow-hidden`,
+                `rounded-${rounded} `,
                 className
             )}>
             {children}
@@ -44,6 +45,6 @@ export const CardHeader: React.FC<CardHeaderProps> = ({ children, className = ''
     )}>{children}</div>;
 };
 
-export const CardBody: React.FC<CardBodyProps> = ({ children, className = '' }) => {
-    return <div className={`p-5 ${className}`}>{children}</div>;
+export const CardBody: React.FC<CardBodyProps> = ({ children,padding=4, className = '' }) => {
+    return <div className={`p-${padding} ${className}`}>{children}</div>;
 };

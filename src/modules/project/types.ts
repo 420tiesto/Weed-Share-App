@@ -1,4 +1,4 @@
-import { SelectOption } from '../../app/components/common-ui/AutocompleteSelect/Autocomplete';
+import { SelectOption } from "../../app/components/common-ui/atoms/SelectInput";
 
 export interface AlbumDetails {
     artistName: string;

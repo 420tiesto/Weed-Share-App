@@ -1,22 +1,32 @@
-import { ArrowDownIcon } from '@heroicons/react/outline';
-import React from 'react';
+import { ArrowDownIcon, SearchIcon } from '@heroicons/react/outline';
+import React, { useState } from 'react';
 import Button from './atoms/Button';
 import { Card, CardBody, CardHeader } from './atoms/Card';
+import { Input } from './atoms/Input';
+import SelectInput, { SelectOption } from './atoms/SelectInput';
 import Stack from './atoms/Stack';
 
 type Props = {};
 
 const DesignSystem = (props: Props) => {
+    const list:SelectOption[] = [
+        {name:"Adarsh",value:"adarsh",id:1},
+        {name:"Harrish",value:"harrish",id:1},
+        {name:"Airesh",value:"airesh",id:1},
+        {name:"Tiesto",value:"tiesto",id:1},
+    ]
+    const [selected,setSelected] = useState<SelectOption>(list[0]);
     return (
         <div className="grid grid-cols-3 gap-8 p-4">
             <Card variant="elevated" rounded="2xl">
                 <CardHeader>Button Sizes</CardHeader>
                 <CardBody>
-                    <Stack>
+                    <SelectInput options={list} value={selected} setValue={setSelected} /> 
+                    {/* <Stack>
                         <Button size="sm">Small</Button>
                         <Button size="md">Medium</Button>
                         <Button size="lg">lARGE</Button>
-                    </Stack>
+                    </Stack> */}
                 </CardBody>
             </Card>
 

@@ -22,6 +22,8 @@ interface Props {
 
 const ProfileSettingsPage: React.FC<Props> = (props: Props) => {
     const dispatch = useAppDispatch();
+
+    //redux state
     const profileDetails = useSelector(getUserProfile);
 
     useEffect(() => {}, [profileDetails]);
@@ -48,15 +50,17 @@ const ProfileSettingsPage: React.FC<Props> = (props: Props) => {
                 <div className="flex">
                     <Tab.Group vertical>
                         <div className="max-w-[320px] w-full">
-                            <div className='w-full p-4 border-b-2 border-[#505050]'>
-
-                            <ProfileInfo
-                                imgSrc="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1853&q=80"
-                                name="Memories of Moon"
-                                username="memoriesOfmoon"
+                            <div className="w-full p-4 border-b-2 border-[#505050]">
+                                <ProfileInfo
+                                    imgSrc={
+                                        profileDetails.picture === null
+                                            ? ''
+                                            : profileDetails.picture.original.url
+                                    }
+                                    name={profileDetails.name}
+                                    username={profileDetails.handle}
                                 />
-
-                                </div>
+                            </div>
                             <Tab.List className="flex flex-col mt-4">
                                 <StyledSettingsTab>
                                     <UserIcon className="h-5 w-5" /> Profile
@@ -83,7 +87,9 @@ const ProfileSettingsPage: React.FC<Props> = (props: Props) => {
                                         onSubmit={getProfileDetails}
                                     />
                                 </Tab.Panel>
-                                <Tab.Panel><AccountSettings/></Tab.Panel>
+                                <Tab.Panel>
+                                    <AccountSettings />
+                                </Tab.Panel>
                                 <Tab.Panel>
                                     <AllowanceSettings />
                                 </Tab.Panel>

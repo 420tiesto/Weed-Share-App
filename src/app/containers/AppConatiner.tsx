@@ -9,23 +9,35 @@ import { getUserAuthenticated } from '../../modules/auth/state/auth.reducer';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/header/navbar/Navbar';
 import { getProfiles } from '../../modules/profile/services/get-profiles';
+import { useSetState } from 'react-use';
 
 interface Props {}
 
 interface State {
-    authenticated: boolean;
+    loading: boolean;
 }
 
 const AppContainer: React.FC<Props> = (props: Props) => {
     const dispatch = useDispatch();
+
+    //localStorage
     const auth = getStorageValue(LENS_TOKENS);
     const address = getStorageValue(PRNTS_PUBLIC_KEY);
     const handle = getStorageValue(PRNTS_USER_HANDLE);
+
+    //reduxState
     const authenticatedState = useSelector(getUserAuthenticated);
+
+    const [state, setState] = useSetState<State>({
+        loading: true,
+    });
+
+    const { loading } = state;
 
     useEffect(() => {
         checkIfUserLoggedIn();
     }, []);
+
     window.ethereum.on('accountsChanged', (accounts: any) => {
         // If user has locked/logout from MetaMask, this resets the accounts array to empty
         if (!accounts.length) {
@@ -51,6 +63,7 @@ const AppContainer: React.FC<Props> = (props: Props) => {
     });
 
     const checkIfUserLoggedIn = () => {
+        setState({ loading: true });
         if (auth && address && handle) {
             getProfiles({
                 handles: [handle],
@@ -58,9 +71,11 @@ const AppContainer: React.FC<Props> = (props: Props) => {
             }).then((profile: any) => {
                 dispatch(setUserAuthenticated(true));
                 dispatch(setUserProfile(profile.data.profiles.items[0]));
+                setState({ loading: false });
             });
         } else {
             dispatch(setUserAuthenticated(false));
+            setState({ loading: false });
         }
     };
 
@@ -69,7 +84,7 @@ const AppContainer: React.FC<Props> = (props: Props) => {
             <Toaster position="top-right" />
             <Navbar />
             <div className="max-w-screen-xl pt-16 mx-auto  container">
-                <AppRoutes />
+                {loading ? <div>Loading..</div> : <AppRoutes />}
             </div>
         </BrowserRouter>
     );

@@ -29,6 +29,7 @@ import Stack from '../../../app/components/common-ui/atoms/Stack';
 import Button from '../../../app/components/common-ui/atoms/Button';
 import { Input } from '../../../app/components/common-ui/atoms/Input';
 import { TextArea } from '../../../app/components/common-ui/atoms/TextArea';
+import { errorToast, successToast } from '../../../app/components/common-ui/toasts/CustomToast';
 
 interface Props {
     profileDetails: any;
@@ -36,11 +37,13 @@ interface Props {
 }
 
 interface State {
-    profileDetails: any[];
+    // profileDetails: {};
     coverImageLoading: boolean;
     coverImageURI: string;
     loading: boolean;
     profileImageURI: string;
+    profileImageLoading: boolean;
+    checking: boolean;
 }
 
 const ProfileSettings: React.FC<Props> = (props: Props) => {
@@ -53,19 +56,26 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         formState: { errors },
     } = useForm<any>();
     const [state, setState] = useSetState<State>({
-        profileDetails: [],
+        // profileDetails: {},
         coverImageLoading: false,
         coverImageURI: '',
         profileImageURI: '',
         loading: false,
+        profileImageLoading: false,
+        checking: false,
     });
 
     const { onSubmit } = props;
-    const { coverImageLoading, coverImageURI, loading, profileImageURI } = state;
+    const {
+        coverImageLoading,
+        coverImageURI,
+        loading,
+        profileImageURI,
+        profileImageLoading,
+        checking,
+    } = state;
 
     useEffect(() => {
-        // getProfileDetails();
-        console.log(profileDetails);
         setState({
             coverImageURI:
                 profileDetails.coverPicture === null
@@ -88,20 +98,18 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
     };
 
     const uploadProfileImage = async (files: any) => {
-        setState({ coverImageLoading: true });
+        setState({ profileImageLoading: true });
         const file = files[0];
         const ipfsData = await pinImageToIPFS(file);
         const { IpfsHash: ipfsHash } = ipfsData;
-        console.log(getIPFSUrlLink(ipfsHash));
-        console.log(ipfsData);
         setState({ profileImageURI: getIPFSUrlLink(ipfsHash) });
-        setState({ coverImageLoading: false });
+        setState({ profileImageLoading: false });
     };
 
     const updateProfileMetadataDetails: SubmitHandler<any> = async (data) => {
         await dispatch(login());
-        console.log(data, coverImageURI);
         setState({ loading: true });
+        setState({ checking: true });
         let name = data.name;
         const metadata = {
             name: data.name,
@@ -137,7 +145,6 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
             },
             metadata
         ).finally(() => setState({ loading: false }));
-        console.log(IpfsHash);
 
         const createProfileMetadataRequest = {
             profileId: profileDetails.id,
@@ -178,19 +185,29 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                 },
             })
             .then(async (tx: any) => {
-                console.log(tx.hash);
-                await pollUntilIndexed(tx.hash).then((resp: any) => {
-                    console.log(resp, 'Profile Created');
-                    onSubmit();
-                });
+                successToast('Profile has been Succesfully Uploaded', 'Profile Updated');
+                await pollUntilIndexed(tx.hash)
+                    .then((resp: any) => {
+                        console.log(resp, 'Profile updated');
+                        setState({ checking: false });
+                        onSubmit();
+                    })
+                    .catch((error: Error) => {
+                        errorToast('Profile update has Failed', error.message);
+                        setState({ checking: false });
+                        console.log(error);
+                    });
             })
             .catch((error: Error) => {
+                errorToast('Profile update has Failed', error.message);
+                setState({ checking: false });
                 console.log(error);
             });
     };
 
     const updateProfileImage: SubmitHandler<any> = async (data) => {
         await dispatch(login());
+        setState({ checking: true });
         const setProfileImageUriRequest = {
             profileId: profileDetails.id,
             url: profileImageURI,
@@ -202,17 +219,37 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
         const { v, r, s } = splitSignature(signature);
 
-        const tx = await lensHub.setProfileImageURIWithSig({
-            profileId: typedData.value.profileId,
-            imageURI: typedData.value.imageURI,
-            sig: {
-                v,
-                r,
-                s,
-                deadline: typedData.value.deadline,
-            },
-        });
-        console.log(tx.hash);
+        const tx = await lensHub
+            .setProfileImageURIWithSig({
+                profileId: typedData.value.profileId,
+                imageURI: typedData.value.imageURI,
+                sig: {
+                    v,
+                    r,
+                    s,
+                    deadline: typedData.value.deadline,
+                },
+            })
+            .then(async (tx: any) => {
+                console.log(tx.hash);
+                successToast('Profile Image has been Succesfully Uploaded', 'Profile Updated');
+                await pollUntilIndexed(tx.hash)
+                    .then((resp: any) => {
+                        console.log(resp, 'Profile updated');
+                        setState({ checking: false });
+                        onSubmit();
+                    })
+                    .catch((error: Error) => {
+                        setState({ checking: false });
+                        console.log(error);
+                        errorToast('Profile Image has Failed', error.message);
+                    });
+            })
+            .catch((error: Error) => {
+                console.log(error);
+                setState({ checking: false });
+                errorToast('Profile Image has Failed', error.message);
+            });
     };
 
     return (
@@ -304,7 +341,7 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                                         />
                                     </div>
                                 </Stack>
-                                    <div className="flex justify-end">
+                                <div className="flex justify-end">
                                     <Button type="submit">Save</Button>
                                 </div>
                             </form>
@@ -322,14 +359,16 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
 
                                     <UploadImage
                                         uploadHelper={uploadProfileImage}
-                                        showLoader={coverImageLoading}
+                                        showLoader={profileImageLoading}
                                         displayText="Upload Profile NFT Image"
-                                        imageLink={getIPFSImageLink(profileImageURI)}
+                                        imageLink={profileImageURI}
                                         helpText=".jpg , .png or .gif extension"
                                     />
                                 </div>
                                 <div className="flex justify-end">
-                                    <Button type="submit">Save</Button>
+                                    <Button type="submit" loading={checking}>
+                                        Sign up
+                                    </Button>
                                 </div>
                             </form>
                         </CardBody>

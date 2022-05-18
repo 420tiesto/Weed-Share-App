@@ -75,7 +75,6 @@ const SignUp: React.FC<Props> = () => {
     };
 
     const handleConnectWallet = async () => {
-        console.log('connect signup');
         if (checkUserHasEthereumBrowserWallet()) {
             signup();
         } else {
@@ -90,20 +89,14 @@ const SignUp: React.FC<Props> = () => {
             if (account) {
                 dispatch(setUserAdress(account));
                 const profile = await getLensProfile(account);
-                console.log(profile, 'profile');
                 if (profile && profile.profiles.items.length > 0) {
                     await dispatch(login());
                     dispatch(setUserProfile(profile.profiles.items[0]));
-                    console.log('user logged in', profile.profiles.items[0]);
                     navigate(HOME_PAGE);
                 } else {
-                    console.log('user needs to be created', 'Signup Pop shown');
                     setState({ showModal: true });
-                    // return { staus: 400, msg: 'Need to create user' };
                 }
-                // get Lens Signature
             } else {
-                // show popup
                 console.log('No metmask connected');
             }
         });
@@ -111,7 +104,6 @@ const SignUp: React.FC<Props> = () => {
     };
 
     const signUpSuccess = (handle: string) => {
-        console.log('sucess', handle);
         setState({ showModal: false });
         setStorageValue(PRNTS_USER_HANDLE, handle);
         dispatch(setUserHandle(handle));

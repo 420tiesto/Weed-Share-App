@@ -14,7 +14,12 @@ import { getPublications } from '../services/get-publications';
 import ProjectsJoined from '../components/ProjectsJoined';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getCurrentUserAdress, getIsNewUser, getUserProfile } from '../../auth/state/auth.reducer';
+import {
+    getCurrentUserAdress,
+    getIsNewUser,
+    getUserAuthenticated,
+    getUserProfile,
+} from '../../auth/state/auth.reducer';
 import { setUserProfile } from '../../auth/state/auth.action';
 import { useAppDispatch } from '../../../state/configure-store';
 import { getStorageValue } from '../../../utils/local-storage/local-storage';
@@ -56,6 +61,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
     //redux state
     const isNewUser = useSelector(getIsNewUser);
     const address = useSelector(getCurrentUserAdress);
+    const authenthicatedState = useSelector(getUserAuthenticated);
 
     const {
         loading,
@@ -172,7 +178,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                                         Edit Profile
                                     </a> */}
 
-                                    {isOwner ? (
+                                    {isOwner && authenthicatedState ? (
                                         <Link
                                             className="green-outline-btn px-4 max-w-fit"
                                             to="/profile/settings">

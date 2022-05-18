@@ -9,6 +9,14 @@ import MenuAccountItem from './MenuAccountItem';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { useSelector } from 'react-redux';
 import { getUserHandle, getUserProfile } from '../../../../modules/auth/state/auth.reducer';
+import { setUserAuthenticated } from '../../../../modules/auth/state/auth.action';
+import { removeStorageValue } from '../../../../utils/local-storage/local-storage';
+import {
+    LENS_TOKENS,
+    PRNTS_PRIVATE_KEY,
+    PRNTS_PUBLIC_KEY,
+    PRNTS_USER_HANDLE,
+} from '../../../../utils/local-storage/keys';
 
 type MenuState = 'default' | 'accounts';
 
@@ -27,6 +35,12 @@ const UserMenu: React.FC<Props> = (props: Props) => {
         // clear local storage
         // dispatch saying auth false
         // switch to normal user mode
+        console.log('logout');
+        removeStorageValue(PRNTS_PUBLIC_KEY);
+        removeStorageValue(PRNTS_PRIVATE_KEY);
+        removeStorageValue(PRNTS_USER_HANDLE);
+        removeStorageValue(LENS_TOKENS);
+        dispatch(setUserAuthenticated(false));
     };
 
     const styles = {
@@ -100,8 +114,8 @@ const UserMenu: React.FC<Props> = (props: Props) => {
                     </>
                 )}
                 {/* Logout */}
-                <Menu.Item as="button" className={styles.menuItem}>
-                    <LogoutIcon onClick={handleLogout} className="h-5 w-5" /> Log out
+                <Menu.Item as="button" className={styles.menuItem} onClick={handleLogout}>
+                    <LogoutIcon className="h-5 w-5" /> Log out
                 </Menu.Item>
             </MenuItems>
         </Menu>

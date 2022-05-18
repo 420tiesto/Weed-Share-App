@@ -367,7 +367,7 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                                 </div>
                                 <div className="flex justify-end">
                                     <Button type="submit" loading={checking}>
-                                        Sign up
+                                        Save
                                     </Button>
                                 </div>
                             </form>

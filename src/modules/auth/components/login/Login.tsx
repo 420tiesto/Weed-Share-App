@@ -59,8 +59,8 @@ const Login: React.FC<Props> = (props: Props) => {
                         Don't have an account ?<span className="text-primary pl-1">Sign Up</span>
                     </p>
                 </Link>
-                <div className="flex-grow flex flex-col items-center m-8 ">
-                    <p className="mb-4">
+                <div className="flex-grow flex justify-center flex-col items-center m-8 ">
+                    <p className="mb-8">
                         Connect with one of our available{' '}
                         <span className="text-primary"> wallet </span> providers or create a new
                         one.

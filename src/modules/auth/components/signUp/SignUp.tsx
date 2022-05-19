@@ -124,14 +124,14 @@ const SignUp: React.FC<Props> = () => {
                             <span className="text-primary pl-1">Login</span>
                         </p>
                     </Link>
-                    <div className="flex-grow flex flex-col items-center m-8 ">
-                        <p className="mb-4">
+                    <div className="flex-grow justify-center flex flex-col items-center m-8 ">
+                        <p className="mb-8">
                             Connect with one of our available{' '}
                             <span className="text-primary"> wallet </span> providers or create a new
                             one.
                         </p>
                         <Connectors connectWallet={handleConnectWallet} />
-                    </div>
+                    </div>npm 
                 </div>
             </div>
             <CreateAccountModal

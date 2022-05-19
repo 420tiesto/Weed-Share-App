@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/header/navbar/Navbar';
 import { getProfiles } from '../../modules/profile/services/get-profiles';
 import { useSetState } from 'react-use';
+import { copyright } from '../constants';
 
 interface Props {}
 
@@ -83,8 +84,9 @@ const AppContainer: React.FC<Props> = (props: Props) => {
         <BrowserRouter>
             <Toaster position="top-right" />
             <Navbar />
-            <div className="max-w-screen-xl pt-16 mx-auto  container">
-                {loading ? <div>Loading..</div> : <AppRoutes />}
+            <div className="px-4 mt-16">{loading ? <div>Loading..</div> : <AppRoutes />}</div>
+            <div className="flex justify-center">
+                <p className="my-4">{copyright}</p>
             </div>
         </BrowserRouter>
     );

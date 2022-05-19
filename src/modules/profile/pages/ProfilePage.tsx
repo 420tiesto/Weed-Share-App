@@ -31,6 +31,9 @@ import { uploadWeb3Json } from '../../../utils/upload-json';
 import updateProfileMetaData from '../services/update-profile-metadata';
 import getIPFSUrlLink from '../../../utils/get-ipfs-url-link';
 import { follow } from '../services/follow';
+import { Card } from '../../../app/components/common-ui/atoms/Card';
+import { Input } from '../../../app/components/common-ui/atoms/Input';
+import { SearchIcon } from '@heroicons/react/outline';
 
 interface Props {
     // authenthicated: boolean;
@@ -139,8 +142,8 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
     };
 
     return (
-        <div className="min-h-screen">
-            <div className="overflow-hidden min-h-full  max-w-screen-xl mx-auto container sunken-element">
+        <div className='pt-4'>
+            <Card variant='sunken' color='dark' >
                 <>
                     {Object.keys(profileDetails).length !== 0 ? (
                         <div className="relative p-4">
@@ -196,13 +199,13 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                                         instagram=""
                                         shareLink=""
                                         twitter=""
-                                    />
+                                        />
                                 </div>
                             </div>
                         </div>
                     ) : (
                         <div>Loading..</div>
-                    )}
+                        )}
                 </>
 
                 <Tab.Group defaultIndex={0}>
@@ -213,8 +216,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                         <StyledTab>Soundcloud Songs</StyledTab>
                     </Tab.List>
                     <div className="p-8 space-y-8">
-                        <SearchBar />
-
+                        <Input leftIcon={<SearchIcon className='h-4 w-4' />} placeholder="Search Something" className='px-8' />
                         <Tab.Panels>
                             <Tab.Panel>
                                 <ProjectsCreated ownedPublications={ownedPublications} />
@@ -227,8 +229,9 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                         </Tab.Panels>
                     </div>
                 </Tab.Group>
+            </Card>
             </div>
-        </div>
+        
     );
 };
 

@@ -10,11 +10,7 @@ type Props = {
 // Container component for max screen width xl
 const Container = ({ children }: Props) => {
     return <>
-    <Navbar/>
-    <div className='max-w-screen-xl pt-16 mx-auto  container'>{children}</div>
-    <div className='flex justify-center'>
-    <p className=" my-4">{copyright}</p>
-    </div>
+    <div className='mt-16'>{children}</div>
     </> 
 }
 

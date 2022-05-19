@@ -21,12 +21,11 @@ const ProjectCard: React.FC<Props> = ({ projectData }) => {
             <Card
                 variant="elevated"
                 color="dark"
-                rounded="2xl"
-                className="max-w-[280px] cursor-pointer hover:scale-105 ease-out duration-200 transition-transform">
-                <div className="h-[200px]">
-                    <img src={albumCover} alt="" className="h-full object-cover object-center" />
+                className="max-w-[290px] border border-slate-300   rounded-[30px] cursor-pointer overflow-hidden hover:scale-105 ease-out duration-200 transition-transform">
+                <div className="h-[185px]">
+                    <img src={albumCover} alt="" className="h-full w-full object-cover object-center" />
                 </div>
-                <div className="p-4 shadow-bottom">
+                <div className="px-6 py-2 shadow-bottom border-b border-slate-700">
                     <p className="text-slate-500 text-sm font-medium">{username}</p>
                     <p className="font-semibold">{title}</p>
                 </div>

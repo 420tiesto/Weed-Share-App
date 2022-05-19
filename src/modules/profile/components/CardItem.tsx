@@ -11,9 +11,9 @@ interface CardItemProps {
 
 const CardItem = ({ imgSrc, text, subText, likeCount }: CardItemProps) => {
     return (
-        <Card variant="elevated" rounded="2xl" className="max-w-[280px]">
+        <Card variant="elevated" rounded="2xl" className="overflow-hidden max-w-[280px]">
             <div className="h-[200px]">
-                <img src={imgSrc} alt={text} className="h-full object-cover object-center" />
+                <img src={imgSrc} alt={text} className="h-full w-full object-cover object-center" />
             </div>
             <div className="p-4 shadow-bottom">
                 <p className="text-slate-500 text-sm font-medium">{subText}</p>

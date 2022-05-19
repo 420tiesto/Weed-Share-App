@@ -6,7 +6,7 @@ type Props = {};
 
 const ExplorePage = (props: Props) => {
     return (
-        <div className="py-8 p-4 lg:p-0 lg:py-8 ">
+        <div className="py-4 mx-auto">
             <Tab.Group>
                 <Tab.List className="flex gap-4 mb-8 ">
                     <Tab

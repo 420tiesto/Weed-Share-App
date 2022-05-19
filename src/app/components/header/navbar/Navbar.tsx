@@ -38,7 +38,7 @@ const Navbar: React.FC = ({}) => {
     };
     return (
         <header className="bg-dark-gray px-4 fixed w-full shadow h-16 top-0 z-40 py-2">
-            <nav className="flex items-center h-full justify-between max-w-screen-xl mx-auto">
+            <nav className="flex items-center h-full justify-between">
                 {/* Logo */}
                 <img src="/prnts-logo.svg" alt="prnts" className="h-10" />
                 {/* User Menu */}

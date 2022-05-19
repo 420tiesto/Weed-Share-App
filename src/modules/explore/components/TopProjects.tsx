@@ -11,13 +11,13 @@ const TopProjects = ({ sortCriteria }: Props) => {
     const { data: { explorePublications: { items = [] } = {} } = {} } = data as any;
     if (isLoading) {
         return (
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+            <div className="items-center justify-center  w-full">
                 <Loader />
             </div>
         );
     }
     return (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+    <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  ">
             {items.map((item: any) => (
                 <ProjectCard
                     key={item.id}

@@ -11,6 +11,8 @@ import { pinImageToIPFS } from '../../../../utils/upload-file';
 import Upload from '../../../../app/components/common-ui/upload-image/UploadImage';
 import getIPFSImageLink from '../../../../utils/get-ipfs-url-link';
 import { SelectOption } from '../../../../app/components/common-ui/atoms/SelectInput';
+import { Input } from '../../../../app/components/common-ui/atoms/Input';
+import { Card, CardBody } from '../../../../app/components/common-ui/atoms/Card';
 
 type Props = {};
 
@@ -69,7 +71,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
 
     return (
         <>
-            <h1 className="text-2xl text-center mb-2 font-bold">Upload Music</h1>
+        
             <h2 className="text-xl mb-2 font-bold pl-8">Album details</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -80,8 +82,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             Artist / Band Name
                         </label>
                         <div className="relative col-span-3 items-center flex gap-2">
-                            <input
-                                className="primary-input  w-full"
+                            <Input
                                 placeholder="Enter artist / band name"
                                 type="text"
                                 {...register('artistName', {
@@ -95,7 +96,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             />
                             <span className="relative group">
                                 <LightBulbIcon className="h-6 w-6 cursor-pointer text-yellow-500 " />
-                                <div className="text-xs bg-gray-900 text-gray-300 p-4 rounded-xl max-w-xs group-hover:block absolute top-8 z-10 w-80 hidden">
+                                <div className="text-xs bg-gray text-gray-300 p-4 rounded-xl max-w-xs group-hover:block absolute top-8 z-10 w-80 hidden">
                                     <p>
                                         Important: Only list yourname, stage name, or band name. Do
                                         not include anyone else's name (without their permission),
@@ -118,8 +119,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             Release Date
                         </label>
                         <div className="relative col-span-3">
-                            <input
-                                className="primary-input w-full"
+                            <Input
                                 placeholder="Select release date"
                                 type="date"
                                 {...register('releaseDate', { required: true })}
@@ -130,12 +130,11 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                         </div>
                     </div>
                     <div className="grid grid-cols-5 items-center">
-                        <label className="col-span-2" htmlFor="releaseDate">
+                        <label className="col-span-2" htmlFor="recordLabel">
                             Record Label
                         </label>
                         <div className="relative col-span-3">
-                            <input
-                                className="primary-input w-full"
+                            <Input
                                 placeholder="Enter record label"
                                 type="text"
                                 {...register('recordLabel', {
@@ -154,10 +153,11 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     </div>
 
                     <AutocompleteFormInput
-                        label="Select Input"
+                        label="Select Language"
                         options={LANGUAGES}
                         control={control}
                         name="language"
+                        placeholder="Enter language"
                         defaultValue={LANGUAGES[0]}
                     />
 
@@ -165,6 +165,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                         label="Select Primary Genre"
                         options={GENRES}
                         control={control}
+                        placeholder="Select Primary Genre"
                         name="primaryGenre"
                         defaultValue={GENRES[0]}
                     />
@@ -176,8 +177,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             <span className="text-xs absolute">Optional</span>
                         </label>
                         <div className="relative col-span-3">
-                            <input
-                                className="primary-input col-span-3"
+                            <Input
                                 placeholder="Enter secondary genre"
                                 type="text"
                                 {...register('secondaryGenre', {

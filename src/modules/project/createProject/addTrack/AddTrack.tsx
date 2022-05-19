@@ -8,6 +8,7 @@ import { useAppDispatch } from '../../../../state/configure-store';
 
 import { type TrackDetails } from '../../types';
 import { addTrackDetails, deleteTrackDetails, updateTrackDetails } from '../../state/actions';
+import Button from '../../../../app/components/common-ui/atoms/Button';
 
 type Props = {};
 
@@ -57,14 +58,11 @@ const AddTrack = forwardRef(({}: Props, ref: any) => {
 
     return (
         <>
-            <h1 className="text-2xl text-center mb-4 font-bold ">Upload Music</h1>
             <div className="flex items-center justify-between mb-8">
                 <h2 className="text-xl  font-semibold">Tracks</h2>
-                <button
-                    onClick={addNewTrack}
-                    className="green-btn flex items-center gap-2 max-w-fit px-6">
-                    Add Another Track <PlusIcon className="h-5 w-5" />
-                </button>
+                <Button onClick={addNewTrack} icon={<PlusIcon className="h-5 w-5" />}>
+                    Add Another Track
+                </Button>
             </div>
             <div className="space-y-4">
                 {tracks.map((track: TrackDetails, index: number) => (

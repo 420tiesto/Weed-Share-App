@@ -53,9 +53,9 @@ const UserMenu: React.FC<Props> = (props: Props) => {
                 name={profileDetails.name}
                 handle={profileDetails.handle}
                 imageURI={
-                    Object.keys(profileDetails).length !== 0
-                        ? profileDetails.picture.original.url
-                        : ''
+                    Object.keys(profileDetails).length !== 0 && profileDetails?.picture?.original?.url
+                        ? profileDetails?.picture?.original?.url
+                        : "https://prnts.mypinata.cloud/ipfs/QmUDKC6zKTfDh25yNceRXRodi3R8MZZ5fKJFgVkkKwTGHt"
                 }
             />
             {/* If menu is in default state */}

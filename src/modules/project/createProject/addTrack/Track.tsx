@@ -8,6 +8,7 @@ import { uploadWeb3Json } from '../../../../utils/upload-json';
 import { pinImageToIPFS } from '../../../../utils/upload-file';
 import UploadMusic from '../../../../app/components/common-ui/upload-music';
 import Button from '../../../../app/components/common-ui/atoms/Button';
+import { Input } from '../../../../app/components/common-ui/atoms/Input';
 
 type Props = {
     index: number;
@@ -93,7 +94,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                             <div className={styles.inputContainer}>
                                 <label className={styles.label}>Song Title</label>
                                 <div className="relative">
-                                    <input
+                                    <Input
                                         {...register('songTitle', {
                                             minLength: { value: 3, message: 'Too short' },
                                             maxLength: { value: 50, message: 'Too long' },
@@ -104,7 +105,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                         })}
                                         type="text"
                                         placeholder="Enter song title"
-                                        className={styles.textInput}
+                                
                                     />
                                     <p className={styles.errorText}>{errors.songTitle?.message}</p>
                                 </div>
@@ -223,7 +224,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                 <div className="space-y-4 relative flex-grow">
                                     <div className="flex gap-4">
                                         <div className="relative">
-                                            <input
+                                            <Input
                                                 {...register('songWriterFirstName', {
                                                     minLength: { value: 3, message: 'Too short' },
                                                     maxLength: { value: 15, message: 'Too long' },
@@ -234,14 +235,13 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                                 })}
                                                 type="text"
                                                 placeholder="First name"
-                                                className={styles.textInput}
                                             />
                                             <p className={styles.errorText}>
                                                 {errors.songWriterFirstName?.message}
                                             </p>
                                         </div>
                                         <div className="relative">
-                                            <input
+                                            <Input
                                                 {...register('songWriterLastName', {
                                                     minLength: { value: 3, message: 'Too short' },
                                                     maxLength: { value: 15, message: 'Too long' },
@@ -252,7 +252,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                                 })}
                                                 type="text"
                                                 placeholder="Last Name"
-                                                className={styles.textInput}
+                                        
                                             />
                                             <p className={styles.errorText}>
                                                 {errors.songWriterLastName?.message}
@@ -428,7 +428,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                     </span>
                                 </label>
                                 <div className="relative">
-                                    <input
+                                    <Input
                                         {...register('trackPrice', {
                                             min: {
                                                 value: 0.1,
@@ -438,7 +438,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                         })}
                                         type="number"
                                         placeholder="Enter Track Price"
-                                        className="primary-input max-w-md"
+
                                     />
                                     <p className={styles.errorText}>{errors.trackPrice?.message}</p>
                                 </div>
@@ -450,7 +450,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                     <span className="text-xs text-gray-300"> in Matic</span>
                                 </label>
                                 <div className="relative">
-                                    <input
+                                    <Input
                                         {...register('maticTrackPrice', {
                                             min: {
                                                 value: 0.1,
@@ -461,7 +461,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                         type="number"
                                         step={0.1}
                                         placeholder="Enter Track Price (in Matic)"
-                                        className="primary-input max-w-md"
+
                                     />
                                     <p className={styles.errorText}>
                                         {errors.maticTrackPrice?.message}

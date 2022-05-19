@@ -22,7 +22,12 @@ import { getUserProfile } from '../../../auth/state/auth.reducer';
 import Button from '../../../../app/components/common-ui/atoms/Button';
 import { getPublications } from '../../../profile/services/get-publications';
 import { pollUntilIndexed } from '../../../../services/has-transaction-been-indexed';
-import { successToast, promiseToast, errorToast } from '../../../../app/components/common-ui/toasts/CustomToast';
+import {
+    successToast,
+    promiseToast,
+    errorToast,
+} from '../../../../app/components/common-ui/toasts/CustomToast';
+import { Card, CardBody } from '../../../../app/components/common-ui/atoms/Card';
 
 const CreateProjectFlow = () => {
     const [loader, setLoader] = useState(false);
@@ -162,22 +167,28 @@ const CreateProjectFlow = () => {
     };
     return (
         <>
-            {step === 1 && <UploadMusic ref={uploadMusicRef} />}
-            {step === 2 && <AddTrack ref={createProjectRef} />}
-            <div className="flex justify-between">
-                <div
-                    className={clsx('mt-8', {
-                        invisible: step === 1,
-                    })}>
-                    <Button onClick={previousStep} variant="primary">
-                        Previous
-                    </Button>
-                </div>
-                <div className="mt-8">
-                    <Button loading={loader} onClick={nextStep} variant="primary">
-                        {step === 2 ? 'Create Project' : 'Next'}
-                    </Button>
-                </div>
+            <div className="p-4">
+                <Card variant="sunken" color="dark" className="mt-4">
+                    <CardBody padding={8}>
+                    <h1 className="text-3xl text-center mb-2 font-bold">Create Project</h1>
+                        {step === 1 && <UploadMusic ref={uploadMusicRef} />}
+                        {step === 2 && <AddTrack ref={createProjectRef} />}
+                        <div
+                            className={clsx({
+                                'flex justify-between mt-4': step != 1,
+                                'flex justify-end mt-4': step == 1,
+                            })}>
+                            {step != 1 && (
+                                <Button onClick={previousStep} variant="primary">
+                                    Previous
+                                </Button>
+                            )}
+                            <Button loading={loader} onClick={nextStep} variant="primary">
+                                {step === 2 ? 'Create Project' : 'Next'}
+                            </Button>
+                        </div>
+                    </CardBody>
+                </Card>
             </div>
         </>
     );

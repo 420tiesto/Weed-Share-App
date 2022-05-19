@@ -20,7 +20,7 @@ interface CardBodyProps {
     className?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ children,rounded, className, color, variant }) => {
+export const Card: React.FC<CardProps> = ({ children,rounded, className=' ', color, variant }) => {
     return (
         <div
             className={clsx(

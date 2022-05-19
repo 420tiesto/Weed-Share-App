@@ -114,8 +114,8 @@ const SignUp: React.FC<Props> = () => {
 
     return (
         <>
-            <div className="flex flex-col gap-4 items-center mx-auto max-w-screen-lg mt-8 ">
-                <div className="relative sunken-element bg-dark-gray flex flex-col bg-gray-900 rounded-2xl h-[80vh]  w-full  py-8 px-16">
+            <div className="flex flex-col gap-4 items-center mx-auto max-w-screen-md mt-32 p-8">
+                <div className="relative sunken-element bg-dark-gray flex flex-col bg-gray-900 rounded-2xl   w-full  py-8 px-16">
                 
                     <h1 className="text-4xl mb-1 font-bold">Sign Up</h1>
                     <Link to="/signup">
@@ -124,14 +124,14 @@ const SignUp: React.FC<Props> = () => {
                             <span className="text-primary pl-1">Login</span>
                         </p>
                     </Link>
-                    <div className="flex-grow justify-center flex flex-col items-center m-8 ">
+                    <div className="flex-grow  flex flex-col items-center m-8 ">
                         <p className="mb-8">
                             Connect with one of our available{' '}
                             <span className="text-primary"> wallet </span> providers or create a new
                             one.
                         </p>
                         <Connectors connectWallet={handleConnectWallet} />
-                    </div>npm 
+                    </div>
                 </div>
             </div>
             <CreateAccountModal

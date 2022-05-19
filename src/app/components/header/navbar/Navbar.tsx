@@ -5,7 +5,9 @@ import UserMenu from '../userMenu/UserMenu';
 import Navlink from './Navlink';
 import { CREATE_PROJECT, EXPLORE, LOGIN } from '../../../routes/Routes';
 import { getUserAuthenticated, getUserHandle } from '../../../../modules/auth/state/auth.reducer';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Button from '../../common-ui/atoms/Button';
+import { PlusIcon } from '@heroicons/react/outline';
 
 export type NavlinkType = {
     name: string;
@@ -29,9 +31,6 @@ const Navbar: React.FC = ({}) => {
 
     useEffect(() => {}, [authenticatedState]);
 
-    if (authenticatedState) {
-        NAVBAR_LINKS.push({ name: 'Upload Album', href: CREATE_PROJECT });
-    }
 
     const handleNavigate = () => {
         navigate(LOGIN);
@@ -48,9 +47,14 @@ const Navbar: React.FC = ({}) => {
                     ))}
                 </div>
                 {authenticatedState ? (
-                    <UserMenu />
+                    <div className="flex items-center gap-4">
+                       <Link to={'upload-album'}>
+                           <Button icon={<PlusIcon className='h-5 w-5' />} className='px-3 rounded-lg' >Create Project</Button>
+                       </Link> 
+                        <UserMenu />
+                    </div>
                 ) : (
-                    <button onClick={handleNavigate}>Login</button>
+                    <Button onClick={handleNavigate}>Login</Button>
                 )}
             </nav>
         </header>

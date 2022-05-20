@@ -40,9 +40,9 @@ const AutcompleteFormInput = (props: Props) => {
                 <div className="relative  col-span-3 mt-1 flex-grow">
                     <Combobox.Input
                         as={Input}
-                        className='focus-withing'
+                        className='group'
                         rightIcon={
-                            <Combobox.Button className=" flex items-center pr-2">
+                            <Combobox.Button className="group-focus:border-r-1 border-primary flex items-center pr-2">
                                 <SelectorIcon
                                     className="w-5 h-5 text-[#C0C0C0]"
                                     aria-hidden="true"

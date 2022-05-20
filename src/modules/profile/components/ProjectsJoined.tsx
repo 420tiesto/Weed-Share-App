@@ -58,7 +58,9 @@ const ProjectsJoined: React.FC<Props> = (props: Props) => {
                     />
                 </div>
             ) : (
-                <div>No Projects Joined</div>
+                <div className='flex items-center text-[28px] py-20 text-white/80 justify-center'>
+                No projects joined
+           </div>
             )}
         </>
     );

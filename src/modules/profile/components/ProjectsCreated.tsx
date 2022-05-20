@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import CardItem from './CardItem';
+import CreateProjectCard from './CreateProjectCard';
 
 interface Props {
     ownedPublications: any[];
@@ -27,7 +28,9 @@ const ProjectsCreated: React.FC<Props> = (props: Props) => {
                     )}
                 </div>
             ) : (
-                <div> No Projects</div>
+                <div className='flex items-center text-[28px] py-20 text-white/80 justify-center'>
+                     Nothing to show here
+                </div>
             )}
         </>
     );

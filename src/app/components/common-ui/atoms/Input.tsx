@@ -19,10 +19,10 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
                 <div className="mb-2 font-medium text-gray-800 dark:text-gray-200">{label}</div>
             )}
             <div className="flex items-center bg-[#40444B] rounded-full ">
-                {leftIcon && <span className=" py-2 pl-4 text-[#C0C0C0]">{leftIcon}</span>}
+                {leftIcon && <span className=" py-2 px-3 text-[#C0C0C0]">{leftIcon}</span>}
                 <input
                     className={clsx(
-                      'bg-[#40444B] shadow-md placeholder:text-[#C0C0C0] focus:ring-primary text-white disabled:opacity-60 disabled:bg-opacity-20 outline-none w-full p-2',
+                      'bg-[#40444B] shadow-md placeholder:text-[#C0C0C0] focus:ring-primary focus:ring-1 text-white disabled:opacity-60 disabled:bg-opacity-20 outline-none w-full p-2',
                       {
                         '!border-red-500 placeholder-red-500': error,
                         'rounded-r-full': leftIcon,
@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
                     ref={ref}
                     {...props}
                 />
-                 {rightIcon && <span className="bg-[#40444B] text-[#C0C0C0] py-2 pr-4 rounded-r-full">{rightIcon}</span>}
+                 {rightIcon && <span className="bg-[#40444B] text-[#C0C0C0] py-2 px-3 rounded-r-full">{rightIcon}</span>}
             </div>
         </label>
     );

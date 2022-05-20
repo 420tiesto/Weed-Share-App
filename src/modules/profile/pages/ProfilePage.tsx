@@ -34,6 +34,7 @@ import { follow } from '../services/follow';
 import { Card } from '../../../app/components/common-ui/atoms/Card';
 import { Input } from '../../../app/components/common-ui/atoms/Input';
 import { SearchIcon } from '@heroicons/react/outline';
+import Spinner from '../../../app/components/common-ui/atoms/Spinner';
 
 interface Props {
     // authenthicated: boolean;
@@ -150,12 +151,12 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                             {profileDetails.coverPicture === null ? (
                                 <div
                                     hidden={profileDetails.coverPicture === null ? false : true}
-                                    className="w-full h-56 bg-dark-gray"></div>
+                                    className="w-full h-56 bg-[#151B22]"></div>
                             ) : (
                                 <img
                                     src={profileDetails.coverPicture.original.url}
                                     alt="Cover Image"
-                                    className="w-full h-56 bg-dark-gray"
+                                    className="w-full h-56 bg-[#151B22]"
                                 />
                             )}
 
@@ -204,10 +205,12 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                             </div>
                         </div>
                     ) : (
-                        <div>Loading..</div>
+                        <div className='flex w-full h-56 flex-col justify-center items-center'>
+                            <Spinner size='lg'/>
+                            Loading..
+                            </div>
                         )}
                 </>
-
                 <Tab.Group defaultIndex={0}>
                     <Tab.List className="elevated-element flex items-center justify-center gap-8">
                         <StyledTab>Projects Created</StyledTab>
@@ -216,7 +219,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                         <StyledTab>Soundcloud Songs</StyledTab>
                     </Tab.List>
                     <div className="p-8 space-y-8">
-                        <Input leftIcon={<SearchIcon className='h-4 w-4' />} placeholder="Search Something" className='px-8' />
+                        <Input leftIcon={<SearchIcon className='h-4 w-4' />} placeholder="Search Something"  />
                         <Tab.Panels>
                             <Tab.Panel>
                                 <ProjectsCreated ownedPublications={ownedPublications} />

@@ -31,13 +31,11 @@ export const collect = async (publicationId: string) => {
 
     const result = await createCollectTypedData(collectRequest);
     const typedData = result.data.createCollectTypedData.typedData;
-    console.log(typedData, '******** check the typed data here');
 
     const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
     const { v, r, s } = splitSignature(signature);
 
     const addressFromSigner = await getAddressFromSigner();
-    console.log(addressFromSigner, '*************** addressFromSigner');
     const tx = await lensHub.collectWithSig({
         collector: addressFromSigner,
         profileId: typedData.value.profileId,
@@ -49,7 +47,7 @@ export const collect = async (publicationId: string) => {
             s,
             deadline: typedData.value.deadline,
         },
-    });
+    }, { gasLimit: 1000000 });
     console.log(tx.hash);
     return tx;
 };
@@ -114,6 +112,7 @@ export const approveModule = async ({
     const generateModuleCurrencyApprovalData = result.data.generateModuleCurrencyApprovalData;
 
     const tx = {
+        gasPrice: '5000000000000',
         to: generateModuleCurrencyApprovalData.to,
         from: generateModuleCurrencyApprovalData.from,
         data: generateModuleCurrencyApprovalData.data,

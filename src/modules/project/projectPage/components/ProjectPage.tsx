@@ -9,12 +9,19 @@ import ProjectImageCard from './ProjectImageCard';
 import { useGetPublication } from '../../services/get-publication';
 import Loader from '../../../../app/components/common-ui/loader';
 import MaticIcon from '../../../../app/icons/MaticIcon';
+import { collect, useHasCollected, approveModule } from '../../services/collect-publication';
+import { pollUntilIndexed } from '../../../../services/has-transaction-been-indexed';
+import { successToast, errorToast, promiseToast } from '../../../../app/components/common-ui/toasts/CustomToast';
+import { login } from '../../../auth/services/lens-login';
+import { useAppDispatch } from '../../../../state/configure-store';
+import { useHasAllowance } from '../../services/module-allowance';
 
 dayjs.extend(relativeTime);
 
 type Props = {};
 
-const ProjectPage = (props: Props) => {
+const ProjectPage = ({}: Props) => {
+    const dispatch = useAppDispatch()
     const { projectId } = useParams();
     const { data: { data: { publication = {} } = {} } = {}, isLoading } = useGetPublication(
         projectId,
@@ -23,19 +30,43 @@ const ProjectPage = (props: Props) => {
         }
     );
 
+    const { data: { data: { hasCollected = [{}] } = {} } = {}, refetch } = useHasCollected(projectId);
+    const [{ results = [{}] }] = hasCollected as any;
+    const [{ collected = false }] = results;
+
+    const {
+        metadata: { attributes = [] } = {},
+        profile: { stats = {} } = {},
+        collectModule: { type = '', amount: { value: priceValue = 0, asset: { address = '' } = {} } = {} } = {},
+    } = publication as any;
+
+    const { data: allowanceData } = useHasAllowance(address);
+    // console.log(allowanceData, '********** check allowance data');
+
+    const collectHandler = async () => {
+        // promiseToast('Approving module...', 'Collect Post');
+        // console.log(address, priceValue, type);
+        // await approveModule({ currency: address, value: '0.1', collectModule: type });
+        // return;
+        promiseToast('Collecting project...', 'Collect Post');
+        const tx = await collect(projectId || '');
+        const hasIndexed = await pollUntilIndexed(tx.hash);
+        if (hasIndexed) {
+            successToast('Collected successfully', 'Collect Post');
+            refetch();
+        } else {
+            errorToast('Something went wrong', 'Collect Post');
+        }
+    }
+
+    const [artistName, releaseDate, recordLabel, , , , albumCover] = attributes as any;
+
+    const imageLink = albumCover?.value;
+    const releaseDateFromNow = dayjs(releaseDate?.value).fromNow();
+
     if (isLoading) {
         return <Loader />;
     }
-
-    const {
-        metadata: { attributes },
-        profile: { stats },
-    } = publication as any;
-    const [artistName, releaseDate, recordLabel, , , , albumCover, , , ...tracks] =
-        attributes as any;
-
-    const imageLink = albumCover.value;
-    const releaseDateFromNow = dayjs(releaseDate.value).fromNow();
 
     return (
         <div className="sunken-element flex gap-8 p-8">
@@ -80,12 +111,15 @@ const ProjectPage = (props: Props) => {
                     <div className="py-4 px-6">
                         <p className="text-slate- mb-2">Current Price</p>
                         <div className="text-2xl font-bold flex items-center gap-2 mb-4">
-                            <MaticIcon /> 7.6{' '}
-                            <span className="text-base text-slate-400">($ 617.3)</span>
+                            <MaticIcon />{priceValue}
+                            {/* TODO: [PMA-50] Add conversion of matic to dollar in project page */}
+                            {/* <span className="text-base text-slate-400">($ 617.3)</span> */}
                         </div>
                         <div className="flex gap-4">
-                            <button className="green-btn w-32">Join</button>
-                            <button className="green-outline-btn w-32">Show Details</button>
+                            <button onClick={collectHandler} disabled={collected} className="green-btn w-32">
+                                {collected ? 'Joined' : 'Join'}
+                            </button>
+                            {/* <button disabled className="green-outline-btn w-32">Show Details</button> */}
                         </div>
                     </div>
                 </div>

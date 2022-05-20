@@ -9,6 +9,7 @@ import { pinImageToIPFS } from '../../../../utils/upload-file';
 import UploadMusic from '../../../../app/components/common-ui/upload-music';
 import Button from '../../../../app/components/common-ui/atoms/Button';
 import { Input } from '../../../../app/components/common-ui/atoms/Input';
+import { promiseToast, errorToast, successToast } from '../../../../app/components/common-ui/toasts/CustomToast';
 
 type Props = {
     index: number;
@@ -47,10 +48,16 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
     };
 
     const onSubmit: SubmitHandler<TrackDetails> = async (data: TrackDetails) => {
-        setLoader((oldValue) => ({ ...oldValue, uploadTrack: true }));
-        const contentUri = await uploadWeb3Json(data.songTitle, JSON.stringify(data));
-        updateTrack(data, contentUri);
-        setLoader((oldValue) => ({ ...oldValue, uploadTrack: false }));
+        promiseToast('Saving track...', 'Add track');
+        try {
+            setLoader((oldValue) => ({ ...oldValue, uploadTrack: true }));
+            const contentUri = await uploadWeb3Json(data.songTitle, JSON.stringify(data));
+            updateTrack(data, contentUri);
+            setLoader((oldValue) => ({ ...oldValue, uploadTrack: false }));
+            successToast('Track saved successfully!', 'Add track');
+        } catch (e) {
+            errorToast('Error saving track. Please try again', 'Add track');
+        }
     };
 
     const uploadTrackFile = async (files: any) => {
@@ -444,6 +451,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                 </div>
                             </div>
                             {/* Track Price in Matic */}
+                            {/* TODO: [PMA-48] Allow users to choose which token they want payment in */}
                             <div className={styles.inputContainer}>
                                 <label htmlFor="song-title" className={styles.label}>
                                     Track Price <br />
@@ -453,13 +461,13 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                     <Input
                                         {...register('maticTrackPrice', {
                                             min: {
-                                                value: 0.1,
-                                                message: 'Price cannot be lower than 0.1',
+                                                value: 0.001,
+                                                message: 'Price cannot be lower than 0.001',
                                             },
                                             required: { value: true, message: ' required' },
                                         })}
                                         type="number"
-                                        step={0.1}
+                                        step={0.001}
                                         placeholder="Enter Track Price (in Matic)"
 
                                     />

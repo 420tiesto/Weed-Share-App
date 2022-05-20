@@ -30,6 +30,9 @@ export const USER_PROFILE = 'USER_PROFILE';
 
 export const PRNTS_PRIVATE_KEY = 'PRIVATE_KEY';
 
+/**
+ * Stores the current public address of the users wallet
+ */
 export const PRNTS_PUBLIC_KEY = 'PUBLIC_KEY';
 
 export const PRNTS_USER_HANDLE = 'USER_HANDLE';

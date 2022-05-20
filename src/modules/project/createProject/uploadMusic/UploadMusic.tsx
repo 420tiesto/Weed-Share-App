@@ -38,7 +38,6 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
         register,
         handleSubmit,
         setValue,
-        getValues,
         formState: { errors },
     } = useForm<AlbumDetails>({
         mode: 'onBlur',
@@ -194,6 +193,23 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             </p>
                         </div>
                     </div>
+                    <div className="grid grid-cols-5 items-center">
+                        <label className="col-span-2 relative" htmlFor="secondaryGenre">
+                            Album Price
+                            <br />
+                        </label>
+                        <div className="relative">
+                            <input
+                                {...register('albumPrice')}
+                                type="number"
+                                placeholder="Enter Track Price (in Matic)"
+                                className="primary-input max-w-md"
+                            />
+                            <p className="text-red-500 text-sm absolute left-4 -bottom-6">
+                                {errors.albumPrice?.message}
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="flex items-center flex-col lg:justify-center">
@@ -203,7 +219,6 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                         rules={{ required: true }}
                         render={({ field }) => {
                             const { value } = field;
-                            console.log(value, '***** check this value');
                             return (
                                 <Upload
                                     showLoader={loader}

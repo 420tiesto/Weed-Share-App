@@ -69,7 +69,7 @@ const CreateProjectFlow = () => {
                     return;
                 }
                 setLoader(true);
-                const currentAlbumDetails = albumDetails as any;
+                const currentAlbumDetails = albumDetails;
                 const {
                     albumCover,
                     artistName,
@@ -79,6 +79,7 @@ const CreateProjectFlow = () => {
                     releaseDate,
                     secondaryGenre,
                     albumCoverType,
+                    albumPrice,
                 } = currentAlbumDetails;
                 const attributes = [
                     getAttributeType('string', 'Artist Name', artistName),
@@ -102,6 +103,7 @@ const CreateProjectFlow = () => {
                         attributes.push(getAttributeType('string', `Track ${i}`, track.ipfsHash));
                     }
                 }
+                const totalPrice = albumPrice;
                 const postMetadata = createPostMetadata({
                     media,
                     albumName: recordLabel,
@@ -113,7 +115,7 @@ const CreateProjectFlow = () => {
                 const contentURI = await uploadWeb3Json(recordLabel, JSON.stringify(postMetadata));
                 try {
                     promiseToast('Creating post...', 'Uploading Album');
-                    const tx = await postPublication({ postMetadata: contentURI, profileId: id });
+                    const tx = await postPublication({ postMetadata: contentURI, profileId: id, totalPrice: totalPrice || 0 });
                     promiseToast('Indexing...', 'Uploading Album');
                     await pollUntilIndexed(tx.hash);
                 } catch (e) {

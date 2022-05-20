@@ -11,6 +11,7 @@ import Navbar from '../components/header/navbar/Navbar';
 import { getProfiles } from '../../modules/profile/services/get-profiles';
 import { useSetState } from 'react-use';
 import { copyright } from '../constants';
+import { useEnabledCurrencies } from '../../services/enabled-currencies';
 
 interface Props {}
 
@@ -20,6 +21,7 @@ interface State {
 
 const AppContainer: React.FC<Props> = (props: Props) => {
     const dispatch = useDispatch();
+    useEnabledCurrencies();
 
     //localStorage
     const auth = getStorageValue(LENS_TOKENS);

@@ -2,14 +2,38 @@ import { splitSignature } from '../../../services/ethers-service';
 import { lensHub } from '../../../services/lens-hub';
 import { signedTypeData } from '../../../services/signed-typed-data';
 import { createPostTypedData } from './create-publication';
-import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
+import { getStorageValue } from '../../../utils/local-storage/local-storage';
+import { PRNTS_PUBLIC_KEY } from '../../../utils/local-storage/keys';
+import { enabledCurrencies } from '../../../app/constants';
+
+const getCollectModule = (price: number) => {
+    if (price > 0) {
+        return {
+            feeCollectModule: {
+                amount: {
+                    currency: enabledCurrencies.wrappedMatic.address,
+                    value: `${price}`,
+                },
+                // TODO: [PMA-49] Allow users to choose which address they want to collect from
+                referralFee: 0,
+                recipient: getStorageValue(PRNTS_PUBLIC_KEY),
+                followerOnly: false,
+            },
+        };
+    }
+    return {
+        freeCollectModule: { followerOnly: false },
+    };
+};
 
 const postPublication = async ({
     profileId,
     postMetadata,
+    totalPrice,
 }: {
     profileId: string;
     postMetadata: string;
+    totalPrice: number;
 }) => {
     // TODO: Add profile flow here
     if (!profileId) {
@@ -20,7 +44,7 @@ const postPublication = async ({
         profileId,
         contentURI: 'ipfs://' + postMetadata,
         collectModule: {
-            freeCollectModule: { followerOnly: false },
+            ...getCollectModule(totalPrice),
         },
         referenceModule: {
             followerOnlyReferenceModule: false,
@@ -49,9 +73,6 @@ const postPublication = async ({
     });
     console.log(tx.hash);
     return tx;
-    // 0x64464dc0de5aac614a82dfd946fc0e17105ff6ed177b7d677ddb88ec772c52d3
-    // you can look at how to know when its been indexed here:
-    //   - https://docs.lens.dev/docs/has-transaction-been-indexed
 };
 
 export default postPublication;

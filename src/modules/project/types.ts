@@ -6,9 +6,10 @@ export interface AlbumDetails {
     recordLabel: string;
     language: SelectOption;
     primaryGenre: SelectOption;
-    secondaryGenre?: string;
+    secondaryGenre: string;
     albumCover: string;
     albumCoverType: string;
+    albumPrice?: number;
 }
 
 export interface TrackDetails {

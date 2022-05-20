@@ -31,6 +31,7 @@ export const initialState: {
         secondaryGenre: '',
         albumCover: '',
         albumCoverType: '',
+        albumPrice: 0,
     },
     tracks: [
         {

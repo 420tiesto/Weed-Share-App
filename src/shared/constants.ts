@@ -295,7 +295,7 @@ export const GET_PUBLICATION = `
       }
     }
   }
-`
+`;
 
 export const GET_PUBLICATIONS = `
 query($request: PublicationsQueryRequest!) {
@@ -1135,7 +1135,7 @@ export const EXPLORE_PUBLICATIONS = `
       }
     }
   }
-`
+`;
 
 export const CREATE_FOLLOW_TYPED_DATA = `
   mutation($request: FollowRequest!) { 
@@ -1164,7 +1164,7 @@ export const CREATE_FOLLOW_TYPED_DATA = `
       }
     }
  }
-`
+`;
 
 export const DOES_FOLLOW = `
   query($request: DoesFollowRequest!) {
@@ -1174,4 +1174,79 @@ export const DOES_FOLLOW = `
         follows
         }
   }
-`
+`;
+
+export const CREATE_COLLECT_TYPED_DATA = `
+mutation($request: CreateCollectRequest!) { 
+  createCollectTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        CollectWithSig {
+          name
+          type
+        }
+      }
+    domain {
+      name
+      chainId
+      version
+      verifyingContract
+    }
+    value {
+      nonce
+      deadline
+      profileId
+      pubId
+      data
+    }
+   }
+ }
+}
+`;
+
+export const HAS_COLLECTED = `
+  query($request: HasCollectedRequest!) {
+    hasCollected(request: $request) {
+      walletAddress
+      results {
+        collected
+        publicationId
+        collectedTimes
+      }
+    }
+  }
+`;
+
+export const MODULE_APPROVAL_DATA = `
+  query($request: GenerateModuleCurrencyApprovalDataRequest!) {
+    generateModuleCurrencyApprovalData(request: $request) {
+      to
+      from
+      data
+    }
+  }
+`;
+
+export const ALLOWANCE = `
+query($request: ApprovedModuleAllowanceAmountRequest!) {
+  approvedModuleAllowanceAmount(request: $request) {
+    currency
+    module
+    contractAddress
+    allowance
+  }
+}
+`;
+
+export const ENABLED_CURRENCIES = `
+  query {
+    enabledModuleCurrencies {
+      name
+      symbol
+      decimals
+      address
+    }
+  }
+`;

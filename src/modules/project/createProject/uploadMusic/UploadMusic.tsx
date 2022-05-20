@@ -70,12 +70,11 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
 
     return (
         <>
-        
-            <h2 className="text-xl mb-2 font-bold pl-8">Album details</h2>
+            <h2 className="text-xl mb-4 font-medium  ">Album details</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="lg:grid lg:grid-cols-2   justify-center divide-gray-600">
-                <div className="space-y-8 lg:p-8">
+                className="lg:grid lg:grid-cols-5  md:divide-x-2 divide-white/50 justify-center divide-gray-600">
+                <div className="space-y-8 col-span-3 pl-4 pr-32">
                     <div className="grid grid-cols-5 items-center">
                         <label className="col-span-2" htmlFor="artistName">
                             Artist / Band Name
@@ -198,12 +197,12 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             Album Price
                             <br />
                         </label>
-                        <div className="relative">
-                            <input
+                        <div className="relative col-span-3">
+                            <Input
                                 {...register('albumPrice')}
                                 type="number"
+                                min={0}
                                 placeholder="Enter Track Price (in Matic)"
-                                className="primary-input max-w-md"
                             />
                             <p className="text-red-500 text-sm absolute left-4 -bottom-6">
                                 {errors.albumPrice?.message}
@@ -212,7 +211,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     </div>
                 </div>
 
-                <div className="flex items-center flex-col lg:justify-center">
+                <div className="flex items-center col-span-2 flex-col lg:justify-center">
                     <Controller
                         name="albumCover"
                         control={control}

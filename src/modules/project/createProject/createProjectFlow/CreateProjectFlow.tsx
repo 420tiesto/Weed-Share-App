@@ -115,7 +115,11 @@ const CreateProjectFlow = () => {
                 const contentURI = await uploadWeb3Json(recordLabel, JSON.stringify(postMetadata));
                 try {
                     promiseToast('Creating post...', 'Uploading Album');
-                    const tx = await postPublication({ postMetadata: contentURI, profileId: id, totalPrice: totalPrice || 0 });
+                    const tx = await postPublication({
+                        postMetadata: contentURI,
+                        profileId: id,
+                        totalPrice: totalPrice || 0,
+                    });
                     promiseToast('Indexing...', 'Uploading Album');
                     await pollUntilIndexed(tx.hash);
                 } catch (e) {
@@ -172,8 +176,12 @@ const CreateProjectFlow = () => {
             <div className="p-4">
                 <Card variant="sunken" color="dark" className="mt-4">
                     <CardBody padding={8}>
-                    <h1 className="text-3xl text-center mb-2 font-bold">Create Project</h1>
-                        {step === 1 && <UploadMusic ref={uploadMusicRef} />}
+                        <h1 className="text-3xl text-center mb-8 font-bold">Create Project</h1>
+                        <Card variant="elevated" className="rounded-[30px]">
+                            <CardBody padding={8}>
+                                {step === 1 && <UploadMusic ref={uploadMusicRef} />}
+                            </CardBody>
+                        </Card>
                         {step === 2 && <AddTrack ref={createProjectRef} />}
                         <div
                             className={clsx({
@@ -185,7 +193,7 @@ const CreateProjectFlow = () => {
                                     Previous
                                 </Button>
                             )}
-                            <Button loading={loader} onClick={nextStep} variant="primary">
+                            <Button loading={loader} onClick={nextStep} variant="primary" className='px-16'>
                                 {step === 2 ? 'Create Project' : 'Next'}
                             </Button>
                         </div>

@@ -13,7 +13,7 @@ import { type AlbumDetails, type TrackDetails } from '../../types';
 import postPublication from '../../services/post-publication';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { setWalletModalOpen } from '../../../../state/actions';
-import { isUsingWallet } from '../../../../services/ethers-service';
+import { isUsingWallet, doesHaveEnoughBalance } from '../../../../services/ethers-service';
 import getAttributeType from '../../../../utils/get-attribute-type';
 import getIPFSUrlLink from '../../../../utils/get-ipfs-url-link';
 import { createPostMetadata } from '../../../../utils/create-post-metadata';
@@ -28,23 +28,31 @@ import {
     errorToast,
 } from '../../../../app/components/common-ui/toasts/CustomToast';
 import { Card, CardBody } from '../../../../app/components/common-ui/atoms/Card';
+import { isValidToken } from '../../../../utils/auth-helpers';
+import { getStorageValue } from '../../../../utils/local-storage/local-storage';
+import { LENS_TOKENS } from '../../../../utils/local-storage/keys';
+import { setUserAuthenticated } from '../../../auth/state/auth.action';
 
 const CreateProjectFlow = () => {
+    const [step, setStep] = useState(1);
     const [loader, setLoader] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
     const { id } = useSelector(getUserProfile);
-    const [step, setStep] = useState(1);
     const albumDetails = useSelector(getAlbumDetails);
+
     const uploadMusicRef = useRef();
     const createProjectRef = useRef();
+
+    const auth = getStorageValue(LENS_TOKENS);
 
     const openModal = () => {
         dispatch(setWalletModalOpen(true));
     };
 
     const onUploadMusic = async () => {
-        console.log(uploadMusicRef?.current, '***** check this');
         (uploadMusicRef?.current as any)?.onSubmit({
             onSuccess(data: AlbumDetails) {
                 setStep(2);
@@ -59,6 +67,17 @@ const CreateProjectFlow = () => {
         if (!isUsingMetamaskWallet) {
             openModal();
             return;
+        }
+        if (!(await doesHaveEnoughBalance({ warn: true }))) {
+            return;
+        }
+        if (!auth) {
+            dispatch(setUserAuthenticated(false));
+            return;
+        }
+        const { accessToken } = JSON.parse(auth!);
+        if (!isValidToken(accessToken)) {
+            await dispatch(login());
         }
         // TODO: Check if user is logged in to lens
         // await dispatch(login());

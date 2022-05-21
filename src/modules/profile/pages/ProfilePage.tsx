@@ -35,6 +35,7 @@ import { Card } from '../../../app/components/common-ui/atoms/Card';
 import { Input } from '../../../app/components/common-ui/atoms/Input';
 import { SearchIcon } from '@heroicons/react/outline';
 import Spinner from '../../../app/components/common-ui/atoms/Spinner';
+import { doesHaveEnoughBalance } from '../../../services/ethers-service';
 
 interface Props {
     // authenthicated: boolean;
@@ -78,9 +79,6 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
 
     useEffect(() => {
         // getProfileDetails();
-        if (isNewUser) {
-            saveProfileMetadata();
-        }
         getProfileDetailsByHandle(handle!);
         getCollectedPublications();
     }, [handle]);
@@ -90,21 +88,21 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
             handles: [handle],
             limit: 1,
         }).then((profile: any) => {
-            const isOwnerTemp =
+            const isOwner =
                 profile.data.profiles.items[0].ownedBy.toLocaleLowerCase() == publicKey
                     ? true
                     : false;
             setState({
-                isOwner: isOwnerTemp,
+                isOwner,
             });
             setState({ profileDetails: profile.data.profiles.items[0] });
-            if (isOwnerTemp) {
+            if (isOwner) {
                 dispatch(setUserProfile(profile.data.profiles.items[0]));
             }
             // getIPFSUrlLink(profileDetails.picture.original.url);
             getProfilePublications(profile.data.profiles.items[0].id);
             if (isNewUser) {
-                saveProfileMetadata();
+                saveProfileMetadata(profile.data.profiles.items[0]);
             }
         });
     };
@@ -126,25 +124,27 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         });
     };
 
-    const saveProfileMetadata = async () => {
-        const attributes = [getAttributeType('string', 'appId', appId)];
-        const profileMetadata = createProfileMetadata({
-            name: '',
-            bio: '',
-            cover_picture: '',
-            attributes: attributes,
-        });
-        const contentURI = await uploadWeb3Json(handle!, JSON.stringify(profileMetadata));
-        const createProfileMetadataRequest = {
-            profileId: profileDetails.id,
-            url: contentURI,
-        };
-        await updateProfileMetaData(createProfileMetadataRequest);
+    const saveProfileMetadata = async (profile: { id: string }) => {
+        if (await doesHaveEnoughBalance({ warn: true })) {
+            const attributes = [getAttributeType('string', 'appId', appId)];
+            const profileMetadata = createProfileMetadata({
+                name: '',
+                bio: '',
+                cover_picture: '',
+                attributes: attributes,
+            });
+            const contentURI = await uploadWeb3Json(handle!, JSON.stringify(profileMetadata));
+            const createProfileMetadataRequest = {
+                profileId: profile.id,
+                url: contentURI,
+            };
+            await updateProfileMetaData(createProfileMetadataRequest);
+        }
     };
 
     return (
-        <div className='pt-4'>
-            <Card variant='sunken' color='dark' >
+        <div className="pt-4">
+            <Card variant="sunken" color="dark">
                 <>
                     {Object.keys(profileDetails).length !== 0 ? (
                         <div className="relative p-4">
@@ -200,16 +200,16 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                                         instagram=""
                                         shareLink=""
                                         twitter=""
-                                        />
+                                    />
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className='flex w-full h-56 flex-col justify-center items-center'>
-                            <Spinner size='lg'/>
+                        <div className="flex w-full h-56 flex-col justify-center items-center">
+                            <Spinner size="lg" />
                             Loading..
-                            </div>
-                        )}
+                        </div>
+                    )}
                 </>
                 <Tab.Group defaultIndex={0}>
                     <Tab.List className="elevated-element flex items-center justify-center gap-8">
@@ -219,7 +219,10 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                         <StyledTab>Soundcloud Songs</StyledTab>
                     </Tab.List>
                     <div className="p-8 space-y-8">
-                        <Input leftIcon={<SearchIcon className='h-4 w-4' />} placeholder="Search Something"  />
+                        <Input
+                            leftIcon={<SearchIcon className="h-4 w-4" />}
+                            placeholder="Search Something"
+                        />
                         <Tab.Panels>
                             <Tab.Panel>
                                 <ProjectsCreated ownedPublications={ownedPublications} />
@@ -233,8 +236,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                     </div>
                 </Tab.Group>
             </Card>
-            </div>
-        
+        </div>
     );
 };
 

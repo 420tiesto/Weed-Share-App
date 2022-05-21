@@ -1,23 +1,23 @@
 import { gql } from '@apollo/client/core';
 import { apolloClient } from '../../../services/apollo-client';
 import { splitSignature } from '../../../services/ethers-service';
-import { lensHub, lensPeriphery } from '../../../services/lens-hub';
+import { lensPeriphery } from '../../../services/lens-hub';
 import { signedTypeData } from '../../../services/signed-typed-data';
 import { CREATE_SET_PROFILE_METADATA_TYPED_DATA } from '../../../shared/constants';
 
 const updateProfileMetaData = async (createProfileMetadataRequest: any) => {
     const result = await createSetProfileMetadataTypedData(
         createProfileMetadataRequest.profileId,
-        createProfileMetadataRequest.metadata
+        createProfileMetadataRequest.url
     );
-    const typedData = result.data.createPostTypedData.typedData;
+    const typedData = result.data.createSetProfileMetadataTypedData.typedData;
 
     const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
     const { v, r, s } = splitSignature(signature);
 
     const tx = await lensPeriphery.setProfileMetadataURIWithSig({
         profileId: createProfileMetadataRequest.profileId,
-        metadata: createProfileMetadataRequest.metadata,
+        metadata: createProfileMetadataRequest.url,
         sig: {
             v,
             r,

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useSetState } from 'react-use';
 import decodeJWT from 'jwt-decode';
 
 import { setUserAuthenticated, setUserProfile } from '../../modules/auth/state/auth.action';
@@ -11,12 +12,12 @@ import { getStorageValue, setStorageValue } from '../../utils/local-storage/loca
 import { getUserAuthenticated } from '../../modules/auth/state/auth.reducer';
 import Navbar from '../components/header/navbar/Navbar';
 import { getProfiles } from '../../modules/profile/services/get-profiles';
-import { useSetState } from 'react-use';
 import { copyright } from '../constants';
 import { useEnabledCurrencies } from '../../services/enabled-currencies';
 import { isValidToken } from '../../utils/auth-helpers';
 import { refreshAuth } from '../../modules/auth/services/auth.services';
 import { storeLensToken } from '../../state/actions';
+import { useAppDispatch } from '../../state/configure-store';
 
 interface Props {}
 
@@ -25,7 +26,7 @@ interface State {
 }
 
 const AppContainer: React.FC<Props> = (props: Props) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEnabledCurrencies();
 
     //localStorage
@@ -79,8 +80,9 @@ const AppContainer: React.FC<Props> = (props: Props) => {
         if (!auth) {
             dispatch(setUserAuthenticated(false));
             setState({ loading: false });
+            return;
         }
-        const { accessToken, refreshToken } = JSON.parse(auth || '{}');
+        const { accessToken, refreshToken } = JSON.parse(auth!);
         if (!isValidToken(accessToken)) {
             dispatch(setUserAuthenticated(false));
             setState({ loading: false });

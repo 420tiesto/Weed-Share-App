@@ -5,6 +5,7 @@ import { Wallet } from '@ethersproject/wallet';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
 import { Deferrable } from 'ethers/lib/utils';
 import { PRNTS_PRIVATE_KEY, PRNTS_PUBLIC_KEY } from '../utils/local-storage/keys';
+import { errorToast } from '../app/components/common-ui/toasts/CustomToast';
 
 export const ethersProvider = () => {
     return window?.ethereum
@@ -74,4 +75,26 @@ export const isUsingWallet = async () => {
 
 export const hasWallet = () => {
     return window.ethereum !== undefined;
+};
+
+export const getWalletBalance = () => {
+    return getSigner().getBalance();
+};
+
+// TODO: [PMA-78] Allow buttons to be added in toasts to allow further helping actions
+// In this case we can navigate the user to either an exchange page or tesnet faucet
+export const doesHaveEnoughBalance = async ({
+    warn = false,
+    warningMessage = 'Please add funds to your wallet!!!',
+}: {
+    warn?: boolean;
+    warningMessage?: string;
+}) => {
+    if (ethers.BigNumber.from(await getWalletBalance()).toString() === '0') {
+        if (warn) {
+            errorToast(warningMessage, 'Wallet Error!');
+        }
+        return false;
+    }
+    return true;
 };

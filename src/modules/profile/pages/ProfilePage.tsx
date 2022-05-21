@@ -23,19 +23,24 @@ import {
 import { setUserProfile } from '../../auth/state/auth.action';
 import { useAppDispatch } from '../../../state/configure-store';
 import { getStorageValue } from '../../../utils/local-storage/local-storage';
-import { PRNTS_PUBLIC_KEY } from '../../../utils/local-storage/keys';
+import { PRNTS_PUBLIC_KEY, LENS_TOKENS } from '../../../utils/local-storage/keys';
 import { createProfileMetadata } from '../../../utils/create-profile-metadata';
 import { appId } from '../../../app/constants';
 import getAttributeType from '../../../utils/get-attribute-type';
 import { uploadWeb3Json } from '../../../utils/upload-json';
 import updateProfileMetaData from '../services/update-profile-metadata';
 import getIPFSUrlLink from '../../../utils/get-ipfs-url-link';
-import { follow } from '../services/follow';
+import { follow, useDoesFollow } from '../services/follow';
 import { Card } from '../../../app/components/common-ui/atoms/Card';
 import { Input } from '../../../app/components/common-ui/atoms/Input';
 import { SearchIcon } from '@heroicons/react/outline';
 import Spinner from '../../../app/components/common-ui/atoms/Spinner';
 import { doesHaveEnoughBalance } from '../../../services/ethers-service';
+import Button from '../../../app/components/common-ui/atoms/Button';
+import { promiseToast, successToast, errorToast } from '../../../app/components/common-ui/toasts/CustomToast';
+import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
+import { isValidToken } from '../../../utils/auth-helpers';
+import { login } from '../../auth/services/lens-login';
 
 interface Props {
     // authenthicated: boolean;
@@ -51,7 +56,6 @@ interface State {
 }
 
 const ProfilePage: React.FC<Props> = (props: Props) => {
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { handle } = useParams();
     const [state, setState] = useSetState<State>({
@@ -68,6 +72,8 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
     const address = useSelector(getCurrentUserAdress);
     const authenthicatedState = useSelector(getUserAuthenticated);
 
+    const auth = getStorageValue(LENS_TOKENS);
+
     const {
         loading,
         ownedPublications,
@@ -77,8 +83,15 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
         isOwner,
     } = state;
 
+    const { attributes = [] } = profileDetails;
+    const [, , instagramLink, twitterLink] = attributes;
+    const shareLink = `${window.location.origin}/profile/${handle}`;
+
+    const { data = {}, refetch } = useDoesFollow(profileDetails.id);
+    const { data: { doesFollow: [{ follows = false } = {}] = [] } = {} } =
+        data as any;
+
     useEffect(() => {
-        // getProfileDetails();
         getProfileDetailsByHandle(handle!);
         getCollectedPublications();
     }, [handle]);
@@ -99,7 +112,6 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
             if (isOwner) {
                 dispatch(setUserProfile(profile.data.profiles.items[0]));
             }
-            // getIPFSUrlLink(profileDetails.picture.original.url);
             getProfilePublications(profile.data.profiles.items[0].id);
             if (isNewUser) {
                 saveProfileMetadata(profile.data.profiles.items[0]);
@@ -139,6 +151,28 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                 url: contentURI,
             };
             await updateProfileMetaData(createProfileMetadataRequest);
+        }
+    };
+
+    // TODO: [PMA-79] Move follow call to useMutate and use the in built loader
+    const onFollowClick = async () => {
+        if (follows) {
+            // TODO: [PMA-80] Add unfollow functionality
+            successToast('Already following the user', 'Follow Profile');
+            return;
+        }
+        try {
+            const { accessToken } = JSON.parse(auth!);
+            if (!isValidToken(accessToken)) {
+                await dispatch(login());
+            }
+            promiseToast('Following...', 'Follow Profile');
+            const txHash = await follow(profileDetails.id);
+            await pollUntilIndexed(txHash);
+            successToast('Followed Successfully', 'Follow Profile');
+            refetch();
+        } catch (err) {
+            errorToast('Error Following!', 'Follow Profile');
         }
     };
 
@@ -189,17 +223,17 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                                             Edit Profile
                                         </Link>
                                     ) : (
-                                        <Link className="green-outline-btn px-4 max-w-fit" to={''}>
-                                            Follow
-                                        </Link>
+                                        <Button onClick={onFollowClick} outline>
+                                            {follows ? 'Following' : 'Follow'}
+                                        </Button>
                                     )}
 
                                     <ProfileSocials
                                         fb=""
                                         google=""
-                                        instagram=""
-                                        shareLink=""
-                                        twitter=""
+                                        instagram={instagramLink?.value || ''}
+                                        shareLink={shareLink}
+                                        twitter={twitterLink?.value || ''}
                                     />
                                 </div>
                             </div>

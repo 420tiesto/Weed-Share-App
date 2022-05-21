@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSetState } from 'react-use';
 import { v4 as uuidv4 } from 'uuid';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
+import { useNavigate } from 'react-router-dom';
+
 import { getProfiles } from '../services/get-profiles';
 import { createSetProfileMetadataTypedData } from '../services/update-profile-metadata';
 import { login } from '../../auth/services/lens-login';
@@ -18,18 +20,20 @@ import InstagramIcon from '../../../app/icons/InstagramIcon';
 import SpotifyIcon from '../../../app/icons/SpotifyIcon';
 import TwitterIcon from '../../../app/icons/TwitterIcon';
 import UploadImage from '../../../app/components/common-ui/upload-image';
-import getIPFSImageLink from '../../../utils/get-ipfs-url-link';
 import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
 import { useSelector } from 'react-redux';
 import { getUserProfile } from '../../auth/state/auth.reducer';
-import { getPinataImageURL } from '../services/getPinataURL';
 import { appId } from '../../../app/constants';
 import { Card, CardBody } from '../../../app/components/common-ui/atoms/Card';
 import Stack from '../../../app/components/common-ui/atoms/Stack';
 import Button from '../../../app/components/common-ui/atoms/Button';
 import { Input } from '../../../app/components/common-ui/atoms/Input';
 import { TextArea } from '../../../app/components/common-ui/atoms/TextArea';
-import { errorToast, successToast } from '../../../app/components/common-ui/toasts/CustomToast';
+import { errorToast, successToast, promiseToast } from '../../../app/components/common-ui/toasts/CustomToast';
+import { getStorageValue } from '../../../utils/local-storage/local-storage';
+import { LENS_TOKENS } from '../../../utils/local-storage/keys';
+import { isValidToken } from '../../../utils/auth-helpers';
+import getAttributeType from '../../../utils/get-attribute-type';
 
 interface Props {
     profileDetails: any;
@@ -49,13 +53,20 @@ interface State {
 
 const ProfileSettings: React.FC<Props> = (props: Props) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const profileDetails = useSelector(getUserProfile);
+    const { attributes } = profileDetails;
+    const [, emailId, instagramLink, twitterLink, spotifyLink] = attributes;
+    const auth = getStorageValue(LENS_TOKENS);
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<any>();
+    } = useForm<any>({ defaultValues: {
+        email: emailId?.value || '',
+        instagram: instagramLink?.value || '',
+        twitter: twitterLink?.value || '',
+        spotify: spotifyLink?.value || '',
+    } });
     const [state, setState] = useSetState<State>({
         // profileDetails: {},
         coverImageLoading: false,
@@ -83,11 +94,11 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
             coverImageURI:
                 profileDetails.coverPicture === null
                     ? ''
-                    : profileDetails.coverPicture.original.url,
+                    : profileDetails?.coverPicture?.original.url,
         });
         setState({
             profileImageURI:
-                profileDetails.picture === null ? '' : profileDetails.picture.original.url,
+                profileDetails.picture === null ? '' : profileDetails?.picture?.original?.url,
         });
     }, [profileDetails]);
 
@@ -110,7 +121,10 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
     };
 
     const updateProfileMetadataDetails: SubmitHandler<any> = async (data) => {
-        await dispatch(login());
+        const { accessToken } = JSON.parse(auth!);
+        if (!isValidToken(accessToken)) {
+            await dispatch(login());
+        }
         setState({ loading: true });
         setState({ checkingMetaData: true });
         let name = data.name;
@@ -120,31 +134,17 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         const { IpfsHash } = await pinJSONToIPFS(
             {
                 name,
-                social: [
-                    {
-                        traitType: 'string',
-                        key: 'website',
-                        value: data.website,
-                    },
-                    {
-                        traitType: 'string',
-                        key: 'twitter',
-                        value: data.twitetr,
-                    },
-                ],
                 bio: data.bio,
                 cover_picture: coverImageURI,
-                location: data.location,
                 attributes: [
-                    {
-                        traitType: 'string',
-                        key: 'appId',
-                        value: appId,
-                    },
+                    getAttributeType('string', 'Application ID', appId, 'appId'),
+                    getAttributeType('string', 'Email ID', data.email, 'emailId'),
+                    getAttributeType('string', 'Instagram Link', data.instagram, 'instagramLink'),
+                    getAttributeType('string', 'Twitter Link', data.twitter, 'twitterLink'),
+                    getAttributeType('string', 'Spotify Link', data.spotify, 'spotifyLink'),
                 ],
                 version: '1.0.0',
                 metadata_id: uuidv4(),
-                appId: appId,
             },
             metadata
         ).finally(() => setState({ loading: false }));
@@ -188,9 +188,11 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                 },
             })
             .then(async (tx: any) => {
-                successToast('Profile has been Succesfully Uploaded', 'Profile Updated');
+                promiseToast('Indexing...', 'Profile');
                 await pollUntilIndexed(tx.hash)
                     .then((resp: any) => {
+                        successToast('Profile has been Succesfully Uploaded', 'Profile Updated');
+                        navigate(`/profile/${profileDetails.handle}`);
                         console.log(resp, 'Profile updated');
                         setState({ checkingMetaData: false });
                         onSubmit();

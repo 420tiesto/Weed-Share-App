@@ -2,12 +2,16 @@
 // if your using node or something else you can import using
 // @apollo/client/core!
 import { gql } from '@apollo/client';
+import { useQuery } from 'react-query';
+
 import { apolloClient } from '../../../services/apollo-client';
 import { signedTypeData } from '../../../services/signed-typed-data';
 import { CREATE_FOLLOW_TYPED_DATA, DOES_FOLLOW } from '../../../shared/constants';
 import { splitSignature, getAddressFromSigner } from '../../../services/ethers-service';
 import { lensHub } from '../../../services/lens-hub';
 import { type doesFollowRequest } from '../types';
+import { getStorageValue } from '../../../utils/local-storage/local-storage';
+import { PRNTS_PUBLIC_KEY } from '../../../utils/local-storage/keys';
 
 export const createFollowTypedData = (followRequestInfo: object) => {
     return apolloClient.mutate({
@@ -46,6 +50,21 @@ export const follow = async (profileId: string) => {
         },
     });
     console.log(tx.hash);
+    return tx.hash;
+};
+
+export const doesFollowKey = (address?: string, profileId?: string) =>
+    `LENS_PROFILE_FOLLOW_DOESFOLLOW_${address}_${profileId}`;
+
+export const useDoesFollow = (profileId?: string) => {
+    const address = getStorageValue(PRNTS_PUBLIC_KEY);
+    return useQuery(
+        doesFollowKey(address!, profileId),
+        async () => doesFollow([{ followerAddress: address!, profileId: profileId! }]),
+        {
+            enabled: !!address && !!profileId,
+        }
+    );
 };
 
 export const doesFollow = (followInfos: doesFollowRequest[]) => {

@@ -11,17 +11,21 @@ import Loader from '../../../../app/components/common-ui/loader';
 import MaticIcon from '../../../../app/icons/MaticIcon';
 import { collect, useHasCollected, approveModule } from '../../services/collect-publication';
 import { pollUntilIndexed } from '../../../../services/has-transaction-been-indexed';
-import { successToast, errorToast, promiseToast } from '../../../../app/components/common-ui/toasts/CustomToast';
+import {
+    successToast,
+    errorToast,
+    promiseToast,
+} from '../../../../app/components/common-ui/toasts/CustomToast';
 import { login } from '../../../auth/services/lens-login';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { useHasAllowance } from '../../services/module-allowance';
+import { BigNumber } from 'ethers';
 
 dayjs.extend(relativeTime);
 
 type Props = {};
 
 const ProjectPage = ({}: Props) => {
-    const dispatch = useAppDispatch()
     const { projectId } = useParams();
     const { data: { data: { publication = {} } = {} } = {}, isLoading } = useGetPublication(
         projectId,
@@ -30,34 +34,50 @@ const ProjectPage = ({}: Props) => {
         }
     );
 
-    const { data: { data: { hasCollected = [{}] } = {} } = {}, refetch } = useHasCollected(projectId);
+    const { data: { data: { hasCollected = [{}] } = {} } = {}, refetch } =
+        useHasCollected(projectId);
     const [{ results = [{}] }] = hasCollected as any;
     const [{ collected = false }] = results;
 
     const {
         metadata: { attributes = [] } = {},
         profile: { stats = {} } = {},
-        collectModule: { type = '', amount: { value: priceValue = 0, asset: { address = '' } = {} } = {} } = {},
+        collectModule: {
+            type = '',
+            amount: { value: priceValue = 0, asset: { address = '' } = {} } = {},
+        } = {},
     } = publication as any;
 
-    const { data: allowanceData } = useHasAllowance(address);
+    const { data: { data: { approvedModuleAllowanceAmount = [] } = {} } = {} } =
+        useHasAllowance(address);
 
     const approveModuleHandler = async () => {
         promiseToast('Approving module...', 'Collect Post');
-        await approveModule({ currency: address, value: '0.1', collectModule: type });
+        await approveModule({ currency: address, value: '1', collectModule: type });
     };
 
     const collectHandler = async () => {
-        promiseToast('Collecting project...', 'Collect Post');
-        const tx = await collect(projectId || '');
-        const hasIndexed = await pollUntilIndexed(tx.hash);
-        if (hasIndexed) {
-            successToast('Collected successfully', 'Collect Post');
-            refetch();
-        } else {
-            errorToast('Something went wrong', 'Collect Post');
+        try {
+            const hasEnoughAllowance =
+                BigNumber.from(approvedModuleAllowanceAmount[0]?.currency || '0x00').toString() >=
+                `${priceValue}`;
+            if (!hasEnoughAllowance) {
+                await approveModuleHandler();
+            }
+            promiseToast('Collecting project...', 'Collect Post');
+            const tx = await collect(projectId || '');
+            const hasIndexed = await pollUntilIndexed(tx.hash);
+            if (hasIndexed) {
+                successToast('Collected successfully', 'Collect Post');
+                refetch();
+            } else {
+                errorToast('Something went wrong', 'Collect Post');
+            }
+        } catch (err) {
+            // TODO: [PMA-84] Handle collect error failure properly
+            errorToast((err as any).message, 'Collect Post');
         }
-    }
+    };
 
     const [artistName, releaseDate, recordLabel, , , , albumCover] = attributes as any;
 
@@ -111,12 +131,16 @@ const ProjectPage = ({}: Props) => {
                     <div className="py-4 px-6">
                         <p className="text-slate- mb-2">Current Price</p>
                         <div className="text-2xl font-bold flex items-center gap-2 mb-4">
-                            <MaticIcon />{priceValue}
+                            <MaticIcon />
+                            {priceValue}
                             {/* TODO: [PMA-50] Add conversion of matic to dollar in project page */}
                             {/* <span className="text-base text-slate-400">($ 617.3)</span> */}
                         </div>
                         <div className="flex gap-4">
-                            <button onClick={collectHandler} disabled={collected} className="green-btn w-32">
+                            <button
+                                onClick={collectHandler}
+                                disabled={collected}
+                                className="green-btn w-32">
                                 {collected ? 'Joined' : 'Join'}
                             </button>
                             {/* <button disabled className="green-outline-btn w-32">Show Details</button> */}

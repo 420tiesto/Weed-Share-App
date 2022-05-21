@@ -69,7 +69,8 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
     }));
 
     return (
-        <>
+        <Card variant="elevated" className="rounded-[30px]">
+        <CardBody padding={8}>
             <h2 className="text-xl mb-4 font-medium  ">Album details</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -231,7 +232,8 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     />
                 </div>
             </form>
-        </>
+            </CardBody>
+        </Card> 
     );
 });
 

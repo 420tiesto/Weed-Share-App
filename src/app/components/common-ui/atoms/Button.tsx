@@ -46,8 +46,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             disabled={loading}
             {...rest}>
             {icon && !loading && icon}
-            {icon && loading && <Spinner size={size === 'lg' ? 'md' : 'sm'} variant='secondary' />}
-            {!icon && loading && <Spinner size={size === 'lg' ? 'md' : 'sm'} variant='secondary' />}
+            {icon && loading && <Spinner size={size === 'lg' ? 'md' : 'sm'} variant={variant === 'secondary' && !outline ? 'black' : 'secondary'} />}
+            {!icon && loading && <Spinner size={size === 'lg' ? 'md' : 'sm'} variant={variant === 'secondary' && !outline ? 'black' : 'secondary'}/>}
             <div>{children}</div>
         </button>
     );

@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client/core';
 import { init } from '../../../services/ethers-service';
 import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
 import getIPFSUrlLink from '../../../utils/get-ipfs-url-link';
@@ -5,6 +6,8 @@ import { createProfile } from '../../profile/services/create-profile';
 import { getProfiles } from '../../profile/services/get-profiles';
 import { setUserProfile } from '../state/auth.action';
 import { login } from './lens-login';
+import { apolloClient } from '../../../services/apollo-client';
+import { REFRESH_AUTHENTICATION } from '../../../shared/constants';
 
 export const checkUserHasEthereumBrowserWallet = () => {
     if (window.ethereum) {
@@ -89,5 +92,16 @@ export const checkForHandle = async (handle: string) => {
         } else {
             return false;
         }
+    });
+};
+
+export const refreshAuth = (refreshToken: string) => {
+    return apolloClient.mutate({
+        mutation: gql(REFRESH_AUTHENTICATION),
+        variables: {
+            request: {
+                refreshToken,
+            },
+        },
     });
 };

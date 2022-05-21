@@ -1250,3 +1250,12 @@ export const ENABLED_CURRENCIES = `
     }
   }
 `;
+
+export const REFRESH_AUTHENTICATION = `
+  mutation($request: RefreshRequest!) { 
+    refresh(request: $request) {
+      accessToken
+      refreshToken
+    }
+ }
+`

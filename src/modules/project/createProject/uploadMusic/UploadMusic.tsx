@@ -86,7 +86,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                                 type="text"
                                 {...register('artistName', {
                                     minLength: { value: 2, message: 'Too short' },
-                                    maxLength: { value: 15, message: 'Too long' },
+                                    maxLength: { value: 25, message: 'Too long' },
                                     required: {
                                         value: true,
                                         message: 'This field is required',

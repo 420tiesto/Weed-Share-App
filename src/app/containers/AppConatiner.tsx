@@ -41,29 +41,31 @@ const AppContainer: React.FC<Props> = (props: Props) => {
         checkIfUserLoggedIn();
     }, []);
 
-    window.ethereum.on('accountsChanged', (accounts: any) => {
-        // If user has locked/logout from MetaMask, this resets the accounts array to empty
-        if (!accounts.length) {
-            // logic to handle what happens once MetaMask is locked
-            // setState({ authenthicated: false });
-            dispatch(setUserAuthenticated(false));
-        } else {
-            // check with localStorage for Adresss, if not same logout
-            // if same load the state
-            if (accounts[0] !== address) {
+    if (window.ethereum) {
+        window.ethereum.on('accountsChanged', (accounts: any) => {
+            // If user has locked/logout from MetaMask, this resets the accounts array to empty
+            if (!accounts.length) {
+                // logic to handle what happens once MetaMask is locked
+                // setState({ authenthicated: false });
                 dispatch(setUserAuthenticated(false));
-                console.log('locked');
             } else {
                 // check with localStorage for Adresss, if not same logout
                 // if same load the state
-                console.log(accounts[0]);
                 if (accounts[0] !== address) {
                     dispatch(setUserAuthenticated(false));
+                    console.log('locked');
+                } else {
+                    // check with localStorage for Adresss, if not same logout
+                    // if same load the state
+                    console.log(accounts[0]);
+                    if (accounts[0] !== address) {
+                        dispatch(setUserAuthenticated(false));
+                    }
+                    console.log('not locked');
                 }
-                console.log('not locked');
             }
-        }
-    });
+        });
+    }
 
     const checkIfUserLoggedIn = () => {
         setState({ loading: true });

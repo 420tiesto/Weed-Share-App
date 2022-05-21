@@ -17,13 +17,13 @@ const ProfileSocials = ({ fb, google, instagram, twitter, shareLink }: ProfileSo
     return (
         <div className="flex items-center gap-4 ">
             {/* Facebook  */}
-            {/* <a href={fb}>
+            <a href={fb}>
                 <FacebookGreenIcon />
-            </a> */}
+            </a>
             {/* Google */}
-            {/* <a href={google}>
+            <a href={google}>
                 <GoogleGreenIcon />
-            </a> */}
+            </a>
             {/* INstagram */}
             <a href={instagram}>
                 <InstagramGreenIcon />

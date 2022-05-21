@@ -177,9 +177,7 @@ const CreateProjectFlow = () => {
                 <Card variant="sunken" color="dark" className="mt-4">
                     <CardBody padding={8}>
                         <h1 className="text-3xl text-center mb-8 font-bold">Create Project</h1>
-
                         {step === 1 && <UploadMusic ref={uploadMusicRef} />}
-
                         {step === 2 && <AddTrack ref={createProjectRef} />}
                         <div
                             className={clsx({

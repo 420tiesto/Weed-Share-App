@@ -41,13 +41,13 @@ const ProjectPage = ({}: Props) => {
     } = publication as any;
 
     const { data: allowanceData } = useHasAllowance(address);
-    // console.log(allowanceData, '********** check allowance data');
+
+    const approveModuleHandler = async () => {
+        promiseToast('Approving module...', 'Collect Post');
+        await approveModule({ currency: address, value: '0.1', collectModule: type });
+    };
 
     const collectHandler = async () => {
-        // promiseToast('Approving module...', 'Collect Post');
-        // console.log(address, priceValue, type);
-        // await approveModule({ currency: address, value: '0.1', collectModule: type });
-        // return;
         promiseToast('Collecting project...', 'Collect Post');
         const tx = await collect(projectId || '');
         const hasIndexed = await pollUntilIndexed(tx.hash);

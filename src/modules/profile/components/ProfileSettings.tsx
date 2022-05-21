@@ -43,7 +43,8 @@ interface State {
     loading: boolean;
     profileImageURI: string;
     profileImageLoading: boolean;
-    checking: boolean;
+    checkingMetaData: boolean;
+    checkingProfilePicture: boolean;
 }
 
 const ProfileSettings: React.FC<Props> = (props: Props) => {
@@ -62,7 +63,8 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         profileImageURI: '',
         loading: false,
         profileImageLoading: false,
-        checking: false,
+        checkingMetaData: false,
+        checkingProfilePicture: false,
     });
 
     const { onSubmit } = props;
@@ -72,7 +74,8 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
         loading,
         profileImageURI,
         profileImageLoading,
-        checking,
+        checkingMetaData,
+        checkingProfilePicture,
     } = state;
 
     useEffect(() => {
@@ -109,7 +112,7 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
     const updateProfileMetadataDetails: SubmitHandler<any> = async (data) => {
         await dispatch(login());
         setState({ loading: true });
-        setState({ checking: true });
+        setState({ checkingMetaData: true });
         let name = data.name;
         const metadata = {
             name: data.name,
@@ -189,25 +192,25 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                 await pollUntilIndexed(tx.hash)
                     .then((resp: any) => {
                         console.log(resp, 'Profile updated');
-                        setState({ checking: false });
+                        setState({ checkingMetaData: false });
                         onSubmit();
                     })
                     .catch((error: Error) => {
                         errorToast('Profile update has Failed', error.message);
-                        setState({ checking: false });
+                        setState({ checkingMetaData: false });
                         console.log(error);
                     });
             })
             .catch((error: Error) => {
                 errorToast('Profile update has Failed', error.message);
-                setState({ checking: false });
+                setState({ checkingMetaData: false });
                 console.log(error);
             });
     };
 
     const updateProfileImage: SubmitHandler<any> = async (data) => {
         await dispatch(login());
-        setState({ checking: true });
+        setState({ checkingProfilePicture: true });
         const setProfileImageUriRequest = {
             profileId: profileDetails.id,
             url: profileImageURI,
@@ -236,18 +239,18 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                 await pollUntilIndexed(tx.hash)
                     .then((resp: any) => {
                         console.log(resp, 'Profile updated');
-                        setState({ checking: false });
+                        setState({ checkingProfilePicture: false });
                         onSubmit();
                     })
                     .catch((error: Error) => {
-                        setState({ checking: false });
+                        setState({ checkingProfilePicture: false });
                         console.log(error);
                         errorToast('Profile Image has Failed', error.message);
                     });
             })
             .catch((error: Error) => {
                 console.log(error);
-                setState({ checking: false });
+                setState({ checkingProfilePicture: false });
                 errorToast('Profile Image has Failed', error.message);
             });
     };
@@ -342,7 +345,9 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                                     </div>
                                 </Stack>
                                 <div className="flex justify-end">
-                                    <Button type="submit">Save</Button>
+                                    <Button type="submit" loading={checkingMetaData}>
+                                        Save
+                                    </Button>
                                 </div>
                             </form>
                         </CardBody>
@@ -366,7 +371,7 @@ const ProfileSettings: React.FC<Props> = (props: Props) => {
                                     />
                                 </div>
                                 <div className="flex justify-end">
-                                    <Button type="submit" loading={checking}>
+                                    <Button type="submit" loading={checkingProfilePicture}>
                                         Save
                                     </Button>
                                 </div>

@@ -53,6 +53,10 @@ const AddTrack = forwardRef(({}: Props, ref: any) => {
     };
 
     const removeTrack = (track: TrackDetails) => {
+        if (tracks.length === 1) {
+            alert('You have to upload atleast one track.');
+            return;
+        }
         dispatch(deleteTrackDetails(track));
     };
 

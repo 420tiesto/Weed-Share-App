@@ -3,13 +3,19 @@ import React, { useEffect } from 'react';
 import { Link, useMatch, useResolvedPath } from 'react-router-dom';
 import { NavlinkType } from './Navbar';
 
-type AuthNavlinkType = {
-    authState: boolean;
-    href: string;
-    name: string;
+
+type NavlinkProps = {
+    href: string;   
+    children:React.ReactNode
 };
 
-const Navlink = ({ href, name }: NavlinkType) => {
+type AuthNavlinkProps = {
+    authState: boolean;
+    href: string;   
+    children:React.ReactNode
+};
+
+const Navlink = ({ href, children }: NavlinkProps) => {
     let resolved = useResolvedPath(href);
     let match = useMatch({ path: resolved.pathname, end: true });
     return (
@@ -22,7 +28,7 @@ const Navlink = ({ href, name }: NavlinkType) => {
                     },
                     'px-3 py-1 rounded-lg font-medium duration-200 ease-out transition-colors  '
                 )}>
-                {name}
+                {children}
             </div>
         </Link>
     );
@@ -30,14 +36,14 @@ const Navlink = ({ href, name }: NavlinkType) => {
 
 export default Navlink;
 
-export const AuthenticatedNavlink = ({ authState=false, href, name }: AuthNavlinkType) => {
+export const AuthenticatedNavlink = ({ authState=false, href, children }: AuthNavlinkProps) => {
     if (authState) {
-        return <Navlink href={href} name={name} />;
+        return <Navlink href={href}>{children}</Navlink>;
     } else {
         return (
             <Link to={'/login'}>
                 <div className="px-3 hover:bg-white/10 py-1 rounded-lg font-medium duration-200 ease-out transition-colors ">
-                    {name}
+                    {children}
                 </div>
             </Link>
         );

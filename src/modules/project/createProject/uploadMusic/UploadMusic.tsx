@@ -95,7 +95,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             />
                             <span className="relative group">
                                 <LightBulbIcon className="h-6 w-6 cursor-pointer text-yellow-500 " />
-                                <div className="text-xs bg-gray text-gray-300 p-4 rounded-xl max-w-xs group-hover:block absolute top-8 z-10 w-80 hidden">
+                                <div className="text-xs border-white border bg-gray text-gray-300 p-4 rounded-xl max-w-xs group-hover:block absolute top-8 z-10 w-80 hidden">
                                     <p>
                                         Important: Only list yourname, stage name, or band name. Do
                                         not include anyone else's name (without their permission),

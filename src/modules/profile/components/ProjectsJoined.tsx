@@ -1,4 +1,8 @@
+import { ArrowRightIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../../../app/components/common-ui/atoms/Button';
+import { EXPLORE } from '../../../app/routes/Routes';
 import CardItem from './CardItem';
 
 interface Props {
@@ -58,8 +62,11 @@ const ProjectsJoined: React.FC<Props> = (props: Props) => {
                     />
                 </div>
             ) : (
-                <div className='flex items-center text-[28px] py-20 text-white/80 justify-center'>
+                <div className='flex items-center text-[28px] py-20 text-white/80 justify-center flex-col gap-4'>
                 No projects joined
+                <Link to={EXPLORE}>
+                <Button className='flex items-center gap-3'>Go to Explore <ChevronRightIcon className='h-5 w-5'/></Button>
+                </Link>
            </div>
             )}
         </>

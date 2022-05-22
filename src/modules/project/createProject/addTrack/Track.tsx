@@ -10,6 +10,7 @@ import UploadMusic from '../../../../app/components/common-ui/upload-music';
 import Button from '../../../../app/components/common-ui/atoms/Button';
 import { Input } from '../../../../app/components/common-ui/atoms/Input';
 import { promiseToast, errorToast, successToast } from '../../../../app/components/common-ui/toasts/CustomToast';
+import { Card, CardBody } from '../../../../app/components/common-ui/atoms/Card';
 
 type Props = {
     index: number;
@@ -84,6 +85,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
     };
 
     return (
+        <Card variant='elevated' color='dark' className='rounded-[30px]'>
         <Disclosure defaultOpen={index == 0 ? true : false}>
             {({ open }: { open: any }) => (
                 <>
@@ -96,6 +98,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                         {!open && <ChevronDownIcon className={styles.chevronIcon} />}
                     </Disclosure.Button>
                     <Disclosure.Panel>
+                        <CardBody padding={8}>
                         <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
                             {/* Song Title */}
                             <div className={styles.inputContainer}>
@@ -428,7 +431,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                             </div>
                             {/* Track Price  in Amazon & iTunes*/}
                             <div className={styles.inputContainer}>
-                                <label htmlFor="song-title" className={styles.label}>
+                                <label htmlFor="trackPrice" className={styles.label}>
                                     Track Price <br />
                                     <span className="text-xs text-gray-300">
                                         in Amazon and iTunes
@@ -452,38 +455,17 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                             </div>
                             {/* Track Price in Matic */}
                             {/* TODO: [PMA-48] Allow users to choose which token they want payment in */}
-                            <div className={styles.inputContainer}>
-                                <label htmlFor="song-title" className={styles.label}>
-                                    Track Price <br />
-                                    <span className="text-xs text-gray-300"> in Matic</span>
-                                </label>
-                                <div className="relative">
-                                    <Input
-                                        {...register('maticTrackPrice', {
-                                            min: {
-                                                value: 0.001,
-                                                message: 'Price cannot be lower than 0.001',
-                                            },
-                                            required: { value: true, message: ' required' },
-                                        })}
-                                        type="number"
-                                        step={0.001}
-                                        placeholder="Enter Track Price (in Matic)"
-
-                                    />
-                                    <p className={styles.errorText}>
-                                        {errors.maticTrackPrice?.message}
-                                    </p>
-                                </div>
-                            </div>
+                           
                             <Button loading={loader.uploadTrack} type="submit" variant="secondary">
                                 Save Track
                             </Button>
                         </form>
+                        </CardBody>
                     </Disclosure.Panel>
                 </>
             )}
         </Disclosure>
+                </Card>
     );
 };
 export default Track;

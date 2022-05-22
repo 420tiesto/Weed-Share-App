@@ -69,7 +69,9 @@ const ProjectPage = ({}: Props) => {
     }
 
     return (
-        <div className="sunken-element flex gap-8 p-8">
+        <div className='pt-4'>
+
+        <div className="sunken-element  bg-dark-gray flex gap-8 p-8">
             {/* Left Section */}
             <div className="">
                 <ProjectImageCard likes={101} imgSrc={imageLink} />
@@ -107,7 +109,7 @@ const ProjectPage = ({}: Props) => {
                 </div>
 
                 <div className="elevated-element mb-6 divide-y-4 divide-dark-gray rounded-2xl  mt-6 w-full">
-                    <AirdropDetails />
+                    {/* <AirdropDetails /> */}
                     <div className="py-4 px-6">
                         <p className="text-slate- mb-2">Current Price</p>
                         <div className="text-2xl font-bold flex items-center gap-2 mb-4">
@@ -126,6 +128,7 @@ const ProjectPage = ({}: Props) => {
                 {/* Spotify Integration */}
                 <ProjectActivity />
             </div>
+        </div>
         </div>
     );
 };

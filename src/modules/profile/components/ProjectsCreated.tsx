@@ -1,4 +1,8 @@
+import { PlusIcon } from '@heroicons/react/outline';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../../../app/components/common-ui/atoms/Button';
+import { CREATE_PROJECT } from '../../../app/routes/Routes';
 import CardItem from './CardItem';
 import CreateProjectCard from './CreateProjectCard';
 
@@ -28,8 +32,13 @@ const ProjectsCreated: React.FC<Props> = (props: Props) => {
                     )}
                 </div>
             ) : (
-                <div className='flex items-center text-[28px] py-20 text-white/80 justify-center'>
-                     Nothing to show here
+                <div className="flex items-center text-[28px] py-20 text-white/80 justify-center flex-col gap-4">
+                    Nothing to show here
+                    <Link to={CREATE_PROJECT}>
+                    <Button icon={<PlusIcon className="h-5 w-5" />}>
+                        Create Project
+                    </Button>
+                    </Link>
                 </div>
             )}
         </>

@@ -43,7 +43,7 @@ const Modal: React.FC<Props> = ({ isOpen, closeModal, title, children }) => {
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95">
-                        <div className="inline-block w-full sunken-element  max-w-fit p-6 overflow-hidden text-left align-middle transition-all transform bg-dark-gray  rounded-2xl">
+                        <div className="ring-1 ring-white inline-block w-full sunken-element  max-w-fit p-6 overflow-hidden text-left align-middle transition-all transform bg-dark-gray  rounded-2xl">
                             <button onClick={closeModal}>
                                 <XIcon className="absolute right-4 top-4 h-8 w-8" />
                             </button>

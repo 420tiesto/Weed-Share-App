@@ -18,56 +18,27 @@ const ProjectsJoined: React.FC<Props> = (props: Props) => {
         <>
             {collectedPublications && collectedPublications.length > 0 ? (
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-flow  gap-8 p-4">
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
-                    <CardItem
-                        text="Cold Inner fire"
-                        likeCount={34}
-                        subText="coldInnerFire"
-                        imgSrc={PLACEHOLDER_IMAGE_SRC}
-                    />
+                    {collectedPublications.map(
+                        (pub: any): JSX.Element => (
+                            <CardItem
+                                key={pub.id}
+                                text={pub?.metadata?.name || ''}
+                                likeCount={pub?.stats?.totalAmountOfCollects || 0}
+                                subText={pub?.metadata?.attributes[0]?.value}
+                                imgSrc={pub?.metadata?.attributes[6]?.value}
+                            />
+                        )
+                    )}
                 </div>
             ) : (
-                <div className='flex items-center text-[28px] py-20 text-white/80 justify-center flex-col gap-4'>
-                No projects joined
-                <Link to={EXPLORE}>
-                <Button className='flex items-center gap-3'>Go to Explore <ChevronRightIcon className='h-5 w-5'/></Button>
-                </Link>
-           </div>
+                <div className="flex items-center text-[28px] py-20 text-white/80 justify-center flex-col gap-4">
+                    No projects joined
+                    <Link to={EXPLORE}>
+                        <Button className="flex items-center gap-3">
+                            Go to Explore <ChevronRightIcon className="h-5 w-5" />
+                        </Button>
+                    </Link>
+                </div>
             )}
         </>
     );

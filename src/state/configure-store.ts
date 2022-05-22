@@ -9,7 +9,7 @@ import { authReducer } from '../modules/auth/state/auth.reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['projectReducer'],
+    whitelist: ['projectReducer', 'authReducer'],
 };
 
 // Import and combine all the reducers here

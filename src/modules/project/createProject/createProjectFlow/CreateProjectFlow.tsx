@@ -20,7 +20,7 @@ import { createPostMetadata } from '../../../../utils/create-post-metadata';
 import { uploadWeb3Json } from '../../../../utils/upload-json';
 import { getUserProfile } from '../../../auth/state/auth.reducer';
 import Button from '../../../../app/components/common-ui/atoms/Button';
-import { getPublications } from '../../../profile/services/get-publications';
+import { getPublications } from '../../services/get-publications';
 import { pollUntilIndexed } from '../../../../services/has-transaction-been-indexed';
 import {
     successToast,

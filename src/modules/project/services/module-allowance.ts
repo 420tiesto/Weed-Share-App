@@ -6,7 +6,7 @@ import { apolloClient } from '../../../services/apollo-client';
 export const hasAllowanceKey = (currency: string) => `LENS_MODULE_HAS_ALLOWANCE_${currency}`;
 
 export const useHasAllowance = (currency: string) => {
-    return useQuery(
+    const info = useQuery<any>(
         hasAllowanceKey(currency),
         async () => {
             return allowance({
@@ -20,6 +20,8 @@ export const useHasAllowance = (currency: string) => {
             enabled: !!currency,
         }
     );
+
+    return { ...info, data: info?.data?.data?.approvedModuleAllowanceAmount || [] };
 };
 
 export const allowance = (allowanceRequest: object) => {

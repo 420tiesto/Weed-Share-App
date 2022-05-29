@@ -1,21 +1,52 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { gql } from '@apollo/client/core';
 import { EXPLORE_PUBLICATIONS } from '../../../shared/constants';
 import { apolloClient } from '../../../services/apollo-client';
-import { appId } from '../../../app/constants';
+import { appId, applicationStartDate } from '../../../app/constants';
 
-export type SortCriteria = 'TOP_COLLECTED' | 'LATEST';
+export type SortCriteria = 'TOP_COLLECTED' | 'LATEST' | 'TOP_COMMENTED';
+const pageSize = 10;
 
-const explorePublicationsKey = (sortCriteria: SortCriteria) => `LENS_PUBLICATION_EXPLORE_GET_${sortCriteria}`;
+const explorePublicationsKey = (sortCriteria: SortCriteria) => [
+    `LENS_PUBLICATION_EXPLORE_GET`,
+    sortCriteria,
+];
 
+// TODO: [PMA-126] Use graphql codegen for all react query calls
 export const useGetExplorePublications = (sortCriteria: SortCriteria, config: any = {}) => {
     const query = {
         sortCriteria: sortCriteria,
         publicationTypes: ['POST'],
         sources: [appId],
-        noRandomize: true,
+        limit: pageSize,
+        noRandomize: sortCriteria !== 'TOP_COLLECTED' ? true : undefined,
+        timestamp: applicationStartDate.unix(),
     };
-    return useQuery(explorePublicationsKey(sortCriteria), async () => explorePublications(query), config);
+
+    const newInfo = useInfiniteQuery<any>(
+        [explorePublicationsKey(sortCriteria), 'infinite'],
+        ({ pageParam = 1 }) => {
+            return explorePublications({ ...query, cursor: pageParam });
+        },
+        {
+            getNextPageParam: (lastPage) => {
+                const pageInfo = lastPage?.data?.explorePublications?.pageInfo;
+                if (!pageInfo) {
+                    return undefined;
+                }
+                const { next, totalCount } = pageInfo;
+                const nextData = JSON.parse(next) || {};
+                const { offset = 0 } = nextData;
+                if (totalCount >= offset) {
+                    return next;
+                }
+                return undefined;
+            },
+            ...config,
+        }
+    );
+    const items = newInfo?.data?.pages?.reduce((acc, page = {}) => [...acc, ...(page?.data.explorePublications?.items || [])], []);
+    return { ...newInfo, data: items, pageParams: newInfo?.data?.pageParams || [] };
 };
 
 export const explorePublications = (explorePublicationQueryRequest: object) => {

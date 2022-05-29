@@ -1,4 +1,5 @@
 import { HttpLink } from '@apollo/client/link/http';
+import dayjs from 'dayjs';
 
 const mumbaiTestnet = new HttpLink({ uri: 'https://api-mumbai.lens.dev/' });
 const localhost = new HttpLink({ uri: 'http://0.0.0.0:8545/' });
@@ -59,3 +60,5 @@ export const enabledCurrencies = {
         __typename: 'Erc20',
     },
 };
+
+export const applicationStartDate = dayjs().set('date', 1).set('month', 4).set('year', 2022)

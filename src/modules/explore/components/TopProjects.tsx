@@ -1,3 +1,6 @@
+import { useCallback } from 'react';
+import ReactList from 'react-list';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import ProjectCard from './ProjectCard';
 import { type SortCriteria, useGetExplorePublications } from '../services/explore-publication';
 import Loader from '../../../app/components/common-ui/loader';
@@ -7,8 +10,15 @@ type Props = {
 };
 
 const TopProjects = ({ sortCriteria }: Props) => {
-    const { data = {}, isLoading } = useGetExplorePublications(sortCriteria);
-    const { data: { explorePublications: { items = [] } = {} } = {} } = data as any;
+    const { data: items, isLoading, fetchNextPage, hasNextPage = true } = useGetExplorePublications(sortCriteria);
+
+    const itemRenderer = useCallback(
+        (index) => {
+            return <ProjectCard key={items[index].id} projectData={items[index]} />;
+        },
+        [items]
+    );
+
     if (isLoading) {
         return (
             <div className="items-center justify-center  w-full">
@@ -16,15 +26,21 @@ const TopProjects = ({ sortCriteria }: Props) => {
             </div>
         );
     }
+
     return (
-    <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  ">
-            {items.map((item: any) => (
-                <ProjectCard
-                    key={item.id}
-                    projectData={item}
-                />
-            ))}
-        </div>
+        <InfiniteScroll
+            dataLength={items.length}
+            next={fetchNextPage}
+            hasMore={hasNextPage}
+            endMessage={
+                <p>
+                    <b>Yay! You have seen it all</b>
+                </p>
+            }
+            refreshFunction={() => {}}
+            loader={<Loader />}>
+            <ReactList length={items.length} itemRenderer={itemRenderer} type="simple" />
+        </InfiniteScroll>
     );
 };
 

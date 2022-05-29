@@ -17,7 +17,7 @@ const ProjectCard: React.FC<Props> = ({ projectData }) => {
 
     const onCardClick = () => navigate(`/project/${id}`);
     return (
-        <div onClick={onCardClick}>
+        <div className="inline-block w-72 m-8" onClick={onCardClick}>
             <Card
                 variant="elevated"
                 color="dark"

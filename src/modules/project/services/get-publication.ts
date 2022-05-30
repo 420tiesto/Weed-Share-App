@@ -4,7 +4,7 @@ import { GET_PUBLICATION } from '../../../shared/constants';
 import { apolloClient } from '../../../services/apollo-client';
 
 export const getPublicationKey = (publicationId?: string) =>
-    `LENS_PUBLICATION_GET_${publicationId}`;
+    ['LENS', 'PUBLICATION', 'GET', publicationId];
 
 export const useGetPublication = (publicationId?: string, config: any = {}) => {
     return useQuery(

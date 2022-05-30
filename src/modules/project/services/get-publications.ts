@@ -5,10 +5,10 @@ import { useQuery } from 'react-query';
 import { appId } from '../../../app/constants';
 
 export const getCollectedPublications = (ownedBy?: string) =>
-    `LENS_PUBLICATION_GET_COLLECTED_${ownedBy}`;
+    ['LENS', 'PUBLICATION', 'GET', 'COLLECTED', ownedBy];
 
 export const getPublicationsPosted = (profileId?: string) =>
-    `LENS_PUBLICATION_GET_POSTED_${profileId}`;
+    ['LENS', 'PUBLICATION', 'GET', 'POSTED', profileId];
 
 export const useGetPublicationsCollected = (ownedBy?: string) => {
     return useQuery(

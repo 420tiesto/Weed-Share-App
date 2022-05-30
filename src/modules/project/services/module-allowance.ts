@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { ALLOWANCE } from '../../../shared/constants';
 import { apolloClient } from '../../../services/apollo-client';
 
-export const hasAllowanceKey = (currency: string) => `LENS_MODULE_HAS_ALLOWANCE_${currency}`;
+export const hasAllowanceKey = (currency: string) => ['LENS', 'MODULE', 'GET', 'HAS_ALLOWANCE', currency];
 
 export const useHasAllowance = (currency: string) => {
     const info = useQuery<any>(

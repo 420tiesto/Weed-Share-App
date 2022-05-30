@@ -8,7 +8,10 @@ export type SortCriteria = 'TOP_COLLECTED' | 'LATEST' | 'TOP_COMMENTED';
 const pageSize = 10;
 
 const explorePublicationsKey = (sortCriteria: SortCriteria) => [
-    `LENS_PUBLICATION_EXPLORE_GET`,
+    'LENS',
+    'PUBLICATION',
+    'GET',
+    'EXPLORE',
     sortCriteria,
 ];
 
@@ -23,9 +26,9 @@ export const useGetExplorePublications = (sortCriteria: SortCriteria, config: an
         timestamp: applicationStartDate.unix(),
     };
 
-    const newInfo = useInfiniteQuery<any>(
-        [explorePublicationsKey(sortCriteria), 'infinite'],
-        ({ pageParam = 1 }) => {
+    const info = useInfiniteQuery<any>(
+        explorePublicationsKey(sortCriteria),
+        ({ pageParam }) => {
             return explorePublications({ ...query, cursor: pageParam });
         },
         {
@@ -45,8 +48,11 @@ export const useGetExplorePublications = (sortCriteria: SortCriteria, config: an
             ...config,
         }
     );
-    const items = newInfo?.data?.pages?.reduce((acc, page = {}) => [...acc, ...(page?.data.explorePublications?.items || [])], []);
-    return { ...newInfo, data: items, pageParams: newInfo?.data?.pageParams || [] };
+    const items = info?.data?.pages?.reduce(
+        (acc, page = {}) => [...acc, ...(page?.data.explorePublications?.items || [])],
+        []
+    );
+    return { ...info, data: items, pageParams: info?.data?.pageParams || [] };
 };
 
 export const explorePublications = (explorePublicationQueryRequest: object) => {

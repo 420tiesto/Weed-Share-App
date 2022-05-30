@@ -4,11 +4,11 @@ import { apolloClient } from '../../../services/apollo-client';
 import { GET_PROFILES } from '../../../shared/constants';
 
 export const getProfileByAddressRequest = (address: string) => {
-    getProfiles({ ownedBy: [address], limit: 10 });
+    return getProfiles({ ownedBy: [address], limit: 10 });
     // return { ownedBy: [address], limit: 10 };
 };
 
-export const getProfileKey = (profileHandle?: string) => `LENS_PROFILE_GET_${profileHandle}`;
+export const getProfileKey = (profileHandle?: string) => ['LENS', 'PROFILE', 'GET', profileHandle];
 
 export const useGetProfile = (profileHandle?: string) => {
     return useQuery<any>(

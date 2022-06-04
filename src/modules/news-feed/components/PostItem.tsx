@@ -1,27 +1,40 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Card, CardBody } from '../../../app/components/common-ui/atoms/Card'
 import NewsFeedItem from './NewsFeedItem'
 
-type Props = {}
+type Props = {
+    pfpSrc:string
+    creator:string
+    previewImgSrc:string
+    previewDomain:string
+    previewTitle:string
+    previewDescription:string
+    previewLink:string
+    createdAt:string
+}
 
-const PostItem = (props: Props) => {
+const PostItem = ({pfpSrc,creator,previewImgSrc,previewDomain,previewDescription,previewLink,previewTitle,createdAt}: Props) => {
   return (
-    <NewsFeedItem type="Post" title={`Harrish created a new project`} pfpSrc='https://pbs.twimg.com/profile_images/1491044018926796805/uBM0c32A_400x400.jpg'>
+    <NewsFeedItem type="Post" title={creator} pfpSrc={pfpSrc}>
+        <Link to={previewLink}>
+
             <Card variant="elevated" rounded="2xl" className='overflow-hidden'>
                 <div className='flex gap-4 items-center'>
                     <div className="max-w-[140px] h-[140px] flex-1 bg-gray overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1654260081942-fe55497944e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="" className="h-full w-full object-center object-cover" />
+                        <img src={previewImgSrc} className='object-center object-cover h-full w-full'/>
                     </div>
                     <div className="flex-1">
-                        <p className="text-white/30 ">soundcloud.com</p>
-                        <p className="font-bold mb-1">Cold Heart (PNAU Remix) by Elton John & Dua Lipa</p>
+                        <p className="text-white/30 ">{previewDomain}</p>
+                        <p className="font-bold mb-1">{previewTitle}</p>
                         <p className="text-white/30 mb-4 max-w">
-                            Sed ut perspiciatis unde omnis iste natus error sit...
+                        {previewDescription}
                         </p>
                     </div>
                 </div>
             </Card>
-                <p className='text-white/30'>11:37 AM Jun 4, 2022 </p>
+        </Link>
+                <p className='text-white/30 mt'>{createdAt} </p>
         </NewsFeedItem>
   )
 }

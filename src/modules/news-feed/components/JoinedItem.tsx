@@ -1,11 +1,15 @@
 import React from 'react'
 import NewsFeedItem from './NewsFeedItem'
 
-type Props = {}
+type Props = {
+  from:string
+  to:string
+  pfpSrc:string
+}
 
-const JoinedItem = (props: Props) => {
+const JoinedItem = ({from,to,pfpSrc}: Props) => {
   return (
-    <NewsFeedItem type='Joined' title={`Harrish has joined Aravinthans Project`} pfpSrc='https://pbs.twimg.com/profile_images/1491044018926796805/uBM0c32A_400x400.jpg  ' />
+    <NewsFeedItem type='Joined' title={`${from} has joined ${to}'s Project`} pfpSrc={pfpSrc} />
   )
 }
 

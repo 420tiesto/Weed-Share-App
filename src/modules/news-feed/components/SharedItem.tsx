@@ -9,7 +9,7 @@ type Props = {}
 
 const SharedItem = (props: Props) => {
   return (
-    <NewsFeedItem type="Share" title={`Harrish shared Arivanthans project`}>
+    <NewsFeedItem type="Share" pfpSrc='https://pbs.twimg.com/profile_images/1491044018926796805/uBM0c32A_400x400.jpg' title={`Harrish shared Arivanthans project`}>
     <Card variant="elevated" rounded="2xl">
         <CardBody padding={6} className="flex items-center gap-8">
             <div className="h-[200px] w-[240px] elevated-element rounded-2xl bg-gray overflow-hidden border-2 ">

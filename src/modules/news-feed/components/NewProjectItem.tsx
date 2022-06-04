@@ -8,7 +8,7 @@ type Props = {};
 
 const NewProjectItem = (props: Props) => {
     return (
-        <NewsFeedItem type="NewProject" title={`Harrish created a new project`}>
+        <NewsFeedItem type="NewProject" title={`Harrish created a new project`} pfpSrc="https://pbs.twimg.com/profile_images/1491044018926796805/uBM0c32A_400x400.jpg">
             <Card variant="elevated" rounded="2xl">
                 <CardBody padding={6} className="flex items-center gap-8">
                     <div className="h-[200px] elevated-element w-[240px] rounded-2xl bg-gray overflow-hidden border-2 ">

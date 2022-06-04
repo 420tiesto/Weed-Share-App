@@ -6,7 +6,7 @@ type Props = {}
 
 const PostItem = (props: Props) => {
   return (
-    <NewsFeedItem type="Post" title={`Harrish created a new project`}>
+    <NewsFeedItem type="Post" title={`Harrish created a new project`} pfpSrc='https://pbs.twimg.com/profile_images/1491044018926796805/uBM0c32A_400x400.jpg'>
             <Card variant="elevated" rounded="2xl" className='overflow-hidden'>
                 <div className='flex gap-4 items-center'>
                     <div className="max-w-[140px] h-[140px] flex-1 bg-gray overflow-hidden">

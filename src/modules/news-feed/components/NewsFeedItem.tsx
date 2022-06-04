@@ -21,7 +21,7 @@ const NewsFeedItem: React.FC<Props> = ({ type, pfpSrc, username, title, children
                 <div>
                     <h6 className="font-medium text-lg">{title}</h6>
                 </div>
-            </div>
+        </div>
 
           {children && <div className='px-16 mb-4'>
             {children}

@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import { LENS_TOKENS, PRNTS_PUBLIC_KEY } from '../../utils/local-storage/keys';
 import { getStorageValue } from '../../utils/local-storage/local-storage';
 import { setUserAuthenticated } from '../../modules/auth/state/auth.action';
+import NewsFeed from '../../modules/news-feed/pages/NewsFeed';
 
 export const HOME_PAGE = '/';
 export const LOGIN = '/login';
@@ -24,6 +25,7 @@ export const CREATE_PROJECT = '/upload-album';
 export const PROFILE_SETTINGS = '/profile/settings';
 export const PROJECT = '/project/:projectId';
 export const EXPLORE = '/explore';
+export const NEWSFEED = '/newsfeed';
 
 interface Props {
     // authenticated: boolean;
@@ -50,7 +52,7 @@ const AppRoutes: React.FC<Props> = (props: Props) => {
             <Route path={PROJECT} element={<ProjectPage />} />
             <Route path={EXPLORE} element={<ExplorePage />} />
             <Route path={HOME_PAGE} element={<Home />} />
-
+            <Route path={NEWSFEED} element={<NewsFeed />} />
             {/* Dev Route for Design System reference */}
             <Route path="/design" element={<DesignSystem />} />
         </Routes>

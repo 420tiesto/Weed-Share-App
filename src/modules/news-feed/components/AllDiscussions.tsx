@@ -61,7 +61,7 @@ const AllDiscussions = (props: Props) => {
                 previewTitle="Cold inner Fire"
                 createdAt="11:37 AM Jun 4, 2022"
                 previewDomain='soundcloud.com'
-                previewLink='https://soundcloud.com/'
+                previewLink='https://soundcloud.com//'
             />
         </div>
     );

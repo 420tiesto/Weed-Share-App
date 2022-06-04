@@ -9,7 +9,7 @@ type Props = {};
 
 const NewsSidebar = (props: Props) => {
     return (
-        <Card variant="sunken" color="dark" className="h-full">
+        <Card variant="sunken" color="dark" className="h-[90vh] w-[320px]">
             {/* Create project */}
             <div className="flex p-8 items-center justify-center ">
                 <Button className="w-full">Create new post </Button>

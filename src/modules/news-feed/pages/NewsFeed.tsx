@@ -10,7 +10,7 @@ type Props = {};
 const NewsFeed = (props: Props) => {
     const [filter,setFilter] = React.useState<"Latest" | "Most Liked">("Latest") 
     return (
-        <div className="grid pt-4 gap-8 lg:grid-cols-5">
+        <div className="grid pt-4  lg:grid-cols-5">
             <Tab.Group>
                 <div className="col col-span-1">
                     <NewsSidebar />

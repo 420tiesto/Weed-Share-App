@@ -19,9 +19,9 @@ const PostItem = (props: Props) => {
                             Sed ut perspiciatis unde omnis iste natus error sit...
                         </p>
                     </div>
-
                 </div>
             </Card>
+                <p className='text-white/30'>11:37 AM Jun 4, 2022 </p>
         </NewsFeedItem>
   )
 }

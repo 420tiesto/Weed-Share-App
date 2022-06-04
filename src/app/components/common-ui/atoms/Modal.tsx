@@ -5,7 +5,6 @@ import React, { Fragment } from 'react';
 type Props = {
     isOpen: boolean;
     closeModal: () => void;
-    title?: React.ReactNode;
     children: React.ReactNode;
 };
 
@@ -15,7 +14,7 @@ export const ModalHeader: React.FC<{ children: React.ReactNode,className?:string
     );
 };
 
-const Modal: React.FC<Props> = ({ isOpen, closeModal, title, children }) => {
+const Modal: React.FC<Props> = ({ isOpen, closeModal, children }) => {
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto" onClose={closeModal}>
@@ -43,9 +42,10 @@ const Modal: React.FC<Props> = ({ isOpen, closeModal, title, children }) => {
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95">
-                        <div className="ring-1 ring-white inline-block w-full sunken-element  max-w-fit p-6 overflow-hidden text-left align-middle transition-all transform bg-dark-gray  rounded-2xl">
-                            <button onClick={closeModal}>
-                                <XIcon className="absolute right-4 top-4 h-8 w-8" />
+                            
+                        <div className="ring-1 ring-white inline-block w-full sunken-element relative  max-w-fit p-6 overflow-hidden text-left align-middle transition-all transform bg-dark-gray  rounded-2xl">
+                            <button onClick={closeModal} className="absolute right-4 top-4">
+                                <XIcon className="h-8 w-8" />
                             </button>
                             {children}
                         </div>

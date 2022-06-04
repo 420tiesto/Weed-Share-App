@@ -5,14 +5,16 @@ import Button from '../../../app/components/common-ui/atoms/Button';
 import { Card } from '../../../app/components/common-ui/atoms/Card';
 import StyledSettingsTab from '../../profile/components/StyledSettingsTab';
 
-type Props = {};
+type Props = {
+    openModal: () => void
+};
 
-const NewsSidebar = (props: Props) => {
+const NewsSidebar = ({openModal}:Props) => {
     return (
         <Card variant="sunken" color="dark" className="h-[90vh] w-[320px]">
             {/* Create project */}
             <div className="flex p-8 items-center justify-center ">
-                <Button className="w-full">Create new post </Button>
+                <Button onClick={() => openModal()} className="w-full">Create new post </Button>
             </div>
             {/* Tabs */}
             <Tab.List className="flex flex-col mb-8">

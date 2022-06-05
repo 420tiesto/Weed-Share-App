@@ -117,7 +117,7 @@ const AppContainer: React.FC<Props> = (props: Props) => {
         <BrowserRouter>
             <Toaster position="top-right" />
             <Navbar />
-            <div className="px-4 mt-16">{loading ? <div>Loading..</div> : <AppRoutes />}</div>
+            <div className=" mt-16">{loading ? <div>Loading..</div> : <AppRoutes />}</div>
             <div className="flex justify-center">
                 <p className="my-4">{copyright}</p>
             </div>

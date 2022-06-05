@@ -156,7 +156,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
     };
 
     return (
-        <div className="pt-4">
+        <div className="pt-4 px-4">
             <Card variant="sunken" color="dark">
                 <>
                     {!isLoading ? (

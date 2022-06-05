@@ -3,7 +3,7 @@ import DesignSystem from '../components/common-ui/DesignSystem';
 import Login from '../../modules/auth/components/login/Login';
 import SignUp from '../../modules/auth/components/signUp/SignUp';
 import ExplorePage from '../../modules/explore/components/ExplorePage';
-import Home from '../../modules/home/Home';
+import Home from '../../modules/home/pages/Home';
 import ProfilePage from '../../modules/profile/pages/ProfilePage';
 import ProfileSettingsPage from '../../modules/profile/pages/ProfileSettingsPage';
 import CreateProjectFlow from '../../modules/project/createProject/createProjectFlow';

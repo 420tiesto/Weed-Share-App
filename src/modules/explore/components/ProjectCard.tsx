@@ -14,7 +14,6 @@ const ProjectCard: React.FC<Props> = ({ projectData }) => {
     const albumCover = metadata.attributes[6].value || PLACEHOLDER_IMAGE;
     const username = metadata.attributes[0].value;
     const title = metadata.attributes[2].value;
-
     const onCardClick = () => navigate(`/project/${id}`);
     return (
         <div className="inline-block w-72 m-8" onClick={onCardClick}>

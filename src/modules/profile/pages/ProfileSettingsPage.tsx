@@ -45,7 +45,7 @@ const ProfileSettingsPage: React.FC<Props> = (props: Props) => {
     const onProfilePicSubmit = () => {};
 
     return (
-        <div className="p-4">
+        <div className="p-4 px-8">
             <Card variant="sunken" color="dark">
                 <div className="flex">
                     <Tab.Group vertical>

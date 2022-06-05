@@ -88,7 +88,7 @@ const ProjectPage = ({}: Props) => {
     }
 
     return (
-        <div className="pt-4">
+        <div className="pt-4 px-4">
             <div className="sunken-element  bg-dark-gray flex gap-8 p-8">
                 {/* Left Section */}
                 <div className="">

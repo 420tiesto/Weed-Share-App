@@ -192,7 +192,7 @@ const CreateProjectFlow = () => {
     };
     return (
         <>
-            <div className="p-4">
+            <div className="p-4 px-8">
                 <Card variant="sunken" color="dark" className="mt-4">
                     <CardBody padding={8}>
                         <h1 className="text-3xl mb-8 font-bold">Upload Music</h1>

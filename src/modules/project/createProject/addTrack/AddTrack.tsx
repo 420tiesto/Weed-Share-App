@@ -28,7 +28,7 @@ const AddTrack = forwardRef(({}: Props, ref: any) => {
                 hasFeaturedArtist: false,
                 isRadioEdit: false,
                 audioFile: '',
-                audioFileType: '',
+                audioFileType: 'audio/wav',
                 songType: 'original',
                 songWriterFirstName: '',
                 songWriterLastName: '',

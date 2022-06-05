@@ -3,27 +3,28 @@ import { useSelector } from 'react-redux';
 
 import { apolloClient } from '../../../services/apollo-client';
 import { GET_TIMELINE } from '../../../shared/constants';
-import { getUserProfile } from '../../auth/state/auth.reducer';
+import { getUserProfile, getUserAuthenticated } from '../../auth/state/auth.reducer';
 import { appId } from '../../../app/constants';
 import { useInfiniteQuery } from 'react-query';
 
-export const getTimelineKey = ({ appIds, profileId }: { appIds: string[]; profileId: string }) => [
-    'LENS',
-    'TIMELINE',
-    'GET',
+export const getTimelineKey = ({
+    appIds = [],
     profileId,
-    ...appIds,
-];
+}: {
+    appIds: string[] | undefined;
+    profileId: string;
+}) => ['LENS', 'TIMELINE', 'GET', profileId, ...appIds];
 
 export const useGetTimeline = (sources: string[] = [appId], config: any = {}) => {
     const { id } = useSelector(getUserProfile);
     const request = {
         profileId: id,
         sources,
+        limit: 10,
     };
 
     const info = useInfiniteQuery<any>(
-        getTimelineKey({ appIds: sources, profileId: id }),
+        getTimelineKey({ appIds: !!sources.length ? sources : undefined, profileId: id }),
         ({ pageParam }) => {
             return getTimeline({ ...request, cursor: pageParam });
         },
@@ -39,13 +40,15 @@ export const useGetTimeline = (sources: string[] = [appId], config: any = {}) =>
                 }
                 return pageInfo.next;
             },
+            enabled: !!id,
             ...config,
         }
     );
 
-    const items = info?.data?.pages?.reduce(
-      (acc, page = {}) => [...acc, ...(page?.data.timeline?.items || [])],
-    );
+    const items = info?.data?.pages?.reduce((acc, page = {}) => {
+        console.log(page?.data?.timeline?.items, '******* timeline data');
+        return [...acc, ...(page?.data?.timeline?.items || [])];
+    }, []);
 
     return { ...info, data: items, pageParams: info?.data?.pageParams || [] };
 };

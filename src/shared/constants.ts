@@ -1414,7 +1414,7 @@ export const GET_TIMELINE = `
 
   fragment CollectModuleFields on CollectModule {
     __typename
-    ... on EmptyCollectModuleSettings {
+    ... on FreeCollectModuleSettings {
       type
     }
     ... on FeeCollectModuleSettings {
@@ -1589,11 +1589,10 @@ export const GET_TIMELINE = `
     }
   }
 
-    fragment WalletFields on Wallet {
-   address,
-   defaultProfile {
-    ...ProfileFields
-   }
-   totalAmountOfProfiles
+  fragment WalletFields on Wallet {
+    address,
+    defaultProfile {
+      ...ProfileFields
     }
+  }
 `;

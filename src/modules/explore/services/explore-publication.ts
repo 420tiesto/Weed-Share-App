@@ -5,6 +5,7 @@ import { apolloClient } from '../../../services/apollo-client';
 import { appId, applicationStartDate } from '../../../app/constants';
 
 export type SortCriteria = 'TOP_COLLECTED' | 'LATEST' | 'TOP_COMMENTED';
+export type PublicationTypes = 'POST' | 'COMMENT' | 'MIRROR';
 const pageSize = 10;
 
 const explorePublicationsKey = (sortCriteria: SortCriteria) => [
@@ -16,10 +17,16 @@ const explorePublicationsKey = (sortCriteria: SortCriteria) => [
 ];
 
 // TODO: [PMA-126] Use graphql codegen for all react query calls
-export const useGetExplorePublications = (sortCriteria: SortCriteria, config: any = {}) => {
+export const useGetExplorePublications = (
+    {
+        sortCriteria,
+        publicationTypes = ['POST'],
+    }: { sortCriteria: SortCriteria; publicationTypes?: PublicationTypes[] },
+    config: any = {}
+) => {
     const query = {
         sortCriteria: sortCriteria,
-        publicationTypes: ['POST'],
+        publicationTypes: publicationTypes,
         sources: [appId],
         limit: pageSize,
         noRandomize: sortCriteria !== 'TOP_COLLECTED' ? true : undefined,

@@ -6,24 +6,29 @@ import { Card } from '../../../app/components/common-ui/atoms/Card';
 import StyledSettingsTab from '../../profile/components/StyledSettingsTab';
 
 type Props = {
-    openModal: () => void
+    authenticatedState: boolean;
+    openModal: () => void;
 };
 
-const NewsSidebar = ({openModal}:Props) => {
+const NewsSidebar: React.FC<Props> = ({ openModal, authenticatedState = false }) => {
     return (
         <Card variant="sunken" color="dark" className="h-[90vh] w-[320px]">
             {/* Create project */}
             <div className="flex p-8 items-center justify-center ">
-                <Button onClick={() => openModal()} className="w-full">Create new post </Button>
+                <Button onClick={() => openModal()} className="w-full">
+                    Create new post{' '}
+                </Button>
             </div>
             {/* Tabs */}
             <Tab.List className="flex flex-col mb-8">
                 <StyledSettingsTab>
                     <ChatIcon className="h-5 w-5" /> All discussions
                 </StyledSettingsTab>
-                <StyledSettingsTab>
-                    <StarIcon className="h-5 w-5" /> Following
-                </StyledSettingsTab>
+                {!!authenticatedState && (
+                    <StyledSettingsTab>
+                        <StarIcon className="h-5 w-5" /> Following
+                    </StyledSettingsTab>
+                )}
             </Tab.List>
             {/* Divider */}
             <div className="h-[2px]  mx-8  bg-white/30 " />

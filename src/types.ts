@@ -28,3 +28,28 @@ export type TReducerState = {
     globalReducer: typeof initialState;
     projectReducer: typeof projectInitialState;
 };
+
+export type MimeType =
+    | 'image/gif'
+    | 'image/jpeg'
+    | 'image/png'
+    | 'image/tiff'
+    | 'image/x-ms-bmp'
+    | 'image/svg+xml'
+    | 'image/webp'
+    | 'video/webm'
+    | 'video/mp4'
+    | 'video/x-m4v'
+    | 'video/ogv'
+    | 'video/ogg'
+    | 'audio/wav'
+    | 'audio/mpeg'
+    | 'audio/ogg';
+
+export interface MetadataMedia {
+    item: string;
+    /**
+     * This is the mime type of media
+     */
+    type: MimeType;
+}

@@ -10,7 +10,7 @@ type Props = {
 };
 
 const TopProjects = ({ sortCriteria }: Props) => {
-    const { data: items, isLoading, fetchNextPage, hasNextPage = true } = useGetExplorePublications(sortCriteria);
+    const { data: items, isLoading, fetchNextPage, hasNextPage = true } = useGetExplorePublications({ sortCriteria });
 
     const itemRenderer = useCallback(
         (index) => {

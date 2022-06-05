@@ -32,6 +32,7 @@ import { isValidToken } from '../../../../utils/auth-helpers';
 import { getStorageValue } from '../../../../utils/local-storage/local-storage';
 import { LENS_TOKENS } from '../../../../utils/local-storage/keys';
 import { setUserAuthenticated } from '../../../auth/state/auth.action';
+import { MetadataMedia } from '../../../../types';
 
 const CreateProjectFlow = () => {
     const [step, setStep] = useState(1);
@@ -111,7 +112,7 @@ const CreateProjectFlow = () => {
                     getAttributeType('string', 'Album Cover Type', albumCoverType),
                     getAttributeType('number', 'Number of Tracks', tracks.length),
                 ];
-                let media = [];
+                let media: MetadataMedia[] = [];
                 for (let i = 0; i < tracks.length; i++) {
                     const track = tracks[i];
                     if (track.ipfsHash) {

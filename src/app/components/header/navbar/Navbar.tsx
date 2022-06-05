@@ -19,7 +19,6 @@ const Navbar: React.FC = ({}) => {
     const navigate = useNavigate();
 
     //Redux State
-    const userHandle = useSelector(getUserHandle);
     const authenticatedState = useSelector(getUserAuthenticated);
 
     const NAVBAR_LINKS: NavlinkType[] = [
@@ -34,8 +33,6 @@ const Navbar: React.FC = ({}) => {
         { name: 'Wallet', href: '/wallet' },
         { name: 'Create', href: CREATE_PROJECT },
     ];
-
-    useEffect(() => {}, [authenticatedState]);
 
     const handleNavigate = () => {
         navigate(LOGIN);

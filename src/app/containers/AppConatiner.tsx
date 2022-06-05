@@ -27,7 +27,7 @@ interface State {
 
 const AppContainer: React.FC<Props> = (props: Props) => {
     const dispatch = useAppDispatch();
-    useEnabledCurrencies();
+    // useEnabledCurrencies();
 
     //localStorage
     const auth = getStorageValue(LENS_TOKENS);

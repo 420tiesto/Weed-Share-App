@@ -7,28 +7,31 @@ import PlayIcon from '../../../app/icons/PlayIcon';
 import NewsFeedItem from './NewsFeedItem';
 
 type Props = {
-    sharer: string;
-    id: string;
-    previewImgSrc: string;
-    creator: string;
-    pfpSrc: string;
-    projectTitle: string;
-    projectDescription: string;
-    joinedCount: number;
-    commentsCount: number;
+    newsItem: {
+        id: string;
+        sharer: string;
+        previewImgSrc: string;
+        creator: string;
+        pfpSrc: string;
+        projectTitle: string;
+        projectDescription: string;
+        joinedCount: number;
+        commentsCount: number;
+    };
 };
 
-const SharedItem = ({
-    id,
-    previewImgSrc,
-    sharer,
-    projectDescription,
-    creator,
-    pfpSrc,
-    projectTitle,
-    joinedCount,
-    commentsCount,
-}: Props) => {
+const SharedItem: React.FC<Props> = ({ newsItem }) => {
+    const {
+        id,
+        previewImgSrc,
+        creator = '',
+        sharer = '',
+        pfpSrc,
+        projectTitle = 'Loading...',
+        projectDescription = '...',
+        joinedCount = 0,
+        commentsCount = 0,
+    } = newsItem;
     return (
         <NewsFeedItem type="Share" pfpSrc={pfpSrc} title={`${sharer} shared ${creator} project`}>
             <Link to={`/project/${id}`}>

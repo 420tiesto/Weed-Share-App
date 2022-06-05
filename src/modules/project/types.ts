@@ -1,4 +1,5 @@
 import { SelectOption } from '../../app/components/common-ui/atoms/SelectInput';
+import { type MimeType } from '../../types';
 
 export interface AlbumDetails {
     artistName: string;
@@ -17,7 +18,7 @@ export interface TrackDetails {
     hasFeaturedArtist: boolean;
     isRadioEdit: boolean;
     audioFile: string;
-    audioFileType: string;
+    audioFileType: MimeType;
     songType: 'original' | 'cover';
     songWriterFirstName: string;
     songWriterLastName: string;

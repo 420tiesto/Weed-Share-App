@@ -2,6 +2,8 @@ import { gql } from '@apollo/client/core';
 import { useQuery } from 'react-query';
 import { apolloClient } from '../../../services/apollo-client';
 import { GET_PROFILES } from '../../../shared/constants';
+import { useSelector } from 'react-redux';
+import { getUserHandle } from '../../auth/state/auth.reducer';
 
 export const getProfileByAddressRequest = (address: string) => {
     return getProfiles({ ownedBy: [address], limit: 10 });
@@ -10,7 +12,8 @@ export const getProfileByAddressRequest = (address: string) => {
 
 export const getProfileKey = (profileHandle?: string) => ['LENS', 'PROFILE', 'GET', profileHandle];
 
-export const useGetProfile = (profileHandle?: string) => {
+export const useGetProfile = () => {
+    const profileHandle = useSelector(getUserHandle);
     return useQuery<any>(
         getProfileKey(profileHandle),
         () => getProfiles({ handles: [profileHandle], limit: 1 }),

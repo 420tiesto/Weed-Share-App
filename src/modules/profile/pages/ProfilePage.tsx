@@ -81,7 +81,7 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
 
     const shareLink = `${window.location.origin}/profile/${handle}`;
 
-    const { data: profileDetails = {}, isLoading } = useGetProfile(handle);
+    const { data: profileDetails = {}, isLoading } = useGetProfile();
     const { attributes = [], ownedBy = '', id } = profileDetails;
     const [, , instagramLink, twitterLink] = attributes;
 

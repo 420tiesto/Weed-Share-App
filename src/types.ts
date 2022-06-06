@@ -53,3 +53,6 @@ export interface MetadataMedia {
      */
     type: MimeType;
 }
+
+
+export type keyType = ['LENS', 'PUBLICATION' | 'PROFILE', string, 'POST' | 'GET', ...(string | undefined)[]];

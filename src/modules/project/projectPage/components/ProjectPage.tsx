@@ -1,6 +1,6 @@
 import { ClockIcon, HashtagIcon, UsersIcon } from '@heroicons/react/outline';
 import { EyeIcon, HeartIcon } from '@heroicons/react/solid';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import AirdropDetails from './AirdropDetails';
@@ -20,6 +20,16 @@ import { login } from '../../../auth/services/lens-login';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { useHasAllowance } from '../../services/module-allowance';
 import { BigNumber } from 'ethers';
+import Button from '../../../../app/components/common-ui/atoms/Button';
+import { useGetProfile } from '../../../profile/services/get-profiles';
+import { useSelector } from 'react-redux';
+import { getUserHandle } from '../../../auth/state/auth.reducer';
+import { setUserAuthenticated } from '../../../auth/state/auth.action';
+import { isValidToken } from '../../../../utils/auth-helpers';
+import { getStorageValue } from '../../../../utils/local-storage/local-storage';
+import { LENS_TOKENS } from '../../../../utils/local-storage/keys';
+import share from '../../services/share';
+import { NEWSFEED } from '../../../../app/routes/Routes';
 
 dayjs.extend(relativeTime);
 
@@ -27,12 +37,17 @@ type Props = {};
 
 const ProjectPage = ({}: Props) => {
     const { projectId } = useParams();
+
     const { data: { data: { publication = {} } = {} } = {}, isLoading } = useGetPublication(
         projectId,
         {
             enabled: !!projectId,
         }
     );
+    const { data: profileDetails = {} } = useGetProfile();
+
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const { data: { data: { hasCollected = [{}] } = {} } = {}, refetch } =
         useHasCollected(projectId);
@@ -47,12 +62,37 @@ const ProjectPage = ({}: Props) => {
             amount: { value: priceValue = 0, asset: { address = '' } = {} } = {},
         } = {},
     } = publication as any;
+    const auth = getStorageValue(LENS_TOKENS);
 
     const { data: approvedModuleAllowanceAmount } = useHasAllowance(address);
 
     const approveModuleHandler = async () => {
         promiseToast('Approving module...', 'Collect Post');
         await approveModule({ currency: address, value: '1', collectModule: type });
+    };
+
+    const onShareHandler = async () => {
+        try {
+            if (!auth) {
+                dispatch(setUserAuthenticated(false));
+                return;
+            }
+            const { accessToken } = JSON.parse(auth!);
+            if (!isValidToken(accessToken)) {
+                await dispatch(login());
+            }
+            const txHash = await share({
+                profileId: profileDetails.id,
+                publicationId: projectId,
+                referenceModule: { followerOnlyReferenceModule: true },
+            });
+            successToast('Sharing...', 'Share Post');
+            await pollUntilIndexed(txHash);
+            successToast('Shared Successfully', 'Share Post');
+            navigate(NEWSFEED);
+        } catch (err) {
+            errorToast('Something went wrong, please try again later.', 'Share Post');
+        }
     };
 
     const collectHandler = async () => {
@@ -143,6 +183,9 @@ const ProjectPage = ({}: Props) => {
                                     className="green-btn w-32">
                                     {collected ? 'Joined' : 'Join'}
                                 </button>
+                                <Button onClick={onShareHandler} className="w-32" outline>
+                                    Share
+                                </Button>
                                 {/* <button disabled className="green-outline-btn w-32">Show Details</button> */}
                             </div>
                         </div>

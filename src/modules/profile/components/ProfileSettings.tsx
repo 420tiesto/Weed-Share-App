@@ -20,8 +20,6 @@ import SpotifyIcon from '../../../app/icons/SpotifyIcon';
 import TwitterIcon from '../../../app/icons/TwitterIcon';
 import UploadImage from '../../../app/components/common-ui/upload-image';
 import { pollUntilIndexed } from '../../../services/has-transaction-been-indexed';
-import { useSelector } from 'react-redux';
-import { getUserHandle } from '../../auth/state/auth.reducer';
 import { appId } from '../../../app/constants';
 import { Card, CardBody } from '../../../app/components/common-ui/atoms/Card';
 import Stack from '../../../app/components/common-ui/atoms/Stack';
@@ -52,8 +50,7 @@ interface State {
 
 const ProfileSettings: React.FC<Props> = (props: Props) => {
     const dispatch = useAppDispatch();
-    const userHandle = useSelector(getUserHandle);
-    const { data: profileDetails = {}, refetch, isLoading } = useGetProfile(userHandle);
+    const { data: profileDetails = {}, refetch, isLoading } = useGetProfile();
     const { attributes = [] } = profileDetails;
     const [, emailId, instagramLink, twitterLink, spotifyLink] = attributes;
     const auth = getStorageValue(LENS_TOKENS);

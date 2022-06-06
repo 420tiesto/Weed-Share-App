@@ -1,11 +1,15 @@
 import { HeartIcon } from '@heroicons/react/outline';
 import { PlayIcon } from '@heroicons/react/solid';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../../app/components/common-ui/atoms/Button';
+import { CREATE_PROJECT, EXPLORE } from '../../../app/routes/Routes';
 
 type Props = {};
 
 const HeroSection = (props: Props) => {
+    const navigate = useNavigate();
+
     const IMG_URL =
         'https://images.unsplash.com/photo-1599931601414-696a3ddbd889?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80';
     return (
@@ -23,8 +27,8 @@ const HeroSection = (props: Props) => {
                     OpenSea is the world’s first <br /> largest NFT marketplace
                 </p>
                 <div className="space-x-4">
-                    <Button>Explore</Button>
-                    <Button outline className="text-white">
+                    <Button onClick={() => navigate(EXPLORE)}>Explore</Button>
+                    <Button outline className="text-white" onClick={() => navigate(CREATE_PROJECT)}>
                         Create
                     </Button>
                 </div>

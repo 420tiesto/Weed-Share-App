@@ -1,58 +1,61 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Loader from '../../../app/components/common-ui/loader';
 import { EXPLORE } from '../../../app/routes/Routes';
 import ProjectCard from '../../explore/components/ProjectCard';
+import {
+    SortCriteria,
+    useGetExplorePublications,
+} from '../../explore/services/explore-publication';
 
 type Props = {};
 
-const PLACEHOLDER_DATA = {
-    id: '0x63-0x09',
-    stats: { totalAmountOfCollects: 0, totalAmountOfComments: 0, totalAmountOfMirrors: 0 },
-    metadata: {
-        attributes: [
-            {
-                displayType: 'string',
-                traitType: 'Artist Name',
-                value: 'Post Malone',
-                __typename: 'MetadataAttributeOutput',
-            },
-            {},
-            {
-                displayType: 'string',
-                traitType: 'Record Label',
-                value: 'Circles',
-                __typename: 'MetadataAttributeOutput',
-            },
-            {},
-            {},
-            {},
-            {
-                displayType: 'string',
-                traitType: 'Album Cover',
-                value: 'https://prnts.mypinata.cloud/ipfs/QmWPJVko45pKSTXV3YoF88AL3dFBjaqRM6rwBgVRKax5Hq',
-                __typename: 'MetadataAttributeOutput',
-            },
-        ],
-    },
-};
-
 const HotSection = (props: Props) => {
-    return (
-        <div className="p-12 flex flex-col bg-dark-gray">
-            <h2 className="text-2xl font-semibold mb-4">Hot in our collection</h2>
-            <div className='flex justify-between'>
-                <ProjectCard projectData={PLACEHOLDER_DATA} />
-                <ProjectCard projectData={PLACEHOLDER_DATA} />
+    const sortCriteria: SortCriteria = 'TOP_COLLECTED';
+    const {
+        data: items,
+        isLoading,
+        fetchNextPage,
+        hasNextPage = true,
+    } = useGetExplorePublications({ sortCriteria });
 
-                <ProjectCard projectData={PLACEHOLDER_DATA} />
-                <ProjectCard projectData={PLACEHOLDER_DATA} />
-            </div>
-            <div className="flex justify-end pr-8">
-                <Link to={EXPLORE}>
-                    <a className="text-primary mt-2 text-right">View More</a>
-                </Link>
-            </div>
-        </div>
+    useEffect(() => {
+        console.log(items, 'items');
+    }, [isLoading, items]);
+
+    const itemRenderer = useCallback(
+        (index) => {
+            return <ProjectCard key={items[index].id} projectData={items[index]} />;
+        },
+        [items]
+    );
+
+    return (
+        <>
+            {isLoading === false ? (
+                <div className="p-12 flex flex-col bg-dark-gray">
+                    <h2 className="text-2xl font-semibold mb-4">Hot in our collection</h2>
+                    <div className="flex justify-between">
+                        {items.map((item: any, index: any) =>
+                            index < 4 ? (
+                                <ProjectCard key={items[index].id} projectData={items[index]} />
+                            ) : (
+                                ''
+                            )
+                        )}
+                    </div>
+                    <div className="flex justify-end pr-8">
+                        <Link to={EXPLORE}>
+                            <a className="text-primary mt-2 text-right">View More</a>
+                        </Link>
+                    </div>
+                </div>
+            ) : (
+                <div className="items-center justify-center  w-full">
+                    <Loader />
+                </div>
+            )}
+        </>
     );
 };
 

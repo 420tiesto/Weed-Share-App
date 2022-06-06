@@ -32,10 +32,10 @@ const NewsFeed: React.FC<Props> = (props) => {
             />
             <div className="pt-4">
                 <Tab.Group>
-                    <div className="max-w-[320px] h-ful col-span-1 fixed left-4 top-20">
+                    <div className="max-w-[320px] fixed left-4 top-20">
                         <NewsSidebar openModal={openModal} authenticatedState={authenticatedState} />
                     </div>
-                    <div className="ml-[320px] max-h-max">
+                    <div className="ml-[320px] px-8 max-h-max">
                         <Tab.Panels>
                             <Tab.Panel>
                                 <AllDiscussions />

@@ -37,7 +37,7 @@ const AllDiscussions: React.FC<Props> = (props) => {
 
     if (isLoading) {
         return (
-            <div className="space-y-12 px-8">
+            <div className=" px-8">
                 <Loader />
             </div>
         );
@@ -46,7 +46,7 @@ const AllDiscussions: React.FC<Props> = (props) => {
     return (
         <>
             <div className="space-y-12 px-8">
-                <div className="max-w-[200px]">
+                <div className="max-w-[200px] "> 
                     <SelectInput value={filter} setValue={setFilter} options={filterOptions} />
                 </div>
             </div>
@@ -61,7 +61,10 @@ const AllDiscussions: React.FC<Props> = (props) => {
                 }
                 refreshFunction={() => {}}
                 loader={<Loader />}>
-                <ReactList length={items.length} itemRenderer={feedItemRenderer} type="variable" />
+                    {/* {items?.map((item:any,index:number)=>(
+                        <FeedItem key={items[index].id} newsItem={items[index]} />
+                    ))} */}
+                <ReactList length={items.length} itemRenderer={feedItemRenderer} type='simple' />
             </InfiniteScroll>
             {/* <FollowItem
                 newsItem={{

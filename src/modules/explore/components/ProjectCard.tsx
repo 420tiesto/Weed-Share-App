@@ -1,4 +1,4 @@
-import { HeartIcon } from '@heroicons/react/outline';
+import { UserGroupIcon } from '@heroicons/react/outline';
 import React from 'react';
 import { Card } from '../../../app/components/common-ui/atoms/Card';
 import { PLACEHOLDER_IMAGE } from '../../../app/constants';
@@ -29,7 +29,7 @@ const ProjectCard: React.FC<Props> = ({ projectData }) => {
                     <p className="font-semibold">{title}</p>
                 </div>
                 <button className="flex w-full items-center gap-2 justify-end p-4">
-                    <HeartIcon className="h-6 w-6" />
+                    <UserGroupIcon className="h-6 w-6" />
                     {stats.totalAmountOfCollects}
                 </button>
             </Card>

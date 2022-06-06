@@ -34,17 +34,17 @@ const FeatureSection = (props: Props) => {
                         <div className="flex justify-around px-16 gap-20 text-center">
                             <FeatureItem
                                 title="Setup your wallet"
-                                description="Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support."
+                                description="Once you’ve set up your wallet of choice, connect it to PRNTS by clicking the wallet icon in the top right corner."
                                 imgSrc="/set-up-wallet.png"
                             />
                             <FeatureItem
-                                title="Create your project"
-                                description="Click My Collections and set up your collection. Add social links, a description, profile & banner images, and set a secondary sales fee."
+                                title="Post your Music"
+                                description="Upload your single or album project and set the percentage of the project you’d like to sell to your fans."
                                 imgSrc="/create-your-project.png"
                             />
                             <FeatureItem
-                                title="List them for fans to join"
-                                description="Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content."
+                                title="Spread the word "
+                                description="Share the project to your fans on social media and let them know that you have a project for sale on PRNTS."
                                 imgSrc="/list-projects.png"
                             />
                         </div>
@@ -56,17 +56,17 @@ const FeatureSection = (props: Props) => {
                         <div className="flex justify-around px-16 gap-20 text-center">
                             <FeatureItem
                                 title="Artist creates project"
-                                description="Once you’ve set up your wallet of choice, connect it to OpenSea by clicking the wallet icon in the top right corner. Learn about the wallets we support."
+                                description="Once you’ve set up your wallet of choice, connect to PRNTS by clicking the wallet icon in the top right corner."
                                 imgSrc="/artist-create-project.png"
                             />
                             <FeatureItem
                                 title="You join the project"
-                                description="Click My Collections and set up your collection. Add social links, a description, profile & banner images, and set a secondary sales fee."
+                                description="Choose the project you would like to join and purchase your share of ownership."
                                 imgSrc="/join-project.png"
                             />
                             <FeatureItem
-                                title="A win win for everyone "
-                                description="Upload your work (image, video, audio, or 3D art), add a title and description, and customize your NFTs with properties, stats, and unlockable content."
+                                title="Collect your revenue"
+                                description="Collect your revenue based on your share of token from the streaming pools each month."
                                 imgSrc="/win-win.png"
                             />
                         </div>

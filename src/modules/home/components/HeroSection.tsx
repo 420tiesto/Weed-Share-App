@@ -20,12 +20,12 @@ const HeroSection = (props: Props) => {
             />
             <div className="space-y-8">
                 <h1 className="text-4xl font-semibold lg:text-6xl">
-                    Discover,collect,and sell <br />
-                    extraordinary NFTs
+                    Connect, collaborate, and <br />
+                    monetize your music
                 </h1>
-                <p className="text-white/80 lg:text-3xl text-2xl">
-                    OpenSea is the world’s first <br /> largest NFT marketplace
-                </p>
+                {/* <p className="text-white/80 lg:text-3xl text-2xl">
+                    PRNTS is the world’s first <br /> music lovers DAO and marketplace
+                </p> */}
                 <div className="space-x-4">
                     <Button onClick={() => navigate(EXPLORE)}>Explore</Button>
                     <Button outline className="text-white" onClick={() => navigate(CREATE_PROJECT)}>
@@ -42,8 +42,8 @@ const HeroSection = (props: Props) => {
                     <img src={IMG_URL} alt="hero-pic" className="h-[320px]" />
                     <div className="flex items-center justify-between py-4 px-8">
                         <div>
-                            <p className="text-white/30 text-sm">coldInnerFire</p>
-                            <p>Cold Inner Fire</p>
+                            <p className="text-white/30 text-sm">420Tiesto</p>
+                            <p>Let me love you</p>
                         </div>
                         <div className="flex items-center gap-2">
                             <HeartIcon className="h-6 w-6" />

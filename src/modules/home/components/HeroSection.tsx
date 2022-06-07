@@ -23,9 +23,10 @@ const HeroSection = (props: Props) => {
                     Connect, collaborate, and <br />
                     monetize your music
                 </h1>
-                {/* <p className="text-white/80 lg:text-3xl text-2xl">
-                    PRNTS is the world’s first <br /> music lovers DAO and marketplace
-                </p> */}
+                <p className="text-white/80 lg:text-3xl text-2xl">
+                    supplying the tools to take artist <br /> development into your own hands.
+                </p>
+
                 <div className="space-x-4">
                     <Button onClick={() => navigate(EXPLORE)}>Explore</Button>
                     <Button outline className="text-white" onClick={() => navigate(CREATE_PROJECT)}>

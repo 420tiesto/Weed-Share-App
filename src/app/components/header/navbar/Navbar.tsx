@@ -23,7 +23,7 @@ const Navbar: React.FC = ({}) => {
 
     const NAVBAR_LINKS: NavlinkType[] = [
         { name: 'Explore', href: EXPLORE },
-        { name: 'Bounty', href: '/bounty' },
+        { name: 'Bounties', href: '/bounty' },
         // { name: 'Upload Album', href: CREATE_PROJECT },
         // {name:'Communities',href:'/communities'},
         // {name:'More',href:'/more'},

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import UserMenu from '../userMenu/UserMenu';
 import Navlink, { AuthenticatedNavlink } from './Navlink';
-import { CREATE_PROJECT, EXPLORE, LOGIN } from '../../../routes/Routes';
+import { CREATE_PROJECT, EXPLORE, LOGIN, NEWSFEED } from '../../../routes/Routes';
 import { getUserAuthenticated, getUserHandle } from '../../../../modules/auth/state/auth.reducer';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../common-ui/atoms/Button';
@@ -24,15 +24,13 @@ const Navbar: React.FC = ({}) => {
     const NAVBAR_LINKS: NavlinkType[] = [
         { name: 'Explore', href: EXPLORE },
         { name: 'Bounties', href: '/bounty' },
+        { name: 'Feed', href: NEWSFEED },
         // { name: 'Upload Album', href: CREATE_PROJECT },
         // {name:'Communities',href:'/communities'},
         // {name:'More',href:'/more'},
     ];
 
-    const AUTHENTICATED_NAV_LINKS: NavlinkType[] = [
-        { name: 'Wallet', href: '/wallet' },
-        { name: 'Create', href: CREATE_PROJECT },
-    ];
+    const AUTHENTICATED_NAV_LINKS: NavlinkType[] = [{ name: 'Create', href: CREATE_PROJECT }];
 
     const handleNavigate = () => {
         navigate(LOGIN);
@@ -59,7 +57,10 @@ const Navbar: React.FC = ({}) => {
                             </Navlink>
                         ))}
                         {AUTHENTICATED_NAV_LINKS.map(({ name, href }: NavlinkType) => (
-                            <AuthenticatedNavlink authState={authenticatedState} href={href}>
+                            <AuthenticatedNavlink
+                                key={name}
+                                authState={authenticatedState}
+                                href={href}>
                                 {name}
                             </AuthenticatedNavlink>
                         ))}

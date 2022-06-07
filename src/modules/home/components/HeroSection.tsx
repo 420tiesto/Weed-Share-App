@@ -1,4 +1,4 @@
-import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon, UserGroupIcon } from '@heroicons/react/outline';
 import { PlayIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,10 +44,10 @@ const HeroSection = (props: Props) => {
                     <div className="flex items-center justify-between py-4 px-8">
                         <div>
                             <p className="text-white/30 text-sm">420Tiesto</p>
-                            <p>Let me love you</p>
+                            <p>Let me Love you</p>
                         </div>
                         <div className="flex items-center gap-2">
-                            <HeartIcon className="h-6 w-6" />
+                            <UserGroupIcon className="h-6 w-6" />
                             2k
                         </div>
                     </div>

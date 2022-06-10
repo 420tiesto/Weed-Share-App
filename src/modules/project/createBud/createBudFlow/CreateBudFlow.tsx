@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import UploadMusic from '../uploadMusic/UploadMusic';
 import AddTrack from '../addTrack/AddTrack';
-import { resetAllDetails, storeAlbumDetails } from '../../state/actions';
-import { getAlbumDetails } from '../../state/selectors';
+import { resetAllDetails, storeMusicDetails } from '../../state/actions';
+import { getMusicDetails } from '../../state/selectors';
 
 import { login } from '../../../auth/services/lens-login';
-import { type AlbumDetails, type TrackDetails } from '../../types';
+import { type MusicDetails, type TrackDetails } from '../../types';
 import postPublication from '../../services/post-publication';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { setWalletModalOpen } from '../../../../state/actions';
@@ -34,7 +34,7 @@ import { LENS_TOKENS } from '../../../../utils/local-storage/keys';
 import { setUserAuthenticated } from '../../../auth/state/auth.action';
 import { MetadataMedia } from '../../../../types';
 
-const CreateProjectFlow = () => {
+const CreateBudFlow = () => {
     const [step, setStep] = useState(1);
     const [loader, setLoader] = useState(false);
 
@@ -42,10 +42,10 @@ const CreateProjectFlow = () => {
     const dispatch = useAppDispatch();
 
     const { id } = useSelector(getUserProfile);
-    const albumDetails = useSelector(getAlbumDetails);
+    const budDetails = useSelector(getMusicDetails);
 
     const uploadMusicRef = useRef();
-    const createProjectRef = useRef();
+    const createBudRef = useRef();
 
     const auth = getStorageValue(LENS_TOKENS);
 
@@ -55,14 +55,14 @@ const CreateProjectFlow = () => {
 
     const onUploadMusic = async () => {
         (uploadMusicRef?.current as any)?.onSubmit({
-            onSuccess(data: AlbumDetails) {
+            onSuccess(data: MusicDetails) {
                 setStep(2);
-                dispatch(storeAlbumDetails(data));
+                dispatch(storeMusicDetails(data));
             },
         });
     };
 
-    const createProject = async () => {
+    const createBud = async () => {
         // TODO: Check if user has selected a profile
         const isUsingMetamaskWallet = await isUsingWallet();
         if (!isUsingMetamaskWallet) {
@@ -82,34 +82,34 @@ const CreateProjectFlow = () => {
         }
         // TODO: Check if user is logged in to lens
         // await dispatch(login());
-        (createProjectRef?.current as any)?.onSubmit({
+        (createBudRef?.current as any)?.onSubmit({
             async onSuccess(tracks: TrackDetails[]) {
                 if (!tracks[tracks.length - 1].ipfsHash) {
                     alert('Please save the track before creating the project');
                     return;
                 }
                 setLoader(true);
-                const currentAlbumDetails = albumDetails;
+                const currentMusicDetails = budDetails;
                 const {
-                    albumCover,
+                    budCover,
                     artistName,
                     language,
                     primaryGenre,
                     recordLabel,
                     releaseDate,
                     secondaryGenre,
-                    albumCoverType,
-                    albumPrice,
-                } = currentAlbumDetails;
+                    budCoverType,
+                    budPrice,
+                } = currentMusicDetails;
                 const attributes = [
                     getAttributeType('string', 'Artist Name', artistName),
-                    getAttributeType('date', 'Release Date', new Date(releaseDate)),
-                    getAttributeType('string', 'Record Label', recordLabel),
+                    getAttributeType('date', 'Delivery Date', new Date(releaseDate)),
+                    getAttributeType('string', 'Brand Name', recordLabel),
                     getAttributeType('string', 'Language', language.name),
                     getAttributeType('string', 'Primary Genre', primaryGenre.name),
-                    getAttributeType('string', 'Secondary Genre', secondaryGenre),
-                    getAttributeType('string', 'Album Cover', getIPFSUrlLink(albumCover)),
-                    getAttributeType('string', 'Album Cover Type', albumCoverType),
+                    getAttributeType('string', 'Stealth Details', secondaryGenre),
+                    getAttributeType('string', 'Bud Cover', getIPFSUrlLink(budCover)),
+                    getAttributeType('string', 'Bud Cover Type', budCoverType),
                     getAttributeType('number', 'Number of Tracks', tracks.length),
                 ];
                 let media: MetadataMedia[] = [];
@@ -123,31 +123,31 @@ const CreateProjectFlow = () => {
                         attributes.push(getAttributeType('string', `Track ${i}`, track.ipfsHash));
                     }
                 }
-                const totalPrice = albumPrice;
+                const totalPrice = budPrice;
                 const postMetadata = createPostMetadata({
                     media,
-                    albumName: recordLabel,
-                    albumCover: getIPFSUrlLink(albumCover),
-                    albumCoverType,
+                    budName: recordLabel,
+                    budCover: getIPFSUrlLink(budCover),
+                    budCoverType,
                     attributes: attributes,
                 });
-                promiseToast('Uploading Content...', 'Uploading Album');
+                promiseToast('Uploading Content...', 'Uploading Music');
                 const contentURI = await uploadWeb3Json(recordLabel, JSON.stringify(postMetadata));
                 try {
-                    promiseToast('Creating post...', 'Uploading Album');
+                    promiseToast('Creating post...', 'Uploading Music');
                     const tx = await postPublication({
                         postMetadata: contentURI,
                         profileId: id,
                         totalPrice: totalPrice || 0,
                     });
-                    promiseToast('Indexing...', 'Uploading Album');
+                    promiseToast('Indexing...', 'Uploading Music');
                     await pollUntilIndexed(tx.hash);
                 } catch (e) {
                     const error = e as any;
                     if (error.code === 4001) {
-                        errorToast('Cancelled!', 'Uploading Album');
+                        errorToast('Cancelled!', 'Uploading Music');
                     } else {
-                        errorToast('Something went wrong 😞. Please try again', 'Uploading Album');
+                        errorToast('Something went wrong 😞. Please try again', 'Uploading Music');
                     }
                     console.error(e);
                     setLoader(false);
@@ -162,7 +162,7 @@ const CreateProjectFlow = () => {
                 const publicationID = getPublicationsResult?.data?.publications?.items[0]?.id;
                 setLoader(false);
                 if (publicationID) {
-                    successToast('Post Created Successfully!!', 'Uploading Album');
+                    successToast('Post Created Successfully!!', 'Uploading Music');
                     dispatch(resetAllDetails());
                     navigate(`/project/${publicationID}`);
                 } else {
@@ -178,7 +178,7 @@ const CreateProjectFlow = () => {
             return;
         }
         if (step === 2) {
-            createProject();
+            createBud();
             return;
         }
     };
@@ -196,9 +196,9 @@ const CreateProjectFlow = () => {
             <div className="p-4 px-8">
                 <Card variant="sunken" color="dark" className="mt-4">
                     <CardBody padding={8}>
-                        <h1 className="text-3xl mb-8 font-bold">Upload Music</h1>
+                        <h1 className="text-3xl mb-8 font-bold">Upload Bud</h1>
                         {step === 1 && <UploadMusic ref={uploadMusicRef} />}
-                        {step === 2 && <AddTrack ref={createProjectRef} />}
+                        {step === 2 && <AddTrack ref={createBudRef} />}
                         <div
                             className={clsx({
                                 'flex justify-between mt-4': step != 1,
@@ -214,7 +214,7 @@ const CreateProjectFlow = () => {
                                 onClick={nextStep}
                                 variant="primary"
                                 className="px-16">
-                                {step === 2 ? 'Create Project' : 'Next'}
+                                {step === 2 ? 'Create Bud' : 'Next'}
                             </Button>
                         </div>
                     </CardBody>
@@ -224,4 +224,4 @@ const CreateProjectFlow = () => {
     );
 };
 
-export default CreateProjectFlow;
+export default CreateBudFlow;

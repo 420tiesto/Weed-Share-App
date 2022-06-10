@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../../app/components/common-ui/loader';
 import { EXPLORE } from '../../../app/routes/Routes';
-import ProjectCard from '../../explore/components/ProjectCard';
+import BudCard from '../../explore/components/BudCard';
 import {
     SortCriteria,
     useGetExplorePublications,
@@ -25,7 +25,7 @@ const HotSection = (props: Props) => {
 
     const itemRenderer = useCallback(
         (index) => {
-            return <ProjectCard key={items[index].id} projectData={items[index]} />;
+            return <BudCard key={items[index].id} projectData={items[index]} />;
         },
         [items]
     );
@@ -33,12 +33,12 @@ const HotSection = (props: Props) => {
     return (
         <>
             {isLoading === false ? (
-                <div className="p-12 flex flex-col bg-dark-gray">
-                    <h2 className="text-2xl font-semibold mb-4">Hot in our collection</h2>
+                <div className="p-12 flex flex-col bg-dark-black">
+                    <h2 className="text-2xl font-semibold mb-4">Trending Buds</h2>
                     <div className="flex justify-between">
                         {items.map((item: any, index: any) =>
                             index < 4 ? (
-                                <ProjectCard key={items[index].id} projectData={items[index]} />
+                                <BudCard key={items[index].id} projectData={items[index]} />
                             ) : (
                                 ''
                             )

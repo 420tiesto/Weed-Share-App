@@ -9,7 +9,7 @@ const StyledTab = ({ children }: StyledTabProps) => (
       className={({ selected }) =>
           selected
               ? ' text-white py-4 px-6 border-b-2 border-primary'
-              : ' text-gray-400 py-4 px-6 hover:text-white '
+              : ' text-black-400 py-4 px-6 hover:text-white '
       }>
       {children}
   </Tab>

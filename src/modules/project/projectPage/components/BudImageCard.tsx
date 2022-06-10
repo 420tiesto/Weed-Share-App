@@ -6,7 +6,7 @@ type Props = {
   imgSrc:string
 }
 
-const ProjectImageCard = ({likes,imgSrc}: Props) => {
+const BudImageCard = ({likes,imgSrc}: Props) => {
   return (
     <div className='rounded-2xl flex flex-col sunken-element max-w-[480px]  overflow-hidden'>
       <img className='max-h-[400px] ' src={imgSrc} alt="project-image" />
@@ -18,4 +18,4 @@ const ProjectImageCard = ({likes,imgSrc}: Props) => {
   )
 }
 
-export default ProjectImageCard
+export default BudImageCard

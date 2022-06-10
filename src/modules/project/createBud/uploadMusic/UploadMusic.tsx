@@ -2,10 +2,10 @@ import React, { useState, useImperativeHandle, useRef, forwardRef } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import AutocompleteFormInput from './AutcompleteFormInput';
 import { LightBulbIcon } from '@heroicons/react/solid';
-import { type AlbumDetails } from '../../types';
-import { storeAlbumDetails } from '../../state/actions';
+import { type MusicDetails } from '../../types';
+import { storeMusicDetails } from '../../state/actions';
 import { useSelector } from 'react-redux';
-import { getAlbumDetails } from '../../state/selectors';
+import { getMusicDetails } from '../../state/selectors';
 import { useAppDispatch } from '../../../../state/configure-store';
 import { pinImageToIPFS } from '../../../../utils/upload-file';
 import Upload from '../../../../app/components/common-ui/upload-image/UploadImage';
@@ -17,20 +17,22 @@ import { Card, CardBody } from '../../../../app/components/common-ui/atoms/Card'
 type Props = {};
 
 const LANGUAGES: SelectOption[] = [
-    { name: 'English', id: 1, value: 'EN' },
-    { name: 'Hindi', id: 2, value: 'HINDI' },
+    { name: 'USPS', id: 1, value: 'BLUE' },
+    { name: 'UPS', id: 2, value: 'BROWN' },
+    { name: 'FEDEX', id: 2, value: 'FED' },
+    { name: 'LOCAL', id: 2, value: 'LOC' },
 ];
 
-const GENRES: SelectOption[] = [
-    { name: 'Pop', id: 1, value: 'Pop' },
-    { name: 'EDM', id: 2, value: 'EDM' },
-    { name: 'Classic', id: 3, value: 'Classic' },
-    { name: 'Metal', id: 4, value: 'Metal' },
+const AMOUNTS: SelectOption[] = [
+    { name: '8th', id: 1, value: '8th' },
+    { name: 'Quarter', id: 2, value: 'Quarter' },
+    { name: 'Ounce', id: 3, value: 'Ounce' },
+    { name: 'Pound', id: 4, value: 'Pound' },
 ];
 
 const UploadMusic = forwardRef(({}: Props, ref: any) => {
     const [loader, setLoader] = useState(false);
-    const albumDetails = useSelector(getAlbumDetails);
+    const budDetails = useSelector(getMusicDetails);
 
     const dispatch = useAppDispatch();
     const {
@@ -39,26 +41,26 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
         handleSubmit,
         setValue,
         formState: { errors },
-    } = useForm<AlbumDetails>({
+    } = useForm<MusicDetails>({
         mode: 'onBlur',
         defaultValues: {
-            ...albumDetails,
+            ...budDetails,
         },
     });
 
-    const onSubmit: SubmitHandler<AlbumDetails> = async (data: AlbumDetails) => {
+    const onSubmit: SubmitHandler<MusicDetails> = async (data: MusicDetails) => {
         console.log(data);
-        dispatch(storeAlbumDetails(data));
+        dispatch(storeMusicDetails(data));
     };
 
-    const uploadAlbumCover = async (files: any) => {
+    const uploadMusicCover = async (files: any) => {
         setLoader(true);
         const file = files[0];
         const { type } = file;
         const ipfsData = await pinImageToIPFS(file);
         const { IpfsHash: ipfsHash } = ipfsData;
-        setValue('albumCover', ipfsHash);
-        setValue('albumCoverType', type);
+        setValue('budCover', ipfsHash);
+        setValue('budCoverType', type);
         setLoader(false);
     };
 
@@ -71,18 +73,18 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
     return (
         <Card variant="elevated" className="rounded-[30px]">
         <CardBody padding={8}>
-            <h2 className="text-xl mb-4 font-medium  ">Album details</h2>
+            <h2 className="text-xl mb-4 font-medium  ">Bud Details</h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="lg:grid lg:grid-cols-5  md:divide-x-2 divide-white/50 justify-center divide-gray-600">
+                className="lg:grid lg:grid-cols-5  md:divide-x-2 divide-white/50 justify-center divide-black-600">
                 <div className="space-y-8 col-span-3 pl-4 pr-32">
                     <div className="grid grid-cols-5 items-center">
                         <label className="col-span-2" htmlFor="artistName">
-                            Artist / Band Name
+                            Brand Name
                         </label>
                         <div className="relative col-span-3 items-center flex gap-2">
                             <Input
-                                placeholder="Enter artist / band name"
+                                placeholder="Enter brand name"
                                 type="text"
                                 {...register('artistName', {
                                     minLength: { value: 2, message: 'Too short' },
@@ -95,9 +97,9 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                             />
                             <span className="relative group">
                                 <LightBulbIcon className="h-6 w-6 cursor-pointer text-yellow-500 " />
-                                <div className="text-xs border-white border bg-gray text-gray-300 p-4 rounded-xl max-w-xs group-hover:block absolute top-8 z-10 w-80 hidden">
+                                <div className="text-xs border-white border bg-black text-black-300 p-4 rounded-xl max-w-xs group-hover:block absolute top-8 z-10 w-80 hidden">
                                     <p>
-                                        Important: Only list yourname, stage name, or band name. Do
+                                        Important: Only list yourname, stage name, or brand name. Do
                                         not include anyone else's name (without their permission),
                                         label name, "Presents...", etc.
                                     </p>
@@ -115,7 +117,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     </div>
                     <div className="grid grid-cols-5 items-center">
                         <label className="col-span-2" htmlFor="releaseDate">
-                            Release Date
+                            Delivery Date
                         </label>
                         <div className="relative col-span-3">
                             <Input
@@ -130,11 +132,11 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     </div>
                     <div className="grid grid-cols-5 items-center">
                         <label className="col-span-2" htmlFor="recordLabel">
-                            Record Label
+                            Strain Name
                         </label>
                         <div className="relative col-span-3">
                             <Input
-                                placeholder="Enter record label"
+                                placeholder="Enter strain name"
                                 type="text"
                                 {...register('recordLabel', {
                                     minLength: { value: 2, message: 'Too short' },
@@ -152,32 +154,32 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     </div>
 
                     <AutocompleteFormInput
-                        label="Select Language"
+                        label="Select Delivery Method"
                         options={LANGUAGES}
                         control={control}
                         name="language"
-                        placeholder="Enter language"
+                        placeholder="Delivery Method"
                         defaultValue={LANGUAGES[0]}
                     />
 
                     <AutocompleteFormInput
-                        label="Select Primary Genre"
-                        options={GENRES}
+                        label="Select Amount"
+                        options={AMOUNTS}
                         control={control}
-                        placeholder="Select Primary Genre"
+                        placeholder="Select Amount"
                         name="primaryGenre"
-                        defaultValue={GENRES[0]}
+                        defaultValue={AMOUNTS[0]}
                     />
 
                     <div className="grid grid-cols-5 items-center">
                         <label className="col-span-2 relative" htmlFor="secondaryGenre">
-                            Secondary Genre
+                            Stealth Details
                             <br />
                             <span className="text-xs absolute">Optional</span>
                         </label>
                         <div className="relative col-span-3">
                             <Input
-                                placeholder="Enter secondary genre"
+                                placeholder="Stealth Details"
                                 type="text"
                                 {...register('secondaryGenre', {
                                     minLength: { value: 2, message: 'Too short' },
@@ -195,18 +197,18 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                     </div>
                     <div className="grid grid-cols-5 items-center">
                         <label className="col-span-2 relative" htmlFor="secondaryGenre">
-                            Album Price
+                            Bud Price
                             <br />
                         </label>
                         <div className="relative col-span-3">
                             <Input
-                                {...register('albumPrice')}
+                                {...register('budPrice')}
                                 type="number"
                                 min={0}
-                                placeholder="Enter Track Price (in Matic)"
+                                placeholder="Enter Bud Price (in Matic)"
                             />
                             <p className="text-red-500 text-sm absolute left-4 -bottom-6">
-                                {errors.albumPrice?.message}
+                                {errors.budPrice?.message}
                             </p>
                         </div>
                     </div>
@@ -214,7 +216,7 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
 
                 <div className="flex items-center col-span-2 flex-col lg:justify-center">
                     <Controller
-                        name="albumCover"
+                        name="budCover"
                         control={control}
                         rules={{ required: true }}
                         render={({ field }) => {
@@ -223,8 +225,8 @@ const UploadMusic = forwardRef(({}: Props, ref: any) => {
                                 <Upload
                                     showLoader={loader}
                                     helpText=".jpg , .png or .gif extensions"
-                                    displayText="Album Cover"
-                                    uploadHelper={uploadAlbumCover}
+                                    displayText="Bud Cover"
+                                    uploadHelper={uploadMusicCover}
                                     imageLink={value ? getIPFSImageLink(value) : ''}
                                 />
                             );

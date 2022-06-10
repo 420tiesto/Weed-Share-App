@@ -1,12 +1,12 @@
 import { SelectOption } from '../../../app/components/common-ui/atoms/SelectInput';
 
-export interface AlbumDetails {
+export interface MusicDetails {
     artistName: string;
     releaseDate: Date;
     recordLabel: string;
     language: SelectOption;
     primaryGenre: SelectOption;
     secondaryGenre?: string;
-    albumCover: string;
-    albumCoverType: string;
+    budCover: string;
+    budCoverType: string;
 }

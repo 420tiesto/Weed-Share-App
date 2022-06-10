@@ -2,19 +2,19 @@ import { createReducer } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-    storeAlbumDetails,
+    storeMusicDetails,
     addTrackDetails,
     deleteTrackDetails,
     updateTrackDetails,
     resetAllDetails,
 } from './actions';
-import { type TrackDetails, type AlbumDetails } from '../types';
+import { type TrackDetails, type MusicDetails } from '../types';
 
 export const initialState: {
-    albumDetails: AlbumDetails;
+    budDetails: MusicDetails;
     tracks: TrackDetails[];
 } = {
-    albumDetails: {
+    budDetails: {
         artistName: '',
         releaseDate: new Date(),
         recordLabel: '',
@@ -29,9 +29,9 @@ export const initialState: {
             value: '',
         },
         secondaryGenre: '',
-        albumCover: '',
-        albumCoverType: '',
-        albumPrice: 0,
+        budCover: '',
+        budCoverType: '',
+        budPrice: 0,
     },
     tracks: [
         {
@@ -56,8 +56,8 @@ export const initialState: {
 
 const projectReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(storeAlbumDetails, (state, action) => {
-            state.albumDetails = { ...(action.payload || {}) };
+        .addCase(storeMusicDetails, (state, action) => {
+            state.budDetails = { ...(action.payload || {}) };
         })
         .addCase(addTrackDetails, (state, action) => {
             state.tracks.push(action.payload);
@@ -74,7 +74,7 @@ const projectReducer = createReducer(initialState, (builder) => {
             });
         })
         .addCase(resetAllDetails, (state) => {
-            state.albumDetails = { ...initialState.albumDetails };
+            state.budDetails = { ...initialState.budDetails };
             state.tracks = [
                 {
                     id: uuidv4(),

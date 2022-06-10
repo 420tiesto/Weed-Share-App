@@ -29,7 +29,7 @@ const Upload: React.FC<UploadProps> = ({
         <>
             <div
                 {...getRootProps()}
-                className="border-dashed border-2 border-gray-400 p-4 flex flex-col items-center justify-center rounded-2xl">
+                className="border-dashed border-2 border-black-400 p-4 flex flex-col items-center justify-center rounded-2xl">
                 {showLoader ? (
                     <Loader />
                 ) : uploaded ? (
@@ -38,7 +38,7 @@ const Upload: React.FC<UploadProps> = ({
                     <UploadIcon className="h-10 w-10" />
                 )}
                 <p className=" font-medium">{displayText}</p>
-                <span className="text-xs text-gray-400">{helpText}</span>
+                <span className="text-xs text-black-400">{helpText}</span>
                 <input {...getInputProps()} />
             </div>
         </>

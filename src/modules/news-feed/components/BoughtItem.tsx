@@ -8,11 +8,11 @@ type Props = {
     };
 };
 
-const JoinedItem: React.FC<Props> = ({ newsItem }) => {
+const BoughtItem: React.FC<Props> = ({ newsItem }) => {
     const { pfpSrc, from, to } = newsItem;
     return (
-        <NewsFeedItem type="Joined" title={`${from} has joined ${to}'s Project`} pfpSrc={pfpSrc} />
+        <NewsFeedItem type="Bought" title={`${from} has joined ${to}'s Bud`} pfpSrc={pfpSrc} />
     );
 };
 
-export default JoinedItem;
+export default BoughtItem;

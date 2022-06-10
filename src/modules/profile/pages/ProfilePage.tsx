@@ -4,7 +4,7 @@ import { Tab } from '@headlessui/react';
 import { useParams } from 'react-router';
 
 import Avatar from '../components/Avatar';
-import ProjectsCreated from '../components/ProjectsCreated';
+import BudsCreated from '../components/BudsCreated';
 import StyledTab from '../components/StyledTab';
 import ProfileDetails from '../components/ProfileDetails';
 import ProfileSocials from '../components/ProfileSocials';
@@ -13,7 +13,7 @@ import {
     useGetPublicationsCollected,
     useGetPublicationsPosted,
 } from '../../project/services/get-publications';
-import ProjectsJoined from '../components/ProjectsJoined';
+import BudsBought from '../components/BudsBought';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -226,10 +226,10 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                 </>
                 <Tab.Group defaultIndex={0}>
                     <Tab.List className="elevated-element flex items-center justify-center gap-8">
-                        <StyledTab>Projects Created</StyledTab>
-                        <StyledTab>Projects Joined </StyledTab>
+                        <StyledTab>Buds For Sale</StyledTab>
+                        <StyledTab>Buds You Bought </StyledTab>
                         <StyledTab>Timeline</StyledTab>
-                        <StyledTab>Soundcloud Songs</StyledTab>
+                        <StyledTab>Weed Links</StyledTab>
                     </Tab.List>
                     <div className="p-8 space-y-8">
                         <Input
@@ -238,10 +238,10 @@ const ProfilePage: React.FC<Props> = (props: Props) => {
                         />
                         <Tab.Panels>
                             <Tab.Panel>
-                                <ProjectsCreated ownedPublications={publicationsPostedData} />
+                                <BudsCreated ownedPublications={publicationsPostedData} />
                             </Tab.Panel>
                             <Tab.Panel>
-                                <ProjectsJoined collectedPublications={publicationsCollectedData} />
+                                <BudsBought collectedPublications={publicationsCollectedData} />
                             </Tab.Panel>
                             <Tab.Panel>Timeline</Tab.Panel>
                             <Tab.Panel>Sound cloud songs</Tab.Panel>

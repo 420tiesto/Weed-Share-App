@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import ReactList from 'react-list';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import ProjectCard from './ProjectCard';
+import BudCard from './BudCard';
 import { type SortCriteria, useGetExplorePublications } from '../services/explore-publication';
 import Loader from '../../../app/components/common-ui/loader';
 
@@ -9,12 +9,12 @@ type Props = {
     sortCriteria: SortCriteria;
 };
 
-const TopProjects = ({ sortCriteria }: Props) => {
+const TopBuds = ({ sortCriteria }: Props) => {
     const { data: items, isLoading, fetchNextPage, hasNextPage = true } = useGetExplorePublications({ sortCriteria });
 
     const itemRenderer = useCallback(
         (index) => {
-            return <ProjectCard key={items[index].id} projectData={items[index]} />;
+            return <BudCard key={items[index].id} projectData={items[index]} />;
         },
         [items]
     );
@@ -44,4 +44,4 @@ const TopProjects = ({ sortCriteria }: Props) => {
     );
 };
 
-export default TopProjects;
+export default TopBuds;

@@ -9,7 +9,7 @@ interface Props {
     ownedPublications: any[];
 }
 
-const ProjectsCreated: React.FC<Props> = (props: Props) => {
+const BudsCreated: React.FC<Props> = (props: Props) => {
     const { ownedPublications } = props;
 
     return (
@@ -32,7 +32,7 @@ const ProjectsCreated: React.FC<Props> = (props: Props) => {
                 <div className="flex items-center text-[28px] py-20 text-white/80 justify-center flex-col gap-4">
                     Nothing to show here
                     <Link to={CREATE_PROJECT}>
-                        <Button icon={<PlusIcon className="h-5 w-5" />}>Create Project</Button>
+                        <Button icon={<PlusIcon className="h-5 w-5" />}>Create Bud</Button>
                     </Link>
                 </div>
             )}
@@ -40,4 +40,4 @@ const ProjectsCreated: React.FC<Props> = (props: Props) => {
     );
 };
 
-export default ProjectsCreated;
+export default BudsCreated;

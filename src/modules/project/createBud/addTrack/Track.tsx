@@ -392,7 +392,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                             <div className={styles.inputContainer}>
                                 <label className={styles.label}>
                                     Preview clip start time ? <br />
-                                    <span className="text-xs text-gray-300">
+                                    <span className="text-xs text-black-300">
                                         TikTok, Apple Music, iTunes
                                     </span>
                                 </label>
@@ -433,7 +433,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                             <div className={styles.inputContainer}>
                                 <label htmlFor="trackPrice" className={styles.label}>
                                     Track Price <br />
-                                    <span className="text-xs text-gray-300">
+                                    <span className="text-xs text-black-300">
                                         in Amazon and iTunes
                                     </span>
                                 </label>
@@ -447,7 +447,7 @@ const Track = ({ index, track, removeTrack, updateTrack }: Props) => {
                                             required: { value: true, message: ' required' },
                                         })}
                                         type="number"
-                                        placeholder="Enter Track Price"
+                                        placeholder="Enter Bud Price"
 
                                     />
                                     <p className={styles.errorText}>{errors.trackPrice?.message}</p>

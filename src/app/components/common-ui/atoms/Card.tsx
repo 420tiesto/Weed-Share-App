@@ -25,10 +25,10 @@ export const Card: React.FC<CardProps> = ({ children,rounded, className=' ', col
         <div
             className={clsx(
                 {
-                    'elevated-element': variant === 'elevated',
-                    'sunken-element': variant === 'sunken',
-                    'bg-gray': color === 'light',
-                    'bg-dark-gray': color === 'dark',
+                    //'elevated-element': variant === 'elevated',
+                    //'sunken-element': variant === 'sunken',
+                    //'bg-black': color === 'light',
+                    //'bg-dark-black': color === 'dark',
                 },
                 `rounded-${rounded} `,
                 className

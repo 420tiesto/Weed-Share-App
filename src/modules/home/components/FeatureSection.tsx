@@ -55,7 +55,7 @@ const FeatureSection = (props: Props) => {
                         </h1>
                         <div className="flex justify-around px-16 gap-20 text-center">
                             <FeatureItem
-                                title="Plug Posts Music"
+                                title="Plug Posts Buds"
                                 description="Connect Wallet"
                                 imgSrc="/artist-create-project.png"
                             />

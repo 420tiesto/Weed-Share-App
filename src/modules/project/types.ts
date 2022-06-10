@@ -1,16 +1,16 @@
 import { SelectOption } from '../../app/components/common-ui/atoms/SelectInput';
 import { type MimeType } from '../../types';
 
-export interface MusicDetails {
+export interface AlbumDetails {
     artistName: string;
     releaseDate: Date;
     recordLabel: string;
     language: SelectOption;
     primaryGenre: SelectOption;
     secondaryGenre: string;
-    budCover: string;
-    budCoverType: string;
-    budPrice?: number;
+    albumCover: string;
+    albumCoverType: string;
+    albumPrice?: number;
 }
 
 export interface TrackDetails {

@@ -22,7 +22,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(function Input(
     return (
         <label className="w-full  ">
             {label && (
-                <div className="mb-2 font-medium text-black-800 dark:text-black-200">{label}</div>
+                <div className="mb-2 font-medium text-gray-800 dark:text-gray-200">{label}</div>
             )}
             <div className="flex items-center bg-[#40444B] rounded-full ">
                 <textarea

@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import { ClockIcon, CollectionIcon, HeartIcon } from '@heroicons/react/outline';
-import TopBuds from './TopBuds';
+import TopProjects from './TopProjects';
 
 type Props = {};
 
@@ -11,15 +11,15 @@ const ExplorePage = (props: Props) => {
                 <Tab.List className="flex gap-4 mb-8 ">
                     <Tab
                         className={({ selected }: { selected: boolean }) =>
-                            (selected ? 'text-primary bg-dark-black ' : ' text-white ') +
+                            (selected ? 'text-primary bg-dark-gray ' : ' text-white ') +
                             'px-3 py-1 font-medium flex items-center gap-2 rounded-lg text-lg duration-200 transition-colors ease-out'
                         }>
                         <CollectionIcon className="h-5 w-5" />
-                        Most Popular Buds
+                        Top Collected
                     </Tab>
                     <Tab
                         className={({ selected }: { selected: boolean }) =>
-                            (selected ? 'text-primary bg-dark-black ' : ' text-white ') +
+                            (selected ? 'text-primary bg-dark-gray ' : ' text-white ') +
                             'px-3 py-1 font-medium flex items-center gap-2 rounded-lg text-lg duration-200 transition-colors ease-out'
                         }>
                         <ClockIcon className="h-5 w-5" />
@@ -27,22 +27,22 @@ const ExplorePage = (props: Props) => {
                     </Tab>
                     <Tab
                         className={({ selected }: { selected: boolean }) =>
-                            (selected ? 'text-primary bg-dark-black ' : ' text-white ') +
+                            (selected ? 'text-primary bg-dark-gray ' : ' text-white ') +
                             'px-3 py-1 font-medium flex items-center gap-2 rounded-lg text-lg duration-200 transition-colors ease-out'
                         }>
                         <CollectionIcon className="h-5 w-5" />
-                        Most Reviewed
+                        Top Commented
                     </Tab>
                 </Tab.List>
                 <Tab.Panels className="flex-grow">
                     <Tab.Panel>
-                        <TopBuds sortCriteria="TOP_COLLECTED" />
+                        <TopProjects sortCriteria="TOP_COLLECTED" />
                     </Tab.Panel>
                     <Tab.Panel>
-                        <TopBuds sortCriteria="LATEST" />
+                        <TopProjects sortCriteria="LATEST" />
                     </Tab.Panel>
                     <Tab.Panel>
-                        <TopBuds sortCriteria="TOP_COMMENTED" />
+                        <TopProjects sortCriteria="TOP_COMMENTED" />
                     </Tab.Panel>
                 </Tab.Panels>
             </Tab.Group>

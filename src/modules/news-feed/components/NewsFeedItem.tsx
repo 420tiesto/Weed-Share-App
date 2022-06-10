@@ -15,7 +15,7 @@ const NewsFeedItem: React.FC<Props> = ({ type, pfpSrc, username, title, children
         <Card variant="elevated" color="dark" className="px-8 py-4 my-8 mx-8 flex flex-col gap-4 relative rounded-[30px]">
             <NewsCategoryTag type={type} />
             <div className="flex items-center gap-4 ">
-                <div className="h-12 w-12 bg-black rounded-full overflow-hidden">
+                <div className="h-12 w-12 bg-gray rounded-full overflow-hidden">
                     <img src={pfpSrc} alt={username} />
                 </div>
                 <div>

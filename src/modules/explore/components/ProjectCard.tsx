@@ -8,10 +8,10 @@ interface Props {
     projectData: any;
 }
 
-const BudCard: React.FC<Props> = ({ projectData }) => {
+const ProjectCard: React.FC<Props> = ({ projectData }) => {
     const navigate = useNavigate();
     const { metadata, id, stats } = projectData;
-    const budCover = metadata.attributes[6].value || PLACEHOLDER_IMAGE;
+    const albumCover = metadata.attributes[6].value || PLACEHOLDER_IMAGE;
     const username = metadata.attributes[0].value;
     const title = metadata.attributes[2].value;
     const onCardClick = () => navigate(`/project/${id}`);
@@ -22,7 +22,7 @@ const BudCard: React.FC<Props> = ({ projectData }) => {
                 color="dark"
                 className="max-w-[290px] border border-slate-300   rounded-[30px] cursor-pointer overflow-hidden hover:scale-105 ease-out duration-200 transition-transform">
                 <div className="h-[185px]">
-                    <img src={budCover} alt="" className="h-full w-full object-cover object-center" />
+                    <img src={albumCover} alt="" className="h-full w-full object-cover object-center" />
                 </div>
                 <div className="px-6 py-2 shadow-bottom border-b border-slate-700">
                     <p className="text-slate-500 text-sm font-medium">{username}</p>
@@ -37,4 +37,4 @@ const BudCard: React.FC<Props> = ({ projectData }) => {
     );
 };
 
-export default BudCard;
+export default ProjectCard;

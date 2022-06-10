@@ -18,7 +18,7 @@ type Props = {
     };
 };
 
-const NewBudItem: React.FC<Props> = ({ newsItem }) => {
+const NewProjectItem: React.FC<Props> = ({ newsItem }) => {
     const {
         id,
         previewImgSrc,
@@ -30,11 +30,11 @@ const NewBudItem: React.FC<Props> = ({ newsItem }) => {
         commentsCount = 0,
     } = newsItem;
     return (
-        <NewsFeedItem type="NewBud" title={`${creator} created a new project`} pfpSrc={pfpSrc}>
+        <NewsFeedItem type="NewProject" title={`${creator} created a new project`} pfpSrc={pfpSrc}>
             <Link to={`/project/${id}`}>
                 <Card variant="elevated" rounded="2xl">
                     <CardBody padding={6} className="flex items-center gap-8">
-                        <div className="h-[200px] elevated-element w-[240px] rounded-[30px] bg-black overflow-hidden border-2 ">
+                        <div className="h-[200px] elevated-element w-[240px] rounded-[30px] bg-gray overflow-hidden border-2 ">
                             <img
                                 src={previewImgSrc}
                                 alt=""
@@ -67,4 +67,4 @@ const NewBudItem: React.FC<Props> = ({ newsItem }) => {
     );
 };
 
-export default NewBudItem;
+export default NewProjectItem;

@@ -4,8 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import AirdropDetails from './AirdropDetails';
-import BudReviews from './BudReviews';
-import BudImageCard from './BudImageCard';
+import ProjectActivity from './ProjectActivity';
+import ProjectImageCard from './ProjectImageCard';
 import { useGetPublication } from '../../services/get-publication';
 import Loader from '../../../../app/components/common-ui/loader';
 import MaticIcon from '../../../../app/icons/MaticIcon';
@@ -35,7 +35,7 @@ dayjs.extend(relativeTime);
 
 type Props = {};
 
-const BudPage = ({}: Props) => {
+const ProjectPage = ({}: Props) => {
     const { projectId } = useParams();
 
     const { data: { data: { publication = {} } = {} } = {}, isLoading } = useGetPublication(
@@ -118,9 +118,9 @@ const BudPage = ({}: Props) => {
         }
     };
 
-    const [artistName, releaseDate, recordLabel, , , , budCover] = attributes as any;
+    const [artistName, releaseDate, recordLabel, , , , albumCover] = attributes as any;
 
-    const imageLink = budCover?.value;
+    const imageLink = albumCover?.value;
     const releaseDateFromNow = dayjs(releaseDate?.value).fromNow();
 
     if (isLoading) {
@@ -129,10 +129,10 @@ const BudPage = ({}: Props) => {
 
     return (
         <div className="pt-4 px-4">
-            <div className="sunken-element  bg-dark-black flex gap-8 p-8">
+            <div className="sunken-element  bg-dark-gray flex gap-8 p-8">
                 {/* Left Section */}
                 <div className="">
-                    <BudImageCard likes={101} imgSrc={imageLink} />
+                    <ProjectImageCard likes={101} imgSrc={imageLink} />
                     <div className="flex item-center gap-4 mt-4">
                         <HashtagIcon className="h-6 w-6" />
                         {projectId}
@@ -159,14 +159,14 @@ const BudPage = ({}: Props) => {
                             Owned by <span className="text-primary">{artistName.value}</span>
                         </p>
                         <div className="flex items-center gap-4">
-                            <EyeIcon className="h-5 w-5" /> 
+                            <EyeIcon className="h-5 w-5" /> 230 views
                         </div>
                         <div className="flex items-center gap-4">
-                            <HeartIcon className="h-5 w-5" /> 
+                            <HeartIcon className="h-5 w-5" /> 230 views
                         </div>
                     </div>
 
-                    <div className="elevated-element mb-6 divide-y-4 divide-dark-black rounded-2xl  mt-6 w-full">
+                    <div className="elevated-element mb-6 divide-y-4 divide-dark-gray rounded-2xl  mt-6 w-full">
                         {/* <AirdropDetails /> */}
                         <div className="py-4 px-6">
                             <p className="text-slate- mb-2">Current Price</p>
@@ -181,7 +181,7 @@ const BudPage = ({}: Props) => {
                                     onClick={collectHandler}
                                     disabled={collected}
                                     className="green-btn w-32">
-                                    {collected ? 'Buy' : 'Buy'}
+                                    {collected ? 'Joined' : 'Join'}
                                 </button>
                                 <Button onClick={onShareHandler} className="w-32" outline>
                                     Share
@@ -191,11 +191,11 @@ const BudPage = ({}: Props) => {
                         </div>
                     </div>
                     {/* Spotify Integration */}
-                    <BudReviews />
+                    <ProjectActivity />
                 </div>
             </div>
         </div>
     );
 };
 
-export default BudPage;
+export default ProjectPage;

@@ -5,9 +5,9 @@ import RetweetIcon from '../../../../app/icons/RetweetIcon';
 
 type Props = {};
 
-const ReviewsItem = (props: Props) => {
+const ActivityItem = (props: Props) => {
     return (
-        <div className="elevated-element divide-dark-black divide-y-2 gap-4">
+        <div className="elevated-element divide-dark-gray divide-y-2 gap-4">
             <div className="p-4 space-y-4">
                 <div className="flex gap-4">
                     <img
@@ -34,4 +34,4 @@ const ReviewsItem = (props: Props) => {
     );
 };
 
-export default ReviewsItem;
+export default ActivityItem;

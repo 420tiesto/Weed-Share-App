@@ -9,64 +9,64 @@ const FeatureSection = (props: Props) => {
             <Tab.Group>
                 {/* Tabs */}
                 <Tab.List className={'flex items-center justify-center'}>
-                    <div className="rounded-full  justify-between bg-dark-black flex gap-4 p-1 elevated-item">
+                    <div className="rounded-full  justify-between bg-dark-gray flex gap-4 p-1 elevated-item">
                         <Tab
                             className={({ selected }: { selected: boolean }) =>
                                 (selected ? 'text-black bg-primary ' : 'text-white') +
                                 ' w-28 text-center  p-1 focus:outline-none font-medium rounded-full '
                             }>
-                            Plugs
+                            Artists
                         </Tab>
                         <Tab
                             className={({ selected }: { selected: boolean }) =>
                                 (selected ? 'text-black bg-primary ' : ' text-white') +
                                 ' w-28 text-center  p-1 focus:outline-none font-medium rounded-full'
                             }>
-                            Custy's
+                            Fans
                         </Tab>
                     </div>
                 </Tab.List>
                 <Tab.Panels className="mt-10">
                     <Tab.Panel className="">
                         <h1 className="text-3xl text-center font-bold mb-10">
-                            Post and Sell your Stash
+                            Create and Sell your Music
                         </h1>
                         <div className="flex justify-around px-16 gap-20 text-center">
                             <FeatureItem
                                 title="Setup your wallet"
-                                description="Once you’ve set up your wallet of choice, connect it to WeedShare by clicking the wallet icon in the top right corner."
+                                description="Once you’ve set up your wallet of choice, connect it to PRNTS by clicking the wallet icon in the top right corner."
                                 imgSrc="/set-up-wallet.png"
                             />
                             <FeatureItem
-                                title="Post your Stash"
-                                description="Post your weed and share it with your friends!"
+                                title="Post your Music"
+                                description="Upload your single or album project and set the percentage of the project you’d like to sell to your fans."
                                 imgSrc="/create-your-project.png"
                             />
                             <FeatureItem
                                 title="Spread the word "
-                                description="Share your stash to your fans on social media and let them know that you have some bud for sale on WeedShare."
+                                description="Share the project to your fans on social media and let them know that you have a project for sale on PRNTS."
                                 imgSrc="/list-projects.png"
                             />
                         </div>
                     </Tab.Panel>
                     <Tab.Panel>
                         <h1 className="text-3xl text-center font-bold mb-10">
-                            Buy the Best Music in Town!
+                            Invest in your favorite artist
                         </h1>
                         <div className="flex justify-around px-16 gap-20 text-center">
                             <FeatureItem
-                                title="Plug Posts Music"
-                                description="Connect Wallet"
+                                title="Artist creates project"
+                                description="Once you’ve set up your wallet of choice, connect to PRNTS by clicking the wallet icon in the top right corner."
                                 imgSrc="/artist-create-project.png"
                             />
                             <FeatureItem
-                                title="You buy some buds"
-                                description="Choose the weed you would like to buy and purchase your ammount."
+                                title="You join the project"
+                                description="Choose the project you would like to join and purchase your share of ownership."
                                 imgSrc="/join-project.png"
                             />
                             <FeatureItem
-                                title="Smoke it up!"
-                                description="Now all you gotta do is light it up!"
+                                title="Collect your revenue"
+                                description="Collect your revenue based on your share of token from the streaming pools each month."
                                 imgSrc="/win-win.png"
                             />
                         </div>

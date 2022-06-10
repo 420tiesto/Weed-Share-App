@@ -16,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
     return (
         <label className="w-full  ">
             {label && (
-                <div className="mb-2 font-medium text-black-800 dark:text-black-200">{label}</div>
+                <div className="mb-2 font-medium text-gray-800 dark:text-gray-200">{label}</div>
             )}
             <div className="flex items-center bg-[#40444B] rounded-full ">
                 {leftIcon && <span className=" py-2 px-3 text-[#C0C0C0]">{leftIcon}</span>}

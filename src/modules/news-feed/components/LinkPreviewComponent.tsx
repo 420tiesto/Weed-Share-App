@@ -26,7 +26,7 @@ const LinkPreviewComponent: React.FC<Props> = ({ metadata }) => {
                 <Card variant="elevated" rounded="2xl" className="overflow-hidden">
                     <a href={metadata.url} target="_blank">
                         <div className="flex gap-4 items-center">
-                            <div className="max-w-[140px] h-[140px] flex-1 bg-black overflow-hidden">
+                            <div className="max-w-[140px] h-[140px] flex-1 bg-gray overflow-hidden">
                                 <img
                                     src={metadata?.image}
                                     className="object-center object-cover h-full w-full"

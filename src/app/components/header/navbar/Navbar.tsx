@@ -23,9 +23,9 @@ const Navbar: React.FC = ({}) => {
 
     const NAVBAR_LINKS: NavlinkType[] = [
         { name: 'Explore', href: EXPLORE },
-        { name: 'Smoke Sesh', href: '/bounty' },
+        { name: 'Bounties', href: '/bounty' },
         { name: 'Feed', href: NEWSFEED },
-        // { name: 'Upload Music', href: CREATE_PROJECT },
+        // { name: 'Upload Album', href: CREATE_PROJECT },
         // {name:'Communities',href:'/communities'},
         // {name:'More',href:'/more'},
     ];
@@ -36,7 +36,7 @@ const Navbar: React.FC = ({}) => {
         navigate(LOGIN);
     };
     return (
-        <header className="bg-dark-black px-4 fixed w-full shadow h-16 top-0 z-40 py-2">
+        <header className="bg-dark-gray px-4 fixed w-full shadow h-16 top-0 z-40 py-2">
             <nav className="flex items-center h-full justify-between">
                 {/* Logo */}
                 <Link to="/">
@@ -46,7 +46,7 @@ const Navbar: React.FC = ({}) => {
                     <div className="flex-grow ">
                         <Input
                             leftIcon={<SearchIcon className="h-5 w-5" />}
-                            placeholder="Search buds, plugs, and growers"
+                            placeholder="Search music, projects, and accounts"
                             className="w-full"
                         />
                     </div>

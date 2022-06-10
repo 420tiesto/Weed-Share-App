@@ -4,13 +4,13 @@ import { Fragment, useState } from 'react';
 import { useController, UseControllerProps } from 'react-hook-form';
 import { Input } from '../../../../app/components/common-ui/atoms/Input';
 import { SelectOption } from '../../../../app/components/common-ui/atoms/SelectInput';
-import { MusicDetails } from '../../types';
+import { AlbumDetails } from '../../types';
 
 type Props = {
     label: string;
     options: SelectOption[];
     placeholder: string;
-} & UseControllerProps<MusicDetails>;
+} & UseControllerProps<AlbumDetails>;
 
 const AutcompleteFormInput = (props: Props) => {
     const [query, setQuery] = useState<string>('');
@@ -60,7 +60,7 @@ const AutcompleteFormInput = (props: Props) => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                         afterLeave={() => setQuery('')}>
-                        <Combobox.Options className="bg-black border border-[#C0C0C0]/50 z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl py-2">
+                        <Combobox.Options className="bg-gray border border-[#C0C0C0]/50 z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-2xl py-2">
                             {filteredOptions.length === 0 && query !== '' ? (
                                 <div className="relative cursor-default select-none py-2 px-4 ">
                                     Nothing found.
@@ -70,7 +70,7 @@ const AutcompleteFormInput = (props: Props) => {
                                     <Combobox.Option
                                         key={value.id}
                                         className={({ active }) =>
-                                            `relative bg-black cursor-default select-none py-2 pl-10 pr-4 ${
+                                            `relative bg-gray cursor-default select-none py-2 pl-10 pr-4 ${
                                                 active ? 'brightness-125  ' : null
                                             }`
                                         }

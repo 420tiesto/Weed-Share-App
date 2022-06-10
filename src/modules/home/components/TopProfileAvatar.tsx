@@ -11,7 +11,7 @@ const TopProfileAvatar: React.FC<TopProfileAvatarProps> = ({ imgSrc, name, handl
     return (
         <Link to={`/handle/${handle}`}>
             <div className='cursor-pointer'>
-                <div className="bg-dark-black rounded-full elevated-element h-56 w-56 p-2">
+                <div className="bg-dark-gray rounded-full elevated-element h-56 w-56 p-2">
                     <img
                         src={imgSrc}
                         alt={name}

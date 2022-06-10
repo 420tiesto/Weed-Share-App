@@ -7,15 +7,15 @@ import Stack from '../../../app/components/common-ui/atoms/Stack';
 
 type Props = {};
 
-const CreateBudCard = (props: Props) => {
+const CreateProjectCard = (props: Props) => {
     return (
-      <Link className='max-w-[360px] w-full' to='/upload-bud'>
+      <Link className='max-w-[360px] w-full' to='/upload-album'>
        <div className='outlined text-2xl flex-col h-[180px] font-bold   elevated-element flex items-center gap-4 justify-center  rounded-2xl text-white/50   duration-200 ease-out'>
         <PlusIcon className='h-14 w-14'/>
-        Add Bud
+        Add Project
        </div>
       </Link>
     );
 };
 
-export default CreateBudCard;
+export default CreateProjectCard;

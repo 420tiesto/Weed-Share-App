@@ -4,17 +4,17 @@ import { type MetadataMedia } from '../types';
 
 export const createPostMetadata = ({
     media = [],
-    budCover,
-    budName,
-    budCoverType,
+    albumCover,
+    albumName,
+    albumCoverType,
     attributes,
     content = null,
     description = '',
 }: {
     media?: MetadataMedia[];
-    budName: string;
-    budCover: string;
-    budCoverType: string;
+    albumName: string;
+    albumCover: string;
+    albumCoverType: string;
     content?: string | null;
     description?: string;
     // TODO: Add proper attributes type here
@@ -25,12 +25,12 @@ export const createPostMetadata = ({
         metadata_id: uuid(),
         description,
         media,
-        name: budName,
+        name: albumName,
         attributes,
         content,
         external_url: null,
-        image: budCover,
-        imageMimeType: budCoverType,
+        image: albumCover,
+        imageMimeType: albumCoverType,
         appId: appId,
     };
 

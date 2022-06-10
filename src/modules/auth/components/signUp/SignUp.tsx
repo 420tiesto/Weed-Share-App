@@ -115,7 +115,7 @@ const SignUp: React.FC<Props> = () => {
     return (
         <>
             <div className="flex flex-col gap-4 items-center mx-auto max-w-screen-lg mt-32 p-8 px-12">
-                <div className="relative sunken-element bg-dark-black flex flex-col bg-black-900 rounded-2xl   w-full  p-16">
+                <div className="relative sunken-element bg-dark-gray flex flex-col bg-gray-900 rounded-2xl   w-full  p-16">
                 
                     <h1 className="text-4xl mb-1 font-bold">Sign Up</h1>
                     <Link to="/signup">

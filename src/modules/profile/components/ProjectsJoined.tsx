@@ -12,7 +12,7 @@ interface Props {
 const PLACEHOLDER_IMAGE_SRC =
     'https://images.unsplash.com/photo-1651694451626-cceed8ee5f33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1228&q=80';
 
-const BudsBought: React.FC<Props> = (props: Props) => {
+const ProjectsJoined: React.FC<Props> = (props: Props) => {
     const { collectedPublications } = props;
     return (
         <>
@@ -32,7 +32,7 @@ const BudsBought: React.FC<Props> = (props: Props) => {
                 </div>
             ) : (
                 <div className="flex items-center text-[28px] py-20 text-white/80 justify-center flex-col gap-4">
-                    No Buds Bought 
+                    No projects joined
                     <Link to={EXPLORE}>
                         <Button className="flex items-center gap-3">
                             Go to Explore <ChevronRightIcon className="h-5 w-5" />
@@ -43,4 +43,4 @@ const BudsBought: React.FC<Props> = (props: Props) => {
         </>
     );
 };
-export default BudsBought;
+export default ProjectsJoined;

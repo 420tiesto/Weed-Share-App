@@ -43,7 +43,7 @@ const ConnectWalletModal = (props: Props) => {
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95">
-                        <div className="inline-block w-full sunken-element--dark  max-w-fit p-6 overflow-hidden text-left align-middle transition-all transform bg-black-800  rounded-2xl">
+                        <div className="inline-block w-full sunken-element--dark  max-w-fit p-6 overflow-hidden text-left align-middle transition-all transform bg-gray-800  rounded-2xl">
                             <Dialog.Title className="text-2xl pb-2 w-full  font-bold font-display ">
                                 Connnect your wallet
                             </Dialog.Title>

@@ -1,5 +1,5 @@
 const styles = {
-    disclosure: `sunken-element bg-black py-3 flex gap-4 px-6 rounded-full w-full`,
+    disclosure: `sunken-element bg-gray py-3 flex gap-4 px-6 rounded-full w-full`,
     disclosureText: `flex-grow text-left`,
     trashIcon: `h-5 w-5 text-red-500`,
     chevronIcon: `text-primary h-5 w-5`,

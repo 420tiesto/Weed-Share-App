@@ -1,6 +1,6 @@
 import SharedItem from './SharedItem';
 import { appId } from '../../../app/constants';
-import NewProjectItem from './NewProjectItem';
+import NewBudItem from './NewBudItem';
 
 interface Props {
     newsItem: {
@@ -40,7 +40,7 @@ const FeedItem: React.FC<Props> = ({ newsItem }) => {
             if (sourceId === appId) {
                 const creatorName = newsItem.profile?.name || '';
                 const postID = newsItem.id;
-                const albumCover = newsItem?.metadata?.attributes![6]?.value || '';
+                const budCover = newsItem?.metadata?.attributes![6]?.value || '';
                 const description = newsItem?.metadata?.description || '';
                 const name = newsItem?.metadata?.name || '';
                 const totalAmountOfCollects = newsItem?.metadata?.stats?.totalAmountOfCollects || 0;
@@ -48,11 +48,11 @@ const FeedItem: React.FC<Props> = ({ newsItem }) => {
                 const pfpSource = newsItem?.profile?.picture?.original?.url || '';
 
                 return (
-                    <NewProjectItem
+                    <NewBudItem
                         newsItem={{
                             creator: creatorName,
                             id: postID,
-                            previewImgSrc: albumCover,
+                            previewImgSrc: budCover,
                             projectDescription: description,
                             projectTitle: name,
                             joinedCount: totalAmountOfCollects,
@@ -83,14 +83,14 @@ const FeedItem: React.FC<Props> = ({ newsItem }) => {
                 } = {},
             } = newsItem;
 
-            const albumCover = attributes[6]?.value;
+            const budCover = attributes[6]?.value;
             return (
                 <SharedItem
                     newsItem={{
                         creator: creatorName,
                         sharer: sharerName,
                         id: postID,
-                        previewImgSrc: albumCover,
+                        previewImgSrc: budCover,
                         projectDescription: description,
                         projectTitle: name,
                         joinedCount: totalAmountOfCollects,

@@ -19,7 +19,7 @@ const SelectInput: React.FC<Props<SelectOption>> = ({ label, value, setValue, op
     return (
         <label className="w-full ">
             {label && (
-                <div className="mb-2 font-medium text-gray-800 dark:text-gray-200">{label}</div>
+                <div className="mb-2 font-medium text-black-800 dark:text-black-200">{label}</div>
             )}
             <Listbox value={value} onChange={setValue}>
                 <div className="relative">

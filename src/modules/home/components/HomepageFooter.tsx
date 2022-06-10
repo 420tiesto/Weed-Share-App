@@ -33,7 +33,7 @@ const OTHER_LINKS:FooterLink[] = [
 
 const HomepageFooter = (props: Props) => {
     return (
-        <div className="bg-dark-gray grid grid-cols-4 p-8 px-12 relative top-16">
+        <div className="bg-dark-black grid grid-cols-4 p-8 px-12 relative top-16">
             <div>
                 <Link to="/">
                     <a>

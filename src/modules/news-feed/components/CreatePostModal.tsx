@@ -84,7 +84,7 @@ const CreatePostModal: React.FC<Props> = (props: Props) => {
                         <PencilAltIcon className="h-6 w-6 text-primary" /> New Post
                     </ModalHeader>
                     <div className="flex  gap-4">
-                        <div className="h-12 w-12 bg-gray rounded-full overflow-hidden">
+                        <div className="h-12 w-12 bg-black rounded-full overflow-hidden">
                             <img src={profileImg} alt="pfp" />
                         </div>
                         <div className="max-w-2xl flex-1">

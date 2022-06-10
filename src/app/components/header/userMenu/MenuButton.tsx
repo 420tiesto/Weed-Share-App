@@ -20,7 +20,7 @@ const MenuButton = (props: Props) => {
         <Menu.Button
             // onClick={handleHavigate}
             // {...props}
-            className="inline-flex gap-2 group items-center bg-gray px-2 rounded-lg py-1">
+            className="inline-flex gap-2 group items-center bg-black px-2 rounded-lg py-1">
             <img src={imageURI} alt="" className="w-8 h-8 rounded-full" />
             {/* {name} */}
             <ChevronDownIcon className={`h-6 w-6`} />

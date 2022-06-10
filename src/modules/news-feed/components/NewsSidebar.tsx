@@ -36,7 +36,7 @@ const NewsSidebar: React.FC<Props> = ({ openModal, authenticatedState = false })
                 <div className="flex flex-col gap-2 pl-4">
                     <div className="flex gap-4 items-center ">
                         <div className="h-2 w-2 rounded-full bg-blue-500" />
-                        News Project
+                        New Buds
                     </div>
                     <div className="flex gap-4 items-center ">
                         <div className="h-2 w-2 rounded-full bg-pink-400" />
@@ -52,7 +52,7 @@ const NewsSidebar: React.FC<Props> = ({ openModal, authenticatedState = false })
                     </div>
                     <div className="flex gap-4 items-center ">
                         <div className="h-2 w-2 rounded-full bg-green-400" />
-                        Joined
+                        Buy
                     </div>
                 </div>
             </div>

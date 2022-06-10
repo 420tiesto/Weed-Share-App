@@ -33,7 +33,7 @@ const Upload: React.FC<UploadProps> = ({
                     className={clsx(
                         { 'p-16': !imageLink },
                         { 'w-64 h-64': !!imageLink },
-                        'bg-gray-700 mb-4 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-400'
+                        'bg-black-700 mb-4 rounded-xl flex items-center justify-center border-2 border-dashed border-black-400'
                     )}>
                     <input {...getInputProps()} />
                     {showLoader ? (

@@ -37,7 +37,7 @@ const SharedItem: React.FC<Props> = ({ newsItem }) => {
             <Link to={`/project/${id}`}>
                 <Card variant="elevated" rounded="2xl">
                     <CardBody padding={6} className="flex items-center gap-8">
-                        <div className="h-[200px] w-[240px] elevated-element rounded-[30px] bg-gray overflow-hidden border-2 ">
+                        <div className="h-[200px] w-[240px] elevated-element rounded-[30px] bg-black overflow-hidden border-2 ">
                             <img
                                 src={previewImgSrc}
                                 alt=""

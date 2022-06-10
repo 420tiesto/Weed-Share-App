@@ -51,7 +51,7 @@ const FeatureSection = (props: Props) => {
                     </Tab.Panel>
                     <Tab.Panel>
                         <h1 className="text-3xl text-center font-bold mb-10">
-                            Buy the Best Music in Town!
+                            Buy the Best Weed in Town!
                         </h1>
                         <div className="flex justify-around px-16 gap-20 text-center">
                             <FeatureItem

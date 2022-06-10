@@ -1,12 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 .vscode
 
-.env
+
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+
 
 # testing
 /coverage
@@ -27,3 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode/basic_snippets.code-snippets
+node_modules

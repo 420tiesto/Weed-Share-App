@@ -196,10 +196,10 @@ const CreateBudFlow = () => {
             <div className="p-4 px-8">
                 <Card variant="sunken" color="dark" className="mt-4">
                     <CardBody padding={8}>
-                        <h1 className="text-3xl mb-8 font-bold">Upload Bud</h1>
-                        {step === 1 && <UploadMusic ref={uploadMusicRef} />}
-                        {step === 2 && <AddTrack ref={createBudRef} />}
-                        <div
+                    <h1 className="text-3xl mb-8 font-bold">Upload Music</h1>
+<UploadMusic ref={uploadMusicRef} />
+<AddTrack ref={createBudRef} />
+<div
                             className={clsx({
                                 'flex justify-between mt-4': step != 1,
                                 'flex justify-end mt-4': step == 1,
